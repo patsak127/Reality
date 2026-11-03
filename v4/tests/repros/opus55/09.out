@@ -1,0 +1,21 @@
+line 7: formed: Difference[EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 1], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 002 task MGT run 01: #2], #4 row 1]] is recorded as 0.02 s (Recorded[s])
+  #1 = sha256:67178ff61c675a0a1101689c4f16fe90ce26e891e03b9609b5a9db8b90f13a24
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:8f4461b0dcdc1d8e8d9ae1975a99d0476d95e8083432cf586f2508ebe8f8be53
+  #4 = sha256:fb51fc4490757a3f8db6579a19938ca36a490174694a4f8d9c308d9b0e982d91
+line 8: formed: Exceeds[Difference[EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 1], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 002 task MGT run 01: #2], #4 row 1]], c = 0 s] holds of the recorded value
+  #1 = sha256:67178ff61c675a0a1101689c4f16fe90ce26e891e03b9609b5a9db8b90f13a24
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:8f4461b0dcdc1d8e8d9ae1975a99d0476d95e8083432cf586f2508ebe8f8be53
+  #4 = sha256:fb51fc4490757a3f8db6579a19938ca36a490174694a4f8d9c308d9b0e982d91
+line 9: formed: Difference[EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 1], RepetitionTime[BOLDRecording[BIDS-1.0.1[#1], sub 002 task MGT run 01: #2], from #4]] is recorded as 3.071 s (Recorded[s])
+  #1 = sha256:67178ff61c675a0a1101689c4f16fe90ce26e891e03b9609b5a9db8b90f13a24
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:8f4461b0dcdc1d8e8d9ae1975a99d0476d95e8083432cf586f2508ebe8f8be53
+  #4 = sha256:c5a7795448ad5cce6dc8928af7acd9715fdd840c48d9434ea2356567dc7270fa
+line 10: formed: Exceeds[Difference[EventDuration[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 1], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 002 task MGT run 01: #2], #4 row 1]], c = -1 s] holds of the recorded value
+  #1 = sha256:67178ff61c675a0a1101689c4f16fe90ce26e891e03b9609b5a9db8b90f13a24
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:8f4461b0dcdc1d8e8d9ae1975a99d0476d95e8083432cf586f2508ebe8f8be53
+  #4 = sha256:fb51fc4490757a3f8db6579a19938ca36a490174694a4f8d9c308d9b0e982d91
+accepted

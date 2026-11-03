@@ -1,0 +1,8 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\23-nifti2-tr-float32.rl --files findings\23-m --root findings\23-ds
+line 2: refused [B00, reading rules]: the dataset does not conform to BIDS 1.0.1 (1 failures), so nothing BIDS-based forms from it (principle §1, whole-dataset conformance). B09 x1, first: sub-01/func/sub-01_task-x_bold.nii: RepetitionTime 4/5 s is not consistent with pixdim[4] 3602879701896397/4503599627370496 (§8.4; consistent means pixdim[4] is the nearest float32 to RepetitionTime in the header's time unit)
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

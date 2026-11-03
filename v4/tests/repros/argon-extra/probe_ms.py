@@ -1,0 +1,12 @@
+import sys; sys.argv=[sys.argv[0],"none"]
+exec(open("probes.py").read().split("which = ")[0])
+r="e11"; shutil.rmtree(os.path.join(FX,r),ignore_errors=True)
+wt(f"{r}/dataset_description.json",DD); wt(f"{r}/task-rest_bold.json",'{"TaskName": "rest", "RepetitionTime": 0.72}\n')
+wb(f"{r}/sub-01/func/sub-01_task-rest_bold.nii", nifti1((2,2,2,5), tr=720.0, units=2|16))
+m=manifest(r,f"{r}.manifest"); wt(f"{r}.rl",f'dataset d = sha256:{m}\nclaim tr(recording(bids(d), "01", "rest"))\n')
+show("E11 NIfTI-1, xyzt_units = mm+ms, pixdim[4]=720, TR 0.72 s", run(f"{r}.rl",[f"{r}.manifest"],r))
+r="e12"; shutil.rmtree(os.path.join(FX,r),ignore_errors=True)
+wt(f"{r}/dataset_description.json",DD); wt(f"{r}/task-x_bold.json",'{"TaskName": "x", "RepetitionTime": 2}\n')
+wb(f"{r}/sub-01/func/sub-01_task-x_bold.nii", nifti1()); wt(f"{r}/sub-01/func/sub-01_task-x_events.tsv","onset\tduration\n1.5e-2\t1\n")
+m=manifest(r,f"{r}.manifest"); wt(f"{r}.rl",f'dataset d = sha256:{m}\nclaim volumes(recording(bids(d), "01", "x"))\n')
+show("E12 events onset 1.5e-2", run(f"{r}.rl",[f"{r}.manifest"],r))

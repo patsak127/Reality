@@ -1,0 +1,12 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\24-lookalike-scope.rl --files findings\24-keys.tsv
+line 3: formed: Cell[TSV[#1], row 3 (the row whose col 1 is "B"), col 3] = "29"
+  #1 = sha256:061576c484d6bbf1ad58cca5d2159dad833b2894d4f17e29d42df26699132e64
+line 4: formed: Count[Rows[TSV[#1] where col 1 != "B"]] = 2 (Exact)
+  #1 = sha256:061576c484d6bbf1ad58cca5d2159dad833b2894d4f17e29d42df26699132e64
+line 5: refused [K002, item 1]: key(): the key "A1" and the cell "Al" in column 1 look alike (principle §10.3); the row is not picked out by bytes that can be told apart
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

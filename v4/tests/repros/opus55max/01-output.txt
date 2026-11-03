@@ -1,0 +1,95 @@
+### default
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\01-int-digit-limit.rl --files findings\01-long-cell.tsv
+line 3: formed: RowCount[TSV[#1]] = 1 (Exact)
+  #1 = sha256:d54faf8cd4f274b57ba67510bdcb7171725fb4c6d2390f4a6299fec74a12e6fe
+line 4: refused [X001, bug]: internal error ValueError; nothing formed (please report)
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```
+
+### PYTHONINTMAXSTRDIGITS=0
+```
+> set PYTHONPATH=src
+set PYTHONINTMAXSTRDIGITS=0
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\01-int-digit-limit.rl --files findings\01-long-cell.tsv
+line 3: formed: RowCount[TSV[#1]] = 1 (Exact)
+  #1 = sha256:d54faf8cd4f274b57ba67510bdcb7171725fb4c6d2390f4a6299fec74a12e6fe
+line 4: formed: Exceeds[Decimal[Cell[TSV[#1], row 1, col 1]], c = 1] holds
+  #1 = sha256:d54faf8cd4f274b57ba67510bdcb7171725fb4c6d2390f4a6299fec74a12e6fe
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```
+
+### BIDS, default
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\01-int-digit-limit-b.rl --files findings\01-m --root findings\01-ds
+line 3: refused [B00, reading rules]: the dataset does not conform to BIDS 1.0.1 (3 failures), so nothing BIDS-based forms from it (principle §1, whole-dataset conformance). B03 x1, first: task-x_bold.json is not JSON: Exceeds the limit (4300 digits) for integer string conversion (§4.3); B08 x2, first: sub-01/func/sub-01_task-x_bold.nii: no positive RepetitionTime in its sidecar files (§8.4, required)
+line 4: refused [N003, item 1]: a name used here comes from the statement on line 3, which was refused
+line 5: refused [N003, item 1]: a name used here comes from the statement on line 3, which was refused
+refused (3 statements)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```
+
+### BIDS, PYTHONINTMAXSTRDIGITS=0
+```
+> set PYTHONPATH=src
+set PYTHONINTMAXSTRDIGITS=0
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\01-int-digit-limit-b.rl --files findings\01-m --root findings\01-ds
+line 4: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 1 (Exact)
+  #1 = sha256:b375775c4ec54fff4fc9b691503f5523c3271e95cb57024b0756edde8cbfa450
+  #2 = sha256:293eac506f0087701fbb7d96e686c1ce554da692f1c2632044080c81408203ff
+line 5: formed: RepetitionTime[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2], from #3] is recorded as 2 s (Recorded[s])
+  #1 = sha256:b375775c4ec54fff4fc9b691503f5523c3271e95cb57024b0756edde8cbfa450
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:8ce194867fdcd96753989dff97f20cce4879c159346605e2fa886c5d0569a7b8
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```
+
+### literal, default
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\01-int-digit-limit-c.rl --files findings\01-long-cell.tsv
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\__main__.py", line 59, in <module>
+    sys.exit(main(sys.argv[1:]))
+             ~~~~^^^^^^^^^^^^^^
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\__main__.py", line 49, in main
+    ok, out = check(prog, readers.Store(files, roots))
+              ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\kernel.py", line 682, in check
+    st = parse_line(text, ln)
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\syntax.py", line 285, in parse_line
+    lit = p.literal()
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\syntax.py", line 248, in literal
+    return ("num", Fraction(v), unit, v)
+                   ~~~~~~~~^^^
+  File "C:\Users\user\AppData\Local\Python\pythoncore-3.14-64\Lib\fractions.py", line 263, in __new__
+    numerator = int(m.group('num') or '0')
+ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 4401 digits; use sys.set_int_max_str_digits() to increase the limit
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```
+
+### literal, PYTHONINTMAXSTRDIGITS=0
+```
+> set PYTHONPATH=src
+set PYTHONINTMAXSTRDIGITS=0
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\01-int-digit-limit-c.rl --files findings\01-long-cell.tsv
+line 2: formed: RowCount[TSV[#1]] = 1 (Exact)
+  #1 = sha256:d54faf8cd4f274b57ba67510bdcb7171725fb4c6d2390f4a6299fec74a12e6fe
+line 3: formed: RowCount[TSV[#1]] = 1 (Exact)
+  #1 = sha256:d54faf8cd4f274b57ba67510bdcb7171725fb4c6d2390f4a6299fec74a12e6fe
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

@@ -1,0 +1,27 @@
+### phenotype files
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\12-phenotype-files-skipped.rl --files findings\12-m --root findings\12-ds
+line 2: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 1 (Exact)
+  #1 = sha256:e28c89b30803c50bbfe2c6d6e8cc951949e6427bcdfdfe3256e2e9e8c6b788b6
+  #2 = sha256:293eac506f0087701fbb7d96e686c1ce554da692f1c2632044080c81408203ff
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```
+
+### sbref and magnitude sidecars
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\12-phenotype-files-skipped-b.rl --files findings\12-m-b --root findings\12-ds-b
+line 2: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 1 (Exact)
+  #1 = sha256:a859536cf116ae4d09bcbf81a338139b55e3c75169584b8204dd633c30e45cf2
+  #2 = sha256:293eac506f0087701fbb7d96e686c1ce554da692f1c2632044080c81408203ff
+line 3: formed: RepetitionTime[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2], from #3] is recorded as 2 s (Recorded[s])
+  #1 = sha256:a859536cf116ae4d09bcbf81a338139b55e3c75169584b8204dd633c30e45cf2
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:4a83f67a3ddf906a4416181a016ff18c8b60d7f79d9c35b502597bd48bb86876
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

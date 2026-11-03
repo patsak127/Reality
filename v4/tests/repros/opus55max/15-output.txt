@@ -1,0 +1,20 @@
+### exponent 10 000 000
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\15-json-exponent-stall-small.rl --files findings\15-m-small --root findings\15-ds-small
+line 2: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 1 (Exact)
+  #1 = sha256:8f88c31860c23fa718f2ed2e814bb9e1dd1b0766aebcb50ca28674aea015f11f
+  #2 = sha256:293eac506f0087701fbb7d96e686c1ce554da692f1c2632044080c81408203ff
+accepted
+[exit code 0; wall 6.6 s; peak private memory 29 MB]
+```
+
+### exponent 60 000 000
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\15-json-exponent-stall.rl --files findings\15-m --root findings\15-ds
+
+[KILLED at 60 s; wall 60.0 s; peak private memory 113 MB]
+```

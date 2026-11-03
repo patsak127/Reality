@@ -1,0 +1,16 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\27-extracell-label-missing.rl --files findings\27-m --root findings\27-ds
+line 3: formed: Count[Rows[Participants[BIDS-1.0.1[#1] from #2] where ExtraCell col 3 = "30"]] = 1 (Exact)
+  #1 = sha256:db55c056c38e8571ace1e4366796513ad73fa46abdb1ed83b924faa14ee7a82b
+  #2 = sha256:854dd6eaf7cd58278c52237fc91bbdd87373bd14cc3801c7aacfe954da3a149d
+line 4: formed: Max[Participants[BIDS-1.0.1[#1] from #2], col 3] = 41 (Exact)
+  #1 = sha256:db55c056c38e8571ace1e4366796513ad73fa46abdb1ed83b924faa14ee7a82b
+  #2 = sha256:854dd6eaf7cd58278c52237fc91bbdd87373bd14cc3801c7aacfe954da3a149d
+line 5: formed: Sum[Rows[Participants[BIDS-1.0.1[#1] from #2] where ExtraCell col 2 = "b"], col 3] = 41 (Exact)
+  #1 = sha256:db55c056c38e8571ace1e4366796513ad73fa46abdb1ed83b924faa14ee7a82b
+  #2 = sha256:854dd6eaf7cd58278c52237fc91bbdd87373bd14cc3801c7aacfe954da3a149d
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

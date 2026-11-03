@@ -1,0 +1,8 @@
+line 6: formed: Cell[TSV[#1], row 1 (the row whose col 1 is "S1"), col 2] = "equalRange"
+  #1 = sha256:cb9bc0a90d4bcefe9004353efd7e981f99087dea397048a176ac9bd533d51ceb
+line 7: formed: Count[Rows[TSV[#1] where col 1 = "S1"]] = 1 (Exact)
+  #1 = sha256:cb9bc0a90d4bcefe9004353efd7e981f99087dea397048a176ac9bd533d51ceb
+line 8: formed: Count[Rows[TSV[#1] where col 2 = "equalR\xd0\xb0nge"]] = 1 (Exact)
+  #1 = sha256:cb9bc0a90d4bcefe9004353efd7e981f99087dea397048a176ac9bd533d51ceb
+line 9: refused [K002, item 1]: the bytes "equalRange" and the cell "equaIRange" in column 2 look alike (UTS #39 confusables 18.0.0, ASCII entries, with case folding); a claim that tells them apart by bytes alone is refused (principle §10.3)
+refused (1 statement)

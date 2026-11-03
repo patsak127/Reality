@@ -1,0 +1,4 @@
+seconds=8.17 counted_steps=85627 output_chars=153 accepted=True
+line 2: formed: Count[Rows[TSV[#1] where col 1 = "zz"]] = 0 (Exact)
+  #1 = sha256:686674d4f191083ba043eac2fcbbef55d5b6085938e2645ed440c1c8b217188a
+accepted

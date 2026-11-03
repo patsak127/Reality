@@ -1,0 +1,15 @@
+== unmodified reader
+line 2: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 1: #2], #3 row 1] is recorded as 1.5 s (Recorded[s])
+  #1 = sha256:ccadff3cd3e7cdfd137b8e911c63f4ca125b51cb62939d2f9a218ec31d57e942
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:ffcf3a726c81f082ea532526cccefedfee77767bdc69810616c801efccea5850
+accepted
+
+== reader with a planted bug (run 1 paired with run 2's events file)
+line 2: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 1: #2], #3 row 1] is recorded as 8.75 s (Recorded[s])
+  #1 = sha256:ccadff3cd3e7cdfd137b8e911c63f4ca125b51cb62939d2f9a218ec31d57e942
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:069c5df4913273d254a5504e87eb8fbe8041d3bbe2f1735c6d5ee38b4ead148c
+accepted
+  (manifest: sub-01/func/sub-01_task-x_run-1_events.tsv = sha256:ffcf3a726c81f082ea532526cccefedfee77767bdc69810616c801efccea5850)
+  (manifest: sub-01/func/sub-01_task-x_run-2_events.tsv = sha256:069c5df4913273d254a5504e87eb8fbe8041d3bbe2f1735c6d5ee38b4ead148c)

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reality-v4"
+version = "4.0.0.dev0"
+description = "Reality v3: file-level claims under the principle that nonsense is unformable."
+requires-python = ">=3.13"
+# reality4 and reality4_ref import only the Python standard library
+# (tests/test_source.py::test_stdlib_only checks this). The list below is NOT what the core
+# needs: it is a copy of ../checker/pyproject.toml's pins, kept identical only so
+# the cross-machine harness (copied unchanged into harness/) accepts its existing
+# lock file and the machines' existing environments. Do not add to it.
+dependencies = [
+  "pint==0.26.2",
+  "flexcache==0.3",
+  "flexparser==0.4",
+  "platformdirs==4.13.5",
+  "typing-extensions==4.16.0",
+  "tzdata==2026.5",
+  "ruff==0.17.2",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]

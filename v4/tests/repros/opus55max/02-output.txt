@@ -1,0 +1,28 @@
+### zero-subject manifest
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\02-n17-zero-subject-dataset.rl --files findings\02-m --root tests\data\ds001734-box
+line 4: formed: Count[Rows[Participants[BIDS-1.0.1[#1] from #2] where ExtraCell col 2 = "equalRange"]] = 54 (Exact)
+  #1 = sha256:d314232b0eefaa20f66920acac339d3d06008b435fd0ac82bc044ffc1285a8a7
+  #2 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 5: formed: Share[Rows[Participants[BIDS-1.0.1[#1] from #2] where ExtraCell col 2 = "equalRange"] of Participants[BIDS-1.0.1[#1] from #2]] = 54/108 (Exact)
+  #1 = sha256:d314232b0eefaa20f66920acac339d3d06008b435fd0ac82bc044ffc1285a8a7
+  #2 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 6: formed: Count[Rows[Participants[BIDS-1.0.1[#1] from #2] where ExtraCell col 3 = "F"]] = 60 (Exact)
+  #1 = sha256:d314232b0eefaa20f66920acac339d3d06008b435fd0ac82bc044ffc1285a8a7
+  #2 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```
+
+### the box copy's full manifest (N17 as tested)
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\02-n17-box.rl --files findings\02-m-box --root tests\data\ds001734-box
+line 3: refused [B00, reading rules]: the dataset does not conform to BIDS 1.0.1 (648 failures), so nothing BIDS-based forms from it (principle §1, whole-dataset conformance). B07 x432, first: sub-001/func/sub-001_task-MGT_run-01_events.tsv has no BOLD file; BIDS 1.0.1 §8.5: "Each task events file requires a corresponding task imaging data file"; B12 x216, first: sub-001/fmap/sub-001_phasediff.json: no phasediff image (sub-001/fmap/sub-001_phasediff.nii[.gz]); §8.9.1 case 1 requires it
+line 4: refused [N003, item 1]: a name used here comes from the statement on line 3, which was refused
+refused (2 statements)
+[exit code 1; wall 0.5 s; peak private memory 14 MB]
+```

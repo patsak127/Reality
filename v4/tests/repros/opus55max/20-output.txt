@@ -1,0 +1,12 @@
+### unmodified checker
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\20-check2-not-independent.rl --files findings\20-m --root findings\20-ds
+line 2: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 1: #2], #3 row 1] is recorded as 1.5 s (Recorded[s])
+  #1 = sha256:ccadff3cd3e7cdfd137b8e911c63f4ca125b51cb62939d2f9a218ec31d57e942
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:ffcf3a726c81f082ea532526cccefedfee77767bdc69810616c801efccea5850
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

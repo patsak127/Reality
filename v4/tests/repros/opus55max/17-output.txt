@@ -1,0 +1,14 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\17-counts-and-shares-cannot-be-compared.rl --files tests\data\ds001734-box\participants.tsv
+line 3: refused [S007, item 1]: exceeds()'s argument must be a number, not a count
+line 4: refused [S007, item 1]: exceeds()'s argument must be a number, not a share
+line 5: refused [S007, item 1]: difference()'s first argument must be a number, not a count
+line 6: formed: Exceeds[Sum[TSV[#1], col 4], c = 2000] holds
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 7: formed: Exceeds[Decimal[Cell[TSV[#1], row 1, col 4]], c = 20] holds
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+refused (3 statements)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

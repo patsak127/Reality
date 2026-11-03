@@ -1,0 +1,18 @@
+### declarations only
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\28-docs-mismatches.rl
+accepted
+[exit code 0; wall 0.1 s; peak private memory 11 MB]
+```
+
+### a user name in a message
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\28-docs-mismatches-b.rl --files findings\08-table.tsv
+line 3: refused [P001, item 1]: unexpected 'tbl' after the end of the statement
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

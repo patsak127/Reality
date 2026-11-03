@@ -1,0 +1,8 @@
+reality-manifest 1
+b6a0396c26e01d10b216482db6709492031eeb88ddf72d3d085bc37a03134bd1	40	dataset_description.json
+35045e26af8ad0d01e4c6c2e9061de0e76fe5208a738f23df3606ecd101143a2	384	sub-01/func/sub-01_task-x_acq-a_bold.nii
+35045e26af8ad0d01e4c6c2e9061de0e76fe5208a738f23df3606ecd101143a2	384	sub-01/func/sub-01_task-y_acq-b_bold.nii
+9f45651887afc0d773c3d8326acbc9bcd172de510a473a1a73152ca152853beb	53	sub-01/sub-01_acq-a_bold.json
+1423355deba04c74cfdde357e533eb90ed82b2542012d507f82fcb08dd699dc2	54	sub-01/sub-01_task-x_bold.json
+00660ca31bd3c412a9ffe660b532ec9f881c2aaa454cb7bcb018bd32455b44f7	39	task-y_acq-b_bold.json
+ec3d50ca064d2755a69c1a440559e19086ed7bbcff9c9be33b69ab5646f7ed36	39	task-y_bold.json

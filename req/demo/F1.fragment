@@ -1,0 +1,13 @@
+# F1 published odds: each tier's share of the equal-weight slots equals its published odds
+claim share(where(t, eq("tier", "common")), t)
+claim atleast(share(where(t, eq("tier", "common")), t), c = 0.79)
+claim atmost(share(where(t, eq("tier", "common")), t), c = 0.79)
+claim share(where(t, eq("tier", "uncommon")), t)
+claim atleast(share(where(t, eq("tier", "uncommon")), t), c = 0.15)
+claim atmost(share(where(t, eq("tier", "uncommon")), t), c = 0.15)
+claim share(where(t, eq("tier", "rare")), t)
+claim atleast(share(where(t, eq("tier", "rare")), t), c = 0.05)
+claim atmost(share(where(t, eq("tier", "rare")), t), c = 0.05)
+claim share(where(t, eq("tier", "legendary")), t)
+claim atleast(share(where(t, eq("tier", "legendary")), t), c = 0.01)
+claim atmost(share(where(t, eq("tier", "legendary")), t), c = 0.01)

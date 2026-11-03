@@ -1,0 +1,9 @@
+id	group	grоup	a|b	alb
+al	ok	bad	10	20
+a|	bad	ok	30	40
+so1	ok	bad	50	60
+sо1	bad	ok	70	80
+sub001	ok	bad	1	2
+subOO1	bad	ok	3	4
+sub-001	equalRange	x	5	6
+sub‑001	еqualRange	x	7	8

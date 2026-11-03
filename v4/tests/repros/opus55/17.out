@@ -1,0 +1,6 @@
+-- as shipped
+line 6: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 1] is recorded as 4.071 s (Recorded[s])
+accepted
+-- touch_bold disabled
+line 6: refused [C001, floor]: check 2: the claim's sort names sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b, but its value was not computed from it; the sort and the dependency set disagree (a refusal, a
+refused (1 statement)

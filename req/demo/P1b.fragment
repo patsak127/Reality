@@ -1,0 +1,4 @@
+# P1b tutorial: share of first-time players who complete the tutorial, without external help, in under 240 s, at least 70 percent
+let u = where(t, eq("completed_tutorial", "1"), eq("used_external_help", "0"), lt("seconds", c = 240))
+claim share(u, t)
+claim atleast(share(u, t), c = 0.7)

@@ -1,0 +1,5 @@
+reality-manifest 1
+f00603c071fe495ee413c9b12ef76ff01bce8445ce360abeddc50950924ca97f	38	dataset_description.json
+35045e26af8ad0d01e4c6c2e9061de0e76fe5208a738f23df3606ecd101143a2	384	sub-01/func/sub-01_task-x_bold.nii
+3216a25bf2a7a3b5fb0598ba7c376f10aa7662d87687f1cd4e620f705264dc52	24	sub-01/func/sub-01_task-x_events.tsv
+edfa37fe58328116c80d9cc4462549de6ef1a5a91f8d603ed759aca39f56fcd0	39	task-x_bold.json

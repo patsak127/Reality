@@ -1,0 +1,1581 @@
+### S002 non-ASCII outside a string
+person pé
+---
+line 1: S002 refused: unexpected character 'é': outside strings a ledger has names, strings, sha256:<hex> and '='
+refused (1 statement cannot be formed)
+(refused: 1)
+### S001 ASCII outside the token set
+person p@
+---
+line 1: S001 refused: unexpected character '@': outside strings a ledger has names, strings, sha256:<hex> and '='
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 unclosed string
+person p
+requirement R = "abc
+---
+line 2: S003 refused: a string is not closed on its line
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 bad escape
+person p
+requirement R = "a\n" owner p
+---
+line 2: S003 refused: the only escapes in a string are \" and \\
+refused (1 statement cannot be formed)
+(refused: 1)
+### escapes that form
+person p
+requirement R = "a\"b\\c" owner p
+---
+line 1: person p
+line 2: requirement R recorded, OFFERED: "a\"b\\c" (owner p)
+  Reality does not read this text. R cannot be delivered or checked until p adopts a measure for it.
+every statement formed
+(refused: 0)
+### S014 control character
+person p
+---
+line 1: S014 refused: control character U+0001; a line ends with LF only
+refused (1 statement cannot be formed)
+(refused: 1)
+### S014 DEL
+person p
+---
+line 1: S014 refused: control character U+007F; a line ends with LF only
+refused (1 statement cannot be formed)
+(refused: 1)
+### tab forms
+person	p
+---
+line 1: person p
+every statement formed
+(refused: 0)
+### S013 bidi
+person p‮
+---
+line 1: S013 refused: a bidirectional control character can make text read differently from its bytes
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 indented first line
+  person p
+---
+line 1: S003 refused: an indented line continues a statement, and there is none before it
+refused (1 statement cannot be formed)
+(refused: 1)
+### S004 not a statement
+banana x
+---
+line 1: S004 refused: not a ledger statement: 'banana' (statements: person, tool, requirement, measure, task, adopt, check, try, status, withdraw)
+refused (1 statement cannot be formed)
+(refused: 1)
+### S004 not a name
+"x" y
+---
+line 1: S004 refused: not a ledger statement: 'x' (statements: person, tool, requirement, measure, task, adopt, check, try, status, withdraw)
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 header
+person
+---
+line 1: S003 refused: 'person' is written: person <name>
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 header missing =
+person p
+requirement R1 "x" owner p
+---
+line 1: person p
+line 2: S003 refused: 'requirement' is written: requirement <name> = "<text>" owner ... from ...
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 not a part (none)
+person p owner q
+---
+line 1: S003 refused: 'owner' is not a part of 'person' (parts: none)
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 not a part
+person p
+requirement R = "x" owner p colour p
+---
+line 1: person p
+line 2: S003 refused: 'colour' is not a part of 'requirement' (parts: owner, from)
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 given twice
+person p
+requirement R = "x" owner p owner p
+---
+line 1: person p
+line 2: S003 refused: 'owner' is given twice
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 clause takes a name
+person p
+requirement R = "x" owner "p"
+---
+line 1: person p
+line 2: S003 refused: 'owner' takes a name
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 clause at end without value
+person p
+requirement R = "x" owner
+---
+line 1: person p
+line 2: S003 refused: 'owner' takes a name
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 fragment takes two
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "x" fragment "M1.fragment"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: S003 refused: 'fragment' takes a string and sha256:<hex>
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 needs
+person p
+requirement R = "x"
+---
+line 1: person p
+line 2: S003 refused: 'requirement' needs 'owner': requirement <name> = "<text>" owner ... from ...
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 task both
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+task T = propose R1 deliver R1 assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: S003 refused: a task is 'propose <R>' or 'deliver <R> by <M> on sha256:<data>'
+refused (1 statement cannot be formed)
+(refused: 1)
+### S003 task neither
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+task T = assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: S003 refused: a task is 'propose <R>' or 'deliver <R> by <M> on sha256:<data>'
+refused (1 statement cannot be formed)
+(refused: 1)
+### N002 twice, later use
+person patsak
+person patsak
+requirement R1 = "the upscaler must preserve artistic intent" owner patsak
+---
+line 1: person patsak
+line 2: N002 refused: 'patsak' is already declared (as a person)
+line 3: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+refused (1 statement cannot be formed)
+(refused: 1)
+### N003 after refused declaration
+person patsak
+requirement R1 = "" owner patsak
+measure M1 for R1 proposed_by patsak says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+status R1
+---
+line 1: person patsak
+line 2: E004 refused: a requirement's text is a non-empty text
+line 3: N003 refused: 'R1' was refused where it was declared, so nothing that uses it forms
+line 5: N003 refused: 'R1' was refused where it was declared, so nothing that uses it forms
+refused (3 statements cannot be formed)
+(refused: 3)
+### undeclared check does not reserve the name
+person patsak
+check Q by M on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+requirement Q = "x" owner patsak
+---
+line 1: person patsak
+line 2: N001 refused: 'Q' is not declared; expected a requirement
+line 3: requirement Q recorded, OFFERED: "x" (owner patsak)
+  Reality does not read this text. Q cannot be delivered or checked until patsak adopts a measure for it.
+refused (1 statement cannot be formed)
+(refused: 1)
+### E004 empty text
+person p
+requirement R = "" owner p
+---
+line 1: person p
+line 2: E004 refused: a requirement's text is a non-empty text
+refused (1 statement cannot be formed)
+(refused: 1)
+### E004 hangul filler
+person p
+requirement R = "ㅤ" owner p
+---
+line 1: person p
+line 2: E004 refused: a requirement's text is a non-empty text
+refused (1 statement cannot be formed)
+(refused: 1)
+### E004 space and zero-width
+person p
+requirement R = " ​" owner p
+---
+line 1: person p
+line 2: E004 refused: a requirement's text is a non-empty text
+refused (1 statement cannot be formed)
+(refused: 1)
+### text with zero-width and a letter forms
+person p
+requirement R = "​ x" owner p
+---
+line 1: person p
+line 2: requirement R recorded, OFFERED: "​ x" (owner p)
+  Reality does not read this text. R cannot be delivered or checked until p adopts a measure for it.
+every statement formed
+(refused: 0)
+### E004 from
+person p
+requirement R = "x" owner p from ""
+---
+line 1: person p
+line 2: E004 refused: 'from' is a non-empty text
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 owner undeclared
+requirement R = "x" owner p
+---
+line 1: N001 refused: 'p' is not declared; expected a person
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 owner is a requirement
+person p
+requirement R = "x" owner p
+requirement S = "y" owner R
+---
+line 1: person p
+line 2: requirement R recorded, OFFERED: "x" (owner p)
+  Reality does not read this text. R cannot be delivered or checked until p adopts a measure for it.
+line 3: N001 refused: 'R' is a requirement, not a person
+refused (1 statement cannot be formed)
+(refused: 1)
+### G011 tool as owner
+tool t
+requirement R = "x" owner t
+---
+line 1: tool t: can propose measures, never own a requirement or adopt a measure
+line 2: G011 refused: t is declared as a tool; a tool can propose measures, never own a requirement or adopt a measure
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 proposer undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by nobody says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: N001 refused: 'nobody' is not declared; expected a person or tool
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 proposer is a requirement
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by R1 says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: N001 refused: 'R1' is a requirement, not a person or tool
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 measure for undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R9 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: N001 refused: 'R9' is not declared; expected a requirement
+refused (1 statement cannot be formed)
+(refused: 1)
+### E004 says
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says ""
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: E004 refused: 'says' is a non-empty text
+refused (1 statement cannot be formed)
+(refused: 1)
+### E004 outside
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels" outside ""
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: E004 refused: 'outside' is a non-empty text
+refused (1 statement cannot be formed)
+(refused: 1)
+### outside forms
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels" outside "edge flags from render_frames.py"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+  computed outside the checker, not checked: "edge flags from render_frames.py"
+every statement formed
+(refused: 0)
+### person proposes, one condition
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by alex says "within 4 levels"
+  fragment "ONE.fragment" sha256:ccda7956a74b7669f98ee1e0473a94a5b703b3180b62a63145c24544b9a673d7
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by alex (person), sha256:ccda7956...73d7, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+every statement formed
+(refused: 0)
+### G023 absolute
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "/etc/M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G023 refused: fragment path '/etc/M1.fragment' must be relative to the ledger's folder, without '..'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G023 dotdot
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "sub/../M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G023 refused: fragment path 'sub/../M1.fragment' must be relative to the ledger's folder, without '..'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G023 empty
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G023 refused: fragment path '' must be relative to the ledger's folder, without '..'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G023 missing
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "NONE.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G023 refused: no fragment file 'NONE.fragment' next to the ledger; the measure names it, so its bytes are part of the measure
+refused (1 statement cannot be formed)
+(refused: 1)
+### G023 hash
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:0000000000000000000000000000000000000000000000000000000000000000
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G023 refused: fragment 'M1.fragment' has sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482, not the sha256:0000000000000000000000000000000000000000000000000000000000000000 the measure names: these are not the bytes that were proposed
+refused (1 statement cannot be formed)
+(refused: 1)
+### G023 not UTF-8
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "BAD.fragment" sha256:a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G023 refused: fragment 'BAD.fragment' is not UTF-8
+refused (1 statement cannot be formed)
+(refused: 1)
+### G020 file
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "FILE.fragment" sha256:75c7466cc8b61f57b8efc58ffc5b214ea1a397de7965d3eb680f5c6f9adc40cb
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G020 refused: M1's fragment line 1 names data ('file'): a measure's fragment names no data; the data is bound by 'check' or 'try', so that one measure can be checked on any data
+refused (1 statement cannot be formed)
+(refused: 1)
+### G022 is
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "IS.fragment" sha256:670f7ff9f34a631362dfb44cf586d2d87e17d8bfa8f168feb9796366223e33a7
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G022 refused: M1's fragment line 2 uses 'is': a condition is a comparison, so that a refusal V001 always means a comparison the bytes contradict
+refused (1 statement cannot be formed)
+(refused: 1)
+### G020 not let or claim
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "DO.fragment" sha256:764b18d950e554fba77548f57f77718932ad97ac72d475df8f681cb064390c45
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G020 refused: M1's fragment line 1 is not a 'let' or 'claim' statement
+refused (1 statement cannot be formed)
+(refused: 1)
+### G021 no condition
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "NOC.fragment" sha256:94ed5a11091fa154eb47be918974fcd483bee313772e854a3451b847ec70e6d2
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: G021 refused: M1 has no condition (no exceeds, below, atleast or atmost claim), so nothing in it can hold or fail
+refused (1 statement cannot be formed)
+(refused: 1)
+### propose task
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+task T = propose R1 assigned_to grokbot
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: task T formed: grokbot proposes measures for R1
+  done when a measure for R1 proposed by grokbot is recorded; that does not adopt it
+every statement formed
+(refused: 0)
+### N001 propose assignee undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+task T = propose R1 assigned_to nobody
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: N001 refused: 'nobody' is not declared; expected a person or tool
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 propose assignee requirement
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+task T = propose R1 assigned_to R1
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: N001 refused: 'R1' is a requirement, not a person or tool
+refused (1 statement cannot be formed)
+(refused: 1)
+### G001 listing
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+measure M2 for R1 proposed_by alex says "within 4 levels"
+  fragment "ONE.fragment" sha256:ccda7956a74b7669f98ee1e0473a94a5b703b3180b62a63145c24544b9a673d7
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+status R1
+withdraw M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+task T = deliver R1 assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: measure M2 proposed for R1 by alex (person), sha256:ccda7956...73d7, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 10: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 11: R1 is ADOPTED: "the upscaler must preserve artistic intent"
+  measures: M1 (adopted line 10 at "2026-11-14T15:02:00+01:00"; proposed by grokbot), M2 (not adopted; proposed by alex)
+line 12: M1 WITHDRAWN for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked. R1 has no adopted measure now
+  checks made under M1 stay statements about M1
+line 13: G001 refused: task T assigns R1 ("the upscaler must preserve artistic intent") as work with a done-condition, but R1 has no adopted measure, so nothing decides when it is done. Measures for R1: M1 (withdrawn; adopted line 10 at "2026-11-14T15:02:00+01:00", withdrawn line 12 at "2026-11-14T15:02:00+01:00"; proposed by grokbot), M2 (not adopted; proposed by alex). A task whose output is proposed measures forms: 'task T = propose R1 assigned_to <who>'
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+payload: 'reality-withdraw 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G001 by without adoption
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+task T = deliver R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G001 refused: task T assigns R1 ("the upscaler must preserve artistic intent") as work with a done-condition, but R1 has no adopted measure, so nothing decides when it is done. Measures for R1: M1 (not adopted; proposed by grokbot). A task whose output is proposed measures forms: 'task T = propose R1 assigned_to <who>'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G005 no data
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+task T = deliver R1 by M1 assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: G005 refused: task T delivers R1 by M1 but names no data, so its done-condition is not stated: write 'deliver R1 by M1 on sha256:<data>'
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### N001 deliver assignee undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+task T = deliver R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to nobody
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: N001 refused: 'nobody' is not declared; expected a person or tool
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### N001 deliver assignee requirement
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+task T = deliver R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to R1
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: N001 refused: 'R1' is a requirement, not a person or tool
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### deliver task
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+task T = deliver R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: task T formed: alex delivers R1 by M1 on sha256:aaaaaaaa...aaaa
+  done when 'check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' gives HOLDS; that is a statement about M1
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### N001 deliver by undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+task T = deliver R1 by M9 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: N001 refused: 'M9' is not declared; expected a measure
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G003 deliver by other requirement's measure
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+requirement R2 = "drops should feel fair" owner patsak
+measure F1 for R2 proposed_by grokbot says "within 4 levels"
+  fragment "ONE.fragment" sha256:ccda7956a74b7669f98ee1e0473a94a5b703b3180b62a63145c24544b9a673d7
+task T = deliver R1 by F1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: requirement R2 recorded, OFFERED: "drops should feel fair" (owner patsak)
+  Reality does not read this text. R2 cannot be delivered or checked until patsak adopts a measure for it.
+line 10: measure F1 proposed for R2 by grokbot (tool), sha256:ccda7956...73d7, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 12: G003 refused: F1 is a measure of R2, not of R1: a deliver by it would treat R1 as meaning F1. 'try F1 on <data>' runs it as a trial that says nothing about R1
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G010 not owner
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by alex at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G010 refused: alex is not the owner of R1 (owner: patsak); only the owner adopts or withdraws a measure for R1
+refused (1 statement cannot be formed)
+(refused: 1)
+### G011 tool adopts
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by grokbot at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G011 refused: grokbot is declared as a tool; a tool can propose measures, never own a requirement or adopt a measure
+refused (1 statement cannot be formed)
+(refused: 1)
+### G016 measure of another requirement
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+requirement R2 = "y" owner patsak
+adopt M1 for R2 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: requirement R2 recorded, OFFERED: "y" (owner patsak)
+  Reality does not read this text. R2 cannot be delivered or checked until patsak adopts a measure for it.
+line 9: G016 refused: M1 is not proposed for R2
+refused (1 statement cannot be formed)
+(refused: 1)
+### T001 now
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at " Now " requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: T001 refused: 'Now' has no referent in Reality: there is no built-in present moment or place. Write the time with its UTC offset, e.g. "2026-11-14T15:02:00+01:00"
+refused (1 statement cannot be formed)
+(refused: 1)
+### T001 no offset
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: T001 refused: the time "2026-11-14T15:02:00" names no offset or is not a time: write it with its UTC offset, e.g. "2026-11-14T15:02:00+01:00"
+refused (1 statement cannot be formed)
+(refused: 1)
+### G014 adoption hashes
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:4895ecc6f0c011072af486ea30a1239caa1b297fb61ecaca8ac94d9c2071be22 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+task T = deliver R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa assigned_to alex
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G014 refused: the adoption on line 8 was for R1's text sha256:4895ecc6f0c011072af486ea30a1239caa1b297fb61ecaca8ac94d9c2071be22 and M1's fragment sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482. A changed text or measure is not the one adopted
+line 9: G014 refused: the adoption on line 8 was for R1's text sha256:4895ecc6f0c011072af486ea30a1239caa1b297fb61ecaca8ac94d9c2071be22 and M1's fragment sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482. A changed text or measure is not the one adopted
+line 10: G001 refused: task T assigns R1 ("the upscaler must preserve artistic intent") as work with a done-condition, but R1 has no adopted measure, so nothing decides when it is done. Measures for R1: M1 (not adopted; proposed by grokbot). A task whose output is proposed measures forms: 'task T = propose R1 assigned_to <who>'
+refused (3 statements cannot be formed)
+(refused: 3)
+### G012 no sig
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G012 refused: the adoption of M1 for R1 by patsak has no signature; an adoption or withdrawal is the owner's signed act, and nothing else makes one
+refused (1 statement cannot be formed)
+(refused: 1)
+### G012 absolute sig
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "/tmp/a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G012 refused: signature path '/tmp/a.sig' must be relative to the ledger's folder, without '..'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G012 dotdot sig
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "x/../a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G012 refused: signature path 'x/../a.sig' must be relative to the ledger's folder, without '..'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G012 verifier says no
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "bad.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G012 refused: the adoption of M1 for R1 by patsak has a signature that does not match patsak's key in the allowed_signers file; an adoption or withdrawal is the owner's signed act, and nothing else makes one
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G015 same
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: G015 refused: M1 is already the adopted measure of R1 (line 8); an adoption is recorded once
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G015 other
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+measure M2 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "ONE.fragment" sha256:ccda7956a74b7669f98ee1e0473a94a5b703b3180b62a63145c24544b9a673d7
+adopt M2 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:ccda7956a74b7669f98ee1e0473a94a5b703b3180b62a63145c24544b9a673d7 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: measure M2 proposed for R1 by grokbot (tool), sha256:ccda7956...73d7, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 11: G015 refused: R1 already has an adopted measure, M1 (line 8); adopting M2 as well would give R1 two meanings. To replace it, withdraw M1 first
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G017 nothing to withdraw
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+withdraw M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G017 refused: M1 is not the adopted measure of R1, so there is nothing to withdraw
+refused (1 statement cannot be formed)
+(refused: 1)
+### withdraw then check, then readopt
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+withdraw M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+status R1
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: M1 WITHDRAWN for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked. R1 has no adopted measure now
+  checks made under M1 stay statements about M1
+line 10: G003 refused: M1 is withdrawn for R1, not its adopted measure: a check by it would treat R1 as meaning M1. 'try M1 on <data>' runs it as a trial that says nothing about R1
+line 11: R1 is PROPOSED: "the upscaler must preserve artistic intent"
+  measures: M1 (withdrawn; adopted line 8 at "2026-11-14T15:02:00+01:00", withdrawn line 9 at "2026-11-14T15:02:00+01:00"; proposed by grokbot)
+line 12: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+payload: 'reality-withdraw 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G004 check a measure
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+check M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G004 refused: M1 is a measure; a check names a requirement and its adopted measure: 'check <R> by M1 on <data>'
+refused (1 statement cannot be formed)
+(refused: 1)
+### G002 no by
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: M1
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G002 proposed only
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: none
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 check by undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 by M9 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: N001 refused: 'M9' is not declared; expected a measure
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G003 check by a proposed measure
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+measure M2 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "ONE.fragment" sha256:ccda7956a74b7669f98ee1e0473a94a5b703b3180b62a63145c24544b9a673d7
+check R1 by M2 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: measure M2 proposed for R1 by grokbot (tool), sha256:ccda7956...73d7, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 11: G003 refused: M2 is proposed for R1, not its adopted measure: a check by it would treat R1 as meaning M2. 'try M2 on <data>' runs it as a trial that says nothing about R1
+refused (1 statement cannot be formed)
+(refused: 1)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### checks: holds, 1 does not, 2 do not, not checked
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+check R1 by M1 on sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+check R1 by M1 on sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+check R1 by M1 on sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: check R1 by M1 on sha256:aaaaaaaa...aaaa
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+    fragment line 2: mean(s, "v") = 3 (Exact)
+  M1 HOLDS on this data: 2 of 2 conditions hold.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+line 10: check R1 by M1 on sha256:bbbbbbbb...bbbb
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+    fragment line 3 does not hold: v4: 5 is not at most 4
+  M1 DOES NOT HOLD on this data: 1 of 2 conditions hold, 1 does not.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+line 11: check R1 by M1 on sha256:cccccccc...cccc
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+    fragment line 3 does not hold: v4: x
+    fragment line 4 does not hold: v4: y
+  M1 DOES NOT HOLD on this data: 0 of 2 conditions hold, 2 do not.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+line 12: check R1 by M1 on sha256:dddddddd...dddd
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+  M1 was NOT CHECKED on this data: the v4 checker gives no verdict: test
+  Nothing follows about M1 or R1.
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### G004 try a requirement
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+try R1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G004 refused: R1 is a requirement's text; Reality does not judge a requirement's text. A trial names a measure: 'try <M> on <data>'
+refused (1 statement cannot be formed)
+(refused: 1)
+### N001 try undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+try M9 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: N001 refused: 'M9' is not declared; expected a measure
+refused (1 statement cannot be formed)
+(refused: 1)
+### trials before adoption, then a trial of the adopted measure
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+try M1 on sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+try M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+try M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: TRIAL of M1 on sha256:bbbbbbbb...bbbb: M1 is not adopted for R1, and this says nothing about R1.
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot
+    fragment line 3 does not hold: v4: 5 is not at most 4
+  M1 DOES NOT HOLD on this data: 1 of 2 conditions hold, 1 does not.
+line 9: TRIAL of M1 on sha256:aaaaaaaa...aaaa: M1 is not adopted for R1, and this says nothing about R1.
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot
+    fragment line 2: mean(s, "v") = 3 (Exact)
+  M1 HOLDS on this data: 2 of 2 conditions hold.
+line 10: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  2 trial runs of M1 before adoption (lines 8, 9)
+line 11: TRIAL of M1 on sha256:aaaaaaaa...aaaa: a trial changes nothing, and says nothing about R1.
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 10
+    fragment line 2: mean(s, "v") = 3 (Exact)
+  M1 HOLDS on this data: 2 of 2 conditions hold.
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### one trial
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+try M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: TRIAL of M1 on sha256:aaaaaaaa...aaaa: M1 is not adopted for R1, and this says nothing about R1.
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot
+    fragment line 2: mean(s, "v") = 3 (Exact)
+  M1 HOLDS on this data: 2 of 2 conditions hold.
+line 9: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  1 trial run of M1 before adoption (line 8)
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### trial with outside
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels" outside "flags"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+try M1 on sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+  computed outside the checker, not checked: "flags"
+line 8: TRIAL of M1 on sha256:dddddddd...dddd: M1 is not adopted for R1, and this says nothing about R1.
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot
+  computed outside the checker, not checked: "flags"
+  M1 was NOT CHECKED on this data: the v4 checker gives no verdict: test
+  Nothing follows about M1 or R1.
+every statement formed
+(refused: 0)
+### G004 status of a measure
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+status M1
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G004 refused: 'status' names a requirement; M1 is a measure
+refused (1 statement cannot be formed)
+(refused: 1)
+### G004 status undeclared
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+status Q
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: G004 refused: 'status' names a requirement; Q is not declared
+refused (1 statement cannot be formed)
+(refused: 1)
+### statuses
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+status R1
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+status R1
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+status R1
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: R1 is OFFERED: "the upscaler must preserve artistic intent"
+  measures: none
+line 7: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 9: R1 is PROPOSED: "the upscaler must preserve artistic intent"
+  measures: M1 (not adopted; proposed by grokbot)
+line 10: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 11: R1 is ADOPTED: "the upscaler must preserve artistic intent"
+  measures: M1 (adopted line 10 at "2026-11-14T15:02:00+01:00"; proposed by grokbot)
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### run-from
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: check R1 by M1 on sha256:aaaaaaaa...aaaa
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+  not run here (--run-from 10); nothing is said here about M1 or R1.
+line 10: check R1 by M1 on sha256:aaaaaaaa...aaaa
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+    fragment line 2: mean(s, "v") = 3 (Exact)
+  M1 HOLDS on this data: 2 of 2 conditions hold.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'
+### no runner
+person patsak
+person alex
+tool grokbot
+requirement R1 = "the upscaler must preserve artistic intent"
+  owner patsak
+measure M1 for R1 proposed_by grokbot says "within 4 levels"
+  fragment "M1.fragment" sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482
+adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00" requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482 sig "a.sig"
+check R1 by M1 on sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+---
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 6: measure M1 proposed for R1 by grokbot (tool), sha256:1198da63...1482, 2 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "within 4 levels"
+line 8: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+line 9: check R1 by M1 on sha256:aaaaaaaa...aaaa
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:1198da63...1482, proposed by grokbot, adopted on line 8
+  NOT CHECKED: no checker was given to run the measure. Nothing follows about M1 or R1.
+every statement formed
+(refused: 0)
+payload: 'reality-adopt 1\nrequirement R1 sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216\nmeasure M1 sha256:1198da636f459fe374625e3faf354470129c8ebd2af387b51ecc7640e39e1482\nby patsak\nat 2026-11-14T15:02:00+01:00\n'

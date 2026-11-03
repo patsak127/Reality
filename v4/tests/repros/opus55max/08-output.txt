@@ -1,0 +1,20 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\08-idle-where-conditions.rl --files findings\08-table.tsv
+line 3: formed: Count[Rows[TSV[#1] where col 2 = "A"]] = 2 (Exact)
+  #1 = sha256:09e291c283748047a0b0677fa92b33bf8c56bb94e392e0dd1c0bbabc3b010ea0
+line 4: refused [S008, item 1]: the condition eq(col 2, "A") is written twice; the second does not bear on the answer
+line 5: formed: Count[Rows[TSV[#1] where col 2 = "A" and col 2 != "B"]] = 2 (Exact)
+  #1 = sha256:09e291c283748047a0b0677fa92b33bf8c56bb94e392e0dd1c0bbabc3b010ea0
+line 6: formed: Count[Rows[TSV[#1] where col 2 != "\xff"]] = 3 (Exact)
+  #1 = sha256:09e291c283748047a0b0677fa92b33bf8c56bb94e392e0dd1c0bbabc3b010ea0
+line 7: formed: Count[Rows[TSV[#1] where col 2 != "A\x09B"]] = 3 (Exact)
+  #1 = sha256:09e291c283748047a0b0677fa92b33bf8c56bb94e392e0dd1c0bbabc3b010ea0
+line 8: formed: Count[Rows[TSV[#1] where col 2 = "A" and col 2 != "A"]] = 0 (Exact)
+  #1 = sha256:09e291c283748047a0b0677fa92b33bf8c56bb94e392e0dd1c0bbabc3b010ea0
+line 9: formed: Share[Rows[TSV[#1] where col 2 != "\xff"] of TSV[#1]] = 3/3 (Exact)
+  #1 = sha256:09e291c283748047a0b0677fa92b33bf8c56bb94e392e0dd1c0bbabc3b010ea0
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

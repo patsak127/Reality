@@ -1,0 +1,5 @@
+# F2 floor: each tier has at least 1 percent of the equal-weight slots
+claim atleast(share(where(t, eq("tier", "common")), t), c = 0.01)
+claim atleast(share(where(t, eq("tier", "uncommon")), t), c = 0.01)
+claim atleast(share(where(t, eq("tier", "rare")), t), c = 0.01)
+claim atleast(share(where(t, eq("tier", "legendary")), t), c = 0.01)

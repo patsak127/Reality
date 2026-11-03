@@ -1,0 +1,27 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\11-run-index-two-recordings.rl --files findings\11-m --root findings\11-ds
+line 3: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 1: #2]] = 5 (Exact)
+  #1 = sha256:c85cea891e44997f76fd10d9e559fc60e25e28c36867c154090e6d91f9f08a9c
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+line 4: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 01: #2]] = 7 (Exact)
+  #1 = sha256:c85cea891e44997f76fd10d9e559fc60e25e28c36867c154090e6d91f9f08a9c
+  #2 = sha256:ba41de42c8e165748df6359d1461d4dc9553721a3ea2fd5b79cbb40af329a647
+line 5: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 1: #2], #3 row 1] is recorded as 1.5 s (Recorded[s])
+  #1 = sha256:c85cea891e44997f76fd10d9e559fc60e25e28c36867c154090e6d91f9f08a9c
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:ffcf3a726c81f082ea532526cccefedfee77767bdc69810616c801efccea5850
+line 6: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 01: #2], #3 row 1] is recorded as 3.25 s (Recorded[s])
+  #1 = sha256:c85cea891e44997f76fd10d9e559fc60e25e28c36867c154090e6d91f9f08a9c
+  #2 = sha256:ba41de42c8e165748df6359d1461d4dc9553721a3ea2fd5b79cbb40af329a647
+  #3 = sha256:a76b40d354be22d96d5fa7812ecf805bcc444ab1e273349df7ff514477865c7a
+line 7: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 02 task x: #2]] = 4 (Exact)
+  #1 = sha256:c85cea891e44997f76fd10d9e559fc60e25e28c36867c154090e6d91f9f08a9c
+  #2 = sha256:35045e26af8ad0d01e4c6c2e9061de0e76fe5208a738f23df3606ecd101143a2
+line 8: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 02 task x run 1: #2]] = 9 (Exact)
+  #1 = sha256:c85cea891e44997f76fd10d9e559fc60e25e28c36867c154090e6d91f9f08a9c
+  #2 = sha256:d74d1a98dd29f21c395587a27ca959c271ce45d4ae9d82b32522b378147331d6
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

@@ -1,0 +1,5 @@
+reality-manifest 1
+f7078f6bc4923f45680a11ec6c57bfdc295c61e6d0635ae9c9cb4a0db54a2c34	45	dataset_description.json
+00a2a218b866bc26ff27532d3a43a0d5220a1527d40694a8f7521e0dd3609dec	432	sub-01/func/sub-01_task-rest_acq-ap_bold.nii
+00a2a218b866bc26ff27532d3a43a0d5220a1527d40694a8f7521e0dd3609dec	432	sub-01/func/sub-01_task-rest_acq-pa_bold.nii
+4b66b70aa345619a968d82cf9a54e7cf08992e8135171ed42527dfdb9797ea2f	42	task-rest_bold.json

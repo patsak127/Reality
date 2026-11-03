@@ -1,0 +1,9 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\18-differential-is.rl --files findings\18-table.tsv
+line 3: refused [V001, item 5]: the claim writes 1/3; computed from the bytes it is 2/3
+line 4: refused [S010, item 1]: a comparison claim takes no 'is'; it holds or it is refused
+refused (2 statements)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

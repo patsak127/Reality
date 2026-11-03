@@ -1,0 +1,20 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\05-manifest-selection.rl --files findings\05-m --root findings\05-ds
+line 4: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 2 (Exact)
+  #1 = sha256:15c7cce9f71a20580532aa22e34d0104d75c21962b3a5c5ec16cb5faccd69313
+  #2 = sha256:6a422c2c4a2365bee24047b85c04503fca0dffcf7eda34d706e31fc704e6971c
+line 6: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 2 (Exact)
+  #1 = sha256:14f2238b6e98e0d88f74d9880122ac0eba3d83e6771a397f54ea5c733cd1b512
+  #2 = sha256:6a422c2c4a2365bee24047b85c04503fca0dffcf7eda34d706e31fc704e6971c
+line 7: formed: ExtraCell[Participant[Participants[BIDS-1.0.1[#1] from #2], sub-02], col 2] = "b"
+  #1 = sha256:14f2238b6e98e0d88f74d9880122ac0eba3d83e6771a397f54ea5c733cd1b512
+  #2 = sha256:6a422c2c4a2365bee24047b85c04503fca0dffcf7eda34d706e31fc704e6971c
+line 9: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x run 1: #2]] = 6 (Exact)
+  #1 = sha256:6c5364c529fa7ce7a05020aced8ac6a272556b9beed804627a8fbc64c509c34b
+  #2 = sha256:6ca4c457ee33ce2cbd26a094bbe63a160c1ec34b39c6b727fadda19301152691
+line 10: refused [V004, item 2]: recording(): 0 BOLD recordings in the dataset match sub-01 task-x run-2 (a recording with run labels needs the run; one without needs none); exactly one is needed
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

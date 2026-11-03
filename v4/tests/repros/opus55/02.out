@@ -1,0 +1,7 @@
+line 4: formed: Count[Rows[TSV[#1] where col 2 = "#1"]] = 1 (Exact)
+  #1 = sha256:7da0a7c98d0f07a7a5de598aef1921d231b176087cfe50f0ead7cbae3804888b
+line 5: formed: Count[Rows[TSV[#1] where col 2 = "#1"]] = 0 (Exact)
+  #1 = sha256:7da0a7c98d0f07a7a5de598aef1921d231b176087cfe50f0ead7cbae3804888b
+line 6: formed: Count[Rows[TSV[#1] where col 2 != "#1"]] = 2 (Exact)
+  #1 = sha256:7da0a7c98d0f07a7a5de598aef1921d231b176087cfe50f0ead7cbae3804888b
+accepted

@@ -1,0 +1,6 @@
+reality-manifest 1
+23af7308f9bc951aa5718e98bf590f77fe4a75e7ab0aeeb2f46c04d6def685b0	40	dataset_description.json
+ca2e804b8a0007c1f1b527d81189aeaae8d46147d2719ba5b415af57c1327aae	44	participants.tsv
+edfa37fe58328116c80d9cc4462549de6ef1a5a91f8d603ed759aca39f56fcd0	39	sub-01/func/sub-01_task-x_bold.json
+35045e26af8ad0d01e4c6c2e9061de0e76fe5208a738f23df3606ecd101143a2	384	sub-01/func/sub-01_task-x_bold.nii
+28d68596fb58f78d852570cd83ed5ea04cd56a472b102a71ba6d6a5462f293ea	34	sub-01/func/sub-01_task-x_events.tsv

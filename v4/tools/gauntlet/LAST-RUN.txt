@@ -1,0 +1,72 @@
+== env: A verdict depends on nothing but the text and the file bytes (principle clause 4)
+   clear, 0 finding(s)
+   note: interpreter: /home/box/reality-harness/venv/bin/python
+   note: corpus: 4 file programs over 4 files, 64 programs from tests/old
+   note: Not varied: memory limits, recursion limits, the machine (the harness's xrun does 4 machines), the clock across days.
+
+== neighbours: The same hazard gets the same treatment in neighbouring places (spec §10.2, one standard)
+   observations, 3 finding(s)
+   - separator-like bytes, in a data cell: 10 refused, 4 form
+       refused: CR (U+000D), BOM (U+FEFF), LINE SEPARATOR U+2028, PARAGRAPH SEPARATOR U+2029, NEL U+0085, FF U+000C, VT U+000B, NUL U+0000, double quote, non-UTF-8 byte 0xFF | form: NBSP U+00A0, ZERO WIDTH SPACE U+200B, SOFT HYPHEN U+00AD, trailing space
+   - separator-like bytes, in a header: 10 refused, 4 form
+       refused: CR (U+000D), BOM (U+FEFF), LINE SEPARATOR U+2028, PARAGRAPH SEPARATOR U+2029, NEL U+0085, FF U+000C, VT U+000B, NUL U+0000, double quote, non-UTF-8 byte 0xFF | form: NBSP U+00A0, ZERO WIDTH SPACE U+200B, SOFT HYPHEN U+00AD, trailing space
+   - separator-like bytes, at file start: 10 refused, 3 form
+       refused: CR (U+000D), BOM (U+FEFF), LINE SEPARATOR U+2028, PARAGRAPH SEPARATOR U+2029, NEL U+0085, FF U+000C, VT U+000B, NUL U+0000, double quote, non-UTF-8 byte 0xFF | form: NBSP U+00A0, ZERO WIDTH SPACE U+200B, SOFT HYPHEN U+00AD
+   note: The two classes are this tool's grouping. A difference inside a class may be legitimate; the probe says where the treatment differs, not which treatment is right.
+   note: Not covered: JSON keys and values, the BIDS TSV reader, NIfTI headers, the manifest reader.
+   table:
+     hazard: CR (U+000D) | in a data cell: refused N003,T002 | in a header: refused N003,T002 | at file start: refused N003,T002
+     hazard: BOM (U+FEFF) | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T001
+     hazard: LINE SEPARATOR U+2028 | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T006
+     hazard: PARAGRAPH SEPARATOR U+2029 | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T006
+     hazard: NEL U+0085 | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T006
+     hazard: FF U+000C | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T006
+     hazard: VT U+000B | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T006
+     hazard: NUL U+0000 | in a data cell: refused N003,T006 | in a header: refused N003,T006 | at file start: refused N003,T006
+     hazard: double quote | in a data cell: refused N003,T005 | in a header: refused N003,T005 | at file start: refused N003,T005
+     hazard: NBSP U+00A0 | in a data cell: formed | in a header: formed | at file start: formed
+     hazard: ZERO WIDTH SPACE U+200B | in a data cell: formed | in a header: formed | at file start: formed
+     hazard: SOFT HYPHEN U+00AD | in a data cell: formed | in a header: formed | at file start: formed
+     hazard: trailing space | in a data cell: formed | in a header: formed | at file start: -
+     hazard: non-UTF-8 byte 0xFF | in a data cell: refused N003,T001 | in a header: refused N003,T001 | at file start: refused N003,T001
+     hazard: 1 / l (ASCII) | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: 0 / O (ASCII) | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: rn / m (ASCII) | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: case S / s (ASCII) | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: Cyrillic dze U+0455 / s | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: Cyrillic DZE U+0405 / S | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: Cyrillic a U+0430 / a | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: Greek omicron U+03BF / o | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: fullwidth digit one U+FF11 / 1 | key() over a column holding both: refused K002 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K002
+     hazard: NFD e+U+0301 / NFC U+00E9 | key() over a column holding both: refused K001 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K001
+     hazard: non-breaking hyphen U+2011 / - | key() over a column holding both: refused K001 | eq() over a column holding both: refused K002 | eq() literal vs the other cell only: refused K002 | two headers, select by name: refused K001
+
+== codes: Refusal codes: the code, the SPEC, the README, the model and the tests name the same set
+   clear, 0 finding(s)
+   note: 93 codes raised in src/reality3; 93 in SPEC §3 after expanding ranges
+   note: A mention is not a test, and a code in a doc is matched as text, so a code quoted in prose counts.
+
+== surface: The README's computations are the checker's computations
+   clear, 0 finding(s)
+   note: 36 computations in kernel.py, 36 in the README table
+
+== numbers: Numbers the README states and a script can recompute
+   clear, 0 finding(s)
+   note: trusted base: 2603 lines, as stated
+   note: tests/: 286 tests, as stated
+   note: Only numbers written in the shapes above are checked; a claim reworded is not found, and that is reported here as nothing, not as a failure. Timings ('about 11 s') are not deterministic and are skipped.
+
+== independence: How independent the second implementation and the differential test are
+   observations, 3 finding(s)
+   - for a formed line the test compares only the printed value, not the printed sort
+       so the sort text of formed claims is produced and checked by one implementation only
+   - the differential test never generates bytes()
+   - the differential test never generates size()
+   note: replayed 24000 generated claims (seed 1025)
+   note: row positions generated: -5..7
+
+== table: SPEC §4's F/N table is what tools/acceptance_table.py prints now
+   clear, 0 finding(s)
+   note: 33 rows printed, 33 rows in SPEC §4
+
+exit 0 (0: nothing broke an invariant; 1: env found a difference; 3: a probe errored)

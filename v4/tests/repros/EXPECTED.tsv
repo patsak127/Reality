@@ -1,0 +1,137 @@
+#### argon
+01-c001-bug.rl	2:formed
+01-sort-string-hash-collision.rl	2:formed 3:formed
+02-store-cache-outside-factor-and-idle-let.rl	3:formed 4:B00 5:formed
+03-manifest-omission-n17-box-bypass.rl	2:B00 3:N003
+04-lookalike-bypass-outside-key-alphabet.rl	2:K002 3:K002 4:K002 5:K002
+05-duplicate-headers-in-bids-tsvs.rl	2:B00 3:N003 4:N003
+06-bids-inheritance-ambiguous-precedence.rl	2:B00 3:N003 4:N003
+07-bids-whole-dataset-conformance-gaps.rl	2:B14 3:N003 4:N003
+09-let-call-by-name-exponential-blowup.rl	17:R006 18:N003 19:N003 20:N003 21:N003 22:N003
+10-crash.rl	2:R010
+10-python-runtime-limits-and-uncaught-crash.rl	2:R007
+10-underflow.rl	2:R007 3:N003 4:N003
+11-locale-encoding-dependence-and-crash.rl	3:K001 4:formed
+12-idle-parts-and-unchecked-manifest-sizes.rl	2:F001 5:M003 6:S008 7:S011 8:S011 9:S008 10:P007 11:V001 12:S012 13:S012
+13-bids-acq-rec-and-events-overcorrections.rl	2:B00
+15-tabular-expressiveness-overcorrections.rl	2:V004 4:formed
+16-reference-implementation-divergences.rl	2:S006 3:S006 4:S004 5:V001 6:formed
+17-lean-metatheory-and-docs-overclaims.rl	1:F001 3:formed
+18-recorded-precision-quasi-label-and-comparisons.rl	2:B00 3:N003 4:N003
+19-judgement-calls-contradicting-bids-or-spec.rl	4:T005 5:B00 6:T005
+#### argon-extra
+e13.rl	2:formed 3:formed 4:formed 5:formed 6:formed 7:formed 8:K002
+fx/e1.rl	2:B00 3:N003 4:N003 5:N003
+fx/e11.rl	2:B00
+fx/e12.rl	2:B00
+fx/e2.rl	2:B00 3:N003 4:N003
+fx/e3.rl	2:B00
+fx/e4-900-nested.rl	2:R008 3:R008
+fx/e4-900-shallow.rl	2:R008
+fx/e4-960-nested.rl	2:R008 3:R008
+fx/e4-960-shallow.rl	2:R008
+fx/e4-975-nested.rl	2:R008 3:R008
+fx/e4-975-shallow.rl	2:R008
+fx/e4-985-nested.rl	2:R008 3:R008
+fx/e4-985-shallow.rl	2:R008
+fx/e4-995-nested.rl	2:R008 3:R008
+fx/e4-995-shallow.rl	2:R008
+fx/e5.rl	2:R007
+fx/e9.rl	2:V005 3:S011 4:S011 5:P007 6:V001
+#### opus55
+01-subset-manifest-conforms.rl	5:B00 6:B00 7:B00 8:B00
+02-hash-in-literal-prints-as-file.rl	4:formed 5:formed 6:formed
+03-manifest-sizes-and-extra-hashes-unchecked.rl	5:F001 6:formed
+04-let-doubling-19.rl	17:R006 18:N003 19:N003 20:N003 21:N003 22:N003
+05-int-max-str-digits.rl	3:R007
+06-output-encoding.rl	1:S002
+10-refused-statement-changes-later-verdict.rl	4:formed 5:B00 6:formed
+11-non-ascii-lookalikes-pass.rl	6:K002 7:K002 8:K002 9:K002
+12-nifti2-tr-never-consistent.rl	2:B00
+13-deep-json-internal-error.rl	2:R008
+15-tsv-second-readings-not-refused.rl	5:T006 6:N003 7:N003 8:N003 9:N003
+18-ref-disagrees.rl	4:V001 5:S006
+#### opus55max
+01-int-digit-limit-b.rl	3:R007 4:N003 5:N003
+01-int-digit-limit-c.rl	2:formed 3:R010
+01-int-digit-limit.rl	3:formed 4:R007
+02-n17-box.rl	3:B00 4:N003
+02-n17-zero-subject-dataset.rl	3:B00 4:N003 5:N003 6:N003
+03-onset-difference-across-recordings.rl	2:B00 3:N003 4:N003 6:N003 7:N003 9:N003 11:N003
+04-let-chain-exponential-n16.rl	17:R006 18:N003 19:N003
+04-let-chain-exponential-n18.rl	17:R006 18:N003 19:N003 20:N003 21:N003
+04-let-chain-exponential.rl	17:R006 18:N003 19:N003 20:N003 21:N003 22:N003 23:N003
+05-manifest-selection.rl	4:B00 6:B00 7:B00 9:B00 10:B00
+07-console-encoding.rl	3:B00 4:formed
+08-idle-where-conditions.rl	3:formed 4:S008 5:S008 6:S008 7:K004 8:S011 9:S008
+09-duplicate-onset-column.rl	3:B00 4:N003 5:formed 6:formed 7:K002
+10-sidecar-precedence.rl	2:B00
+11-run-index-two-recordings.rl	2:B00 3:N003 4:N003 5:N003 6:N003 7:N003 8:N003
+12-phenotype-files-skipped-b.rl	2:B00 3:B00
+12-phenotype-files-skipped.rl	2:B00
+13-where-lookalike-quadratic-20000.rl	3:formed 4:formed
+15-json-exponent-stall-small.rl	2:R007
+15-json-exponent-stall.rl	2:R007
+16-x001-from-valid-json-b.rl	3:S008 4:R008
+16-x001-from-valid-json.rl	2:B00
+17-counts-and-shares-cannot-be-compared.rl	3:formed 4:formed 5:formed 6:formed 7:formed
+18-differential-is.rl	3:V001 4:S010
+19-lean-model-distance.rl	3:N002 4:formed
+20-check2-not-independent.rl	2:B00
+22-manifest-unchecked-fields.rl	2:M003 3:N003 4:N003
+23-nifti2-tr-float32.rl	2:B00
+24-lookalike-scope.rl	3:K002 4:K002 5:K002
+25-file-changes-during-check.rl	2:formed 3:formed 4:formed
+26-negative-denominator.rl	2:P007 3:P007
+27-extracell-label-missing.rl	2:B00 3:N003 4:N003 5:N003
+28-docs-mismatches-b.rl	3:P001
+28-docs-mismatches.rl	1:F001 2:F001
+e-tolerance-profiles.rl	3:S008 4:formed
+#### opus55max-v3
+01-idle-difference.rl	8:S008 9:S008 10:S008 11:S008 12:S008 14:S008 15:S008
+02-quote-literal.rl	6:S008 7:S011 8:S008 10:K004
+03-locale-root.rl	3:formed
+04-memory.rl	25:R006 26:R006 27:N003 28:N003 29:N003 30:N003 31:N003 32:N003 33:N003
+05-run-label-sidecar.rl	2:B00 3:N003
+05b-control-sidecar-applies.rl	2:B00 3:N003
+05c-control-two-images.rl	2:B00 3:N003
+06-magnitude-intendedfor.rl	2:B00 3:N003
+06b-control-no-magnitude-json.rl	2:B00 3:N003
+07-tasks-tsv-example.rl	2:B14 3:N003
+07b-tasks-tsv-root.rl	2:B14 3:N003
+07c-control-root-tsv-with-entity.rl	2:B14 3:N003
+08-empty-cells.rl	2:B00 3:N003 4:N003 5:N003
+08b-control-duplicate-header.rl	2:B00 3:N003
+09-data-dictionaries.rl	2:B00 3:N003
+09b-phenotype-dictionary-alone.rl	2:B00 3:N003
+09c-events-dictionary.rl	2:B00 3:N003
+09d-control-participants-json.rl	2:B00 3:N003
+09e-control-participants-json-alone.rl	2:B00 3:N003
+10-participant-level-events.rl	2:B14 3:N003
+10b-control-root-events.rl	2:B14 3:N003
+11-events-dictionary-in-func.rl	3:formed
+11b-control-events-dictionary-at-root.rl	3:formed
+12-mean-excluding-na.rl	7:formed 8:formed 9:formed
+12b-bids-mean-excluding-na.rl	4:formed 5:formed
+13-key-vs-where.rl	7:formed 8:formed 9:formed 10:formed
+14-trailing-blank-line.rl	6:formed 8:formed 10:T003
+14b-bids-trailing-blank-line.rl	2:B00 3:N003
+15-row-without-folder.rl	2:B00 3:N003 4:N003
+16-unreadable-file-crash.rl	2:formed
+17-manifest-writer.rl	1:F001 2:N003
+18-uncharged-quadratic-work.rl	1:F001 2:N003
+18b-inheritance.rl	1:F001 2:N003
+19-tolerance-aliasing.rl	6:S012 7:S012 8:S012
+19b-control-same-spelling.rl	4:S012 5:S012
+20-key-step.rl	1:F001 2:F001 3:N003 4:N003 5:N003 6:N003 7:N003 8:N003
+20b-key-step-control.rl	1:F001 2:F001 3:N003 4:N003 5:N003 6:N003 7:N003 8:N003
+21a-rules-coverage.rl	2:B00 3:N003
+21b-rules-coverage.rl	2:B00 3:N003
+21c-rules-coverage.rl	2:B00 3:N003
+21d-rules-coverage.rl	3:formed
+21e-rules-coverage.rl	2:B00 3:N003
+21f-rules-coverage.rl	2:B00 3:N003
+21g-rules-coverage.rl	2:B00 3:N003
+21h-rules-coverage.rl	2:B00 3:N003
+21i-rules-coverage.rl	2:B14 3:N003
+24-fabricated-copy.rl	1:F001 2:N003 3:N003 4:N003 5:N003 6:N003 7:N003 8:N003

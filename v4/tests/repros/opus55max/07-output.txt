@@ -1,0 +1,32 @@
+### stdout redirected, PYTHONIOENCODING=utf-8
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\07-console-encoding.rl --files findings\07-m --root findings\07-ds
+line 3: refused [B00, reading rules]: the dataset does not conform to BIDS 1.0.1 (1 failures), so nothing BIDS-based forms from it (principle §1, whole-dataset conformance). B11 x1, first: participants.tsv row 1: participant_id 'sub-Ω01' is not sub-<label> (§5, §8.11)
+line 4: formed: RowCount[TSV[#1]] = 1 (Exact)
+  #1 = sha256:86a7aa3955685fea8afcae139e1ceff468b6eaf5747e5dc86e7f44513bbeb31b
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```
+
+### stdout redirected, default encoding
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=
+python -m reality2 check findings\07-console-encoding.rl --files findings\07-m --root findings\07-ds
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\__main__.py", line 59, in <module>
+    sys.exit(main(sys.argv[1:]))
+             ~~~~^^^^^^^^^^^^^^
+  File "C:\Users\user\reality-review-opus55max-v2\src\reality2\__main__.py", line 54, in main
+    print(line)
+    ~~~~~^^^^^^
+  File "C:\Users\user\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u03a9' in position 233: character maps to <undefined>
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

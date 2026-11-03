@@ -1,0 +1,317 @@
+# Reality, branch req: MegaJam demo transcript
+Frames, drop tables and playtest logs are made up by demo/render_frames.py, demo/make_drops.py and demo/make_playtest.py; no company data.
+Key: a throwaway TEST key made for this run (REALITY-TEST-KEY-NOT-PATSAK), not Patsak's
+
+## 1. A requirement is offered, and handed out as work: refused
+
+    person patsak
+    person alex
+    tool grokbot
+    requirement R1 = "the upscaler must preserve artistic intent"
+      owner patsak
+      from "MegaJam demo brief"
+    task T1 = deliver R1 assigned_to alex
+
+line 1: person patsak
+line 2: person alex
+line 3: tool grokbot: can propose measures, never own a requirement or adopt a measure
+line 4: requirement R1 recorded, OFFERED: "the upscaler must preserve artistic intent" (owner patsak)
+  Reality does not read this text. R1 cannot be delivered or checked until patsak adopts a measure for it.
+line 7: G001 refused: task T1 assigns R1 ("the upscaler must preserve artistic intent") as work with a done-condition, but R1 has no adopted measure, so nothing decides when it is done. Measures for R1: none. A task whose output is proposed measures forms: 'task T1 = propose R1 assigned_to <who>'
+
+## 2. The work that is allowed: propose measures. Candidates, not adopted
+
+    task T2 = propose R1 assigned_to grokbot
+    measure M1 for R1 proposed_by grokbot
+      says "per frame and channel, mean(out) - mean(ref) within [-4, 4] levels of 8-bit RGB"
+      fragment "M1.fragment" sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24
+    measure M2 for R1 proposed_by grokbot
+      says "per frame, share of reference edge pixels that are edge pixels in the output, at least 1/2"
+      outside "the edge flags in the data are computed by demo/render_frames.py, outside the checker"
+      fragment "M2.fragment" sha256:04b200687c49249cc26cef8bf5b8c986bca7963697878bdcf912e7880db5e4a2
+    status R1
+    check R1 by M1 on sha256:979cb9d62803637d56d0e6a492e10b6d174a0e560286e57e2fa17c2f96719ba9
+
+line 8: task T2 formed: grokbot proposes measures for R1
+  done when a measure for R1 proposed by grokbot is recorded; that does not adopt it
+line 9: measure M1 proposed for R1 by grokbot (tool), sha256:77874fb1...5c24, 24 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "per frame and channel, mean(out) - mean(ref) within [-4, 4] levels of 8-bit RGB"
+line 12: measure M2 proposed for R1 by grokbot (tool), sha256:04b20068...e4a2, 4 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "per frame, share of reference edge pixels that are edge pixels in the output, at least 1/2"
+  computed outside the checker, not checked: "the edge flags in the data are computed by demo/render_frames.py, outside the checker"
+line 16: R1 is PROPOSED: "the upscaler must preserve artistic intent"
+  measures: M1 (not adopted; proposed by grokbot), M2 (not adopted; proposed by grokbot)
+line 17: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: none
+
+## 3. Patsak adopts M1, signed (this run: a throwaway TEST key, not Patsak's)
+
+    adopt M1 for R1 by patsak at "2026-11-14T15:02:00+01:00"
+      requirement_text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 measure sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24 sig "adopt-M1.sig"
+
+line 18: M1 ADOPTED for R1 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of M1 before adoption
+
+## 4. Checks by the adopted measure
+
+    task T3 = deliver R1 by M1 on sha256:979cb9d62803637d56d0e6a492e10b6d174a0e560286e57e2fa17c2f96719ba9 assigned_to alex
+    check R1 by M1 on sha256:0d6d1bd1d59b7956cfe276a9f6d9f07599fae16a4e9216323ca1e9bd0074869c
+    check R1 by M1 on sha256:979cb9d62803637d56d0e6a492e10b6d174a0e560286e57e2fa17c2f96719ba9
+    check R1 by M1 on sha256:0ba99fa7585ae1ba50f888be39530234fd79aaf7d1bd8e28232bbb5d44facc39
+
+line 20: task T3 formed: alex delivers R1 by M1 on sha256:979cb9d6...9ba9
+  done when 'check R1 by M1 on sha256:979cb9d62803637d56d0e6a492e10b6d174a0e560286e57e2fa17c2f96719ba9' gives HOLDS; that is a statement about M1
+line 21: check R1 by M1 on sha256:0d6d1bd1...869c
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:77874fb1...5c24, proposed by grokbot, adopted on line 18
+    fragment line 3: difference(mean(s0, "out_r"), mean(s0, "ref_r")) = 0.297607421875 (Exact)
+    fragment line 6: difference(mean(s0, "out_g"), mean(s0, "ref_g")) = 0.0813720703125 (Exact)
+    fragment line 9: difference(mean(s0, "out_b"), mean(s0, "ref_b")) = 0.148095703125 (Exact)
+    fragment line 13: difference(mean(s1, "out_r"), mean(s1, "ref_r")) = 0.297802734375 (Exact)
+    fragment line 16: difference(mean(s1, "out_g"), mean(s1, "ref_g")) = 0.0813232421875 (Exact)
+    fragment line 19: difference(mean(s1, "out_b"), mean(s1, "ref_b")) = 0.1482666015625 (Exact)
+    fragment line 23: difference(mean(s2, "out_r"), mean(s2, "ref_r")) = 0.297705078125 (Exact)
+    fragment line 26: difference(mean(s2, "out_g"), mean(s2, "ref_g")) = 0.0813232421875 (Exact)
+    fragment line 29: difference(mean(s2, "out_b"), mean(s2, "ref_b")) = 0.148681640625 (Exact)
+    fragment line 33: difference(mean(s3, "out_r"), mean(s3, "ref_r")) = 0.2978271484375 (Exact)
+    fragment line 36: difference(mean(s3, "out_g"), mean(s3, "ref_g")) = 0.0814453125 (Exact)
+    fragment line 39: difference(mean(s3, "out_b"), mean(s3, "ref_b")) = 0.148876953125 (Exact)
+  M1 HOLDS on this data: 24 of 24 conditions hold.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+line 22: check R1 by M1 on sha256:979cb9d6...9ba9
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:77874fb1...5c24, proposed by grokbot, adopted on line 18
+    fragment line 3: difference(mean(s0, "out_r"), mean(s0, "ref_r")) = 0.50888671875 (Exact)
+    fragment line 6: difference(mean(s0, "out_g"), mean(s0, "ref_g")) = 0.089453125 (Exact)
+    fragment line 9: difference(mean(s0, "out_b"), mean(s0, "ref_b")) = 0.1858154296875 (Exact)
+    fragment line 13: difference(mean(s1, "out_r"), mean(s1, "ref_r")) = 0.5088623046875 (Exact)
+    fragment line 16: difference(mean(s1, "out_g"), mean(s1, "ref_g")) = 0.0893798828125 (Exact)
+    fragment line 19: difference(mean(s1, "out_b"), mean(s1, "ref_b")) = 0.1856201171875 (Exact)
+    fragment line 23: difference(mean(s2, "out_r"), mean(s2, "ref_r")) = 0.508935546875 (Exact)
+    fragment line 26: difference(mean(s2, "out_g"), mean(s2, "ref_g")) = 0.0894775390625 (Exact)
+    fragment line 29: difference(mean(s2, "out_b"), mean(s2, "ref_b")) = 0.186279296875 (Exact)
+    fragment line 33: difference(mean(s3, "out_r"), mean(s3, "ref_r")) = 0.50947265625 (Exact)
+    fragment line 36: difference(mean(s3, "out_g"), mean(s3, "ref_g")) = 0.08974609375 (Exact)
+    fragment line 39: difference(mean(s3, "out_b"), mean(s3, "ref_b")) = 0.18671875 (Exact)
+  M1 HOLDS on this data: 24 of 24 conditions hold.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+line 23: check R1 by M1 on sha256:0ba99fa7...cc39
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M1: sha256:77874fb1...5c24, proposed by grokbot, adopted on line 18
+    fragment line 3: difference(mean(s0, "out_r"), mean(s0, "ref_r")) = 4.3888916015625 (Exact)
+    fragment line 6: difference(mean(s0, "out_g"), mean(s0, "ref_g")) = 1.25224609375 (Exact)
+    fragment line 9: difference(mean(s0, "out_b"), mean(s0, "ref_b")) = -7.134326171875 (Exact)
+    fragment line 13: difference(mean(s1, "out_r"), mean(s1, "ref_r")) = 4.3958740234375 (Exact)
+    fragment line 16: difference(mean(s1, "out_g"), mean(s1, "ref_g")) = 1.2522705078125 (Exact)
+    fragment line 19: difference(mean(s1, "out_b"), mean(s1, "ref_b")) = -7.1330810546875 (Exact)
+    fragment line 23: difference(mean(s2, "out_r"), mean(s2, "ref_r")) = 4.400732421875 (Exact)
+    fragment line 26: difference(mean(s2, "out_g"), mean(s2, "ref_g")) = 1.252783203125 (Exact)
+    fragment line 29: difference(mean(s2, "out_b"), mean(s2, "ref_b")) = -7.1302978515625 (Exact)
+    fragment line 33: difference(mean(s3, "out_r"), mean(s3, "ref_r")) = 4.403466796875 (Exact)
+    fragment line 36: difference(mean(s3, "out_g"), mean(s3, "ref_g")) = 1.253369140625 (Exact)
+    fragment line 39: difference(mean(s3, "out_b"), mean(s3, "ref_b")) = -7.12861328125 (Exact)
+    fragment line 4 does not hold: v4: atmost(): the claim says the value is at most 4; computed from the bytes it is 4.3888916015625
+    fragment line 11 does not hold: v4: atleast(): the claim says the value is at least -4; computed from the bytes it is -7.134326171875
+    fragment line 14 does not hold: v4: atmost(): the claim says the value is at most 4; computed from the bytes it is 4.3958740234375
+    fragment line 21 does not hold: v4: atleast(): the claim says the value is at least -4; computed from the bytes it is -7.1330810546875
+    fragment line 24 does not hold: v4: atmost(): the claim says the value is at most 4; computed from the bytes it is 4.400732421875
+    fragment line 31 does not hold: v4: atleast(): the claim says the value is at least -4; computed from the bytes it is -7.1302978515625
+    fragment line 34 does not hold: v4: atmost(): the claim says the value is at most 4; computed from the bytes it is 4.403466796875
+    fragment line 41 does not hold: v4: atleast(): the claim says the value is at least -4; computed from the bytes it is -7.12861328125
+  M1 DOES NOT HOLD on this data: 16 of 24 conditions hold, 8 do not.
+  This is a statement about M1 on this data. Reality did not decide whether M1 is the right measure for R1's text; the owner's adoption did.
+
+## 5. M1 holding on bilinear is a statement about colour means only: a trial of M2 on the same frames
+
+    try M2 on sha256:979cb9d62803637d56d0e6a492e10b6d174a0e560286e57e2fa17c2f96719ba9
+
+line 24: TRIAL of M2 on sha256:979cb9d6...9ba9: M2 is not adopted for R1, and this says nothing about R1.
+  requirement R1: "the upscaler must preserve artistic intent" (owner patsak)
+  measure M2: sha256:04b20068...e4a2, proposed by grokbot
+  computed outside the checker, not checked: "the edge flags in the data are computed by demo/render_frames.py, outside the checker"
+    fragment line 3: share(where(e0, eq("out_edge", "1")), e0) = 142/1512 (Exact)
+    fragment line 6: share(where(e1, eq("out_edge", "1")), e1) = 146/1515 (Exact)
+    fragment line 9: share(where(e2, eq("out_edge", "1")), e2) = 149/1512 (Exact)
+    fragment line 12: share(where(e3, eq("out_edge", "1")), e3) = 154/1515 (Exact)
+    fragment line 4 does not hold: v4: atleast(): the claim says the value is at least 0.5; computed from the bytes it is 71/756
+    fragment line 7 does not hold: v4: atleast(): the claim says the value is at least 0.5; computed from the bytes it is 146/1515
+    fragment line 10 does not hold: v4: atleast(): the claim says the value is at least 0.5; computed from the bytes it is 149/1512
+    fragment line 13 does not hold: v4: atleast(): the claim says the value is at least 0.5; computed from the bytes it is 154/1515
+  M2 DOES NOT HOLD on this data: 0 of 4 conditions hold, 4 do not.
+
+## 6. M1's fragment edited after adoption (c = 4 -> 8, and the measure line's hash updated to match)
+
+    check R1 by M1 on sha256:0ba99fa7585ae1ba50f888be39530234fd79aaf7d1bd8e28232bbb5d44facc39
+
+line 18: G014 refused: the adoption on line 18 was for R1's text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and M1's fragment sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:6418c61e82d9458db5d1953e5070c8d4fec884615d96ae7651d0dd622c3cef60. A changed text or measure is not the one adopted
+line 20: G001 refused: task T3 assigns R1 ("the upscaler must preserve artistic intent") as work with a done-condition, but R1 has no adopted measure, so nothing decides when it is done. Measures for R1: M1 (not adopted; proposed by grokbot), M2 (not adopted; proposed by grokbot). A task whose output is proposed measures forms: 'task T3 = propose R1 assigned_to <who>'
+line 21: G014 refused: the adoption on line 18 was for R1's text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and M1's fragment sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:6418c61e82d9458db5d1953e5070c8d4fec884615d96ae7651d0dd622c3cef60. A changed text or measure is not the one adopted
+line 22: G014 refused: the adoption on line 18 was for R1's text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and M1's fragment sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:6418c61e82d9458db5d1953e5070c8d4fec884615d96ae7651d0dd622c3cef60. A changed text or measure is not the one adopted
+line 23: G014 refused: the adoption on line 18 was for R1's text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and M1's fragment sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:6418c61e82d9458db5d1953e5070c8d4fec884615d96ae7651d0dd622c3cef60. A changed text or measure is not the one adopted
+line 25: G014 refused: the adoption on line 18 was for R1's text sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and M1's fragment sha256:77874fb1cc9dffe6c00ede3f2f16e6bd8d2a4e17d9c2d038620f234abade5c24; they are now sha256:7bac7126d4acea4c29e1d3e6e42f64230badb784bed3c2d4f104598106a0f216 and sha256:6418c61e82d9458db5d1953e5070c8d4fec884615d96ae7651d0dd622c3cef60. A changed text or measure is not the one adopted
+
+## 6b. ... and the adoption's measure hash edited to match too: the signature no longer matches
+
+    check R1 by M1 on sha256:0ba99fa7585ae1ba50f888be39530234fd79aaf7d1bd8e28232bbb5d44facc39
+
+line 18: G012 refused: the adoption of M1 for R1 by patsak has a signature that does not match patsak's key in the allowed_signers file; an adoption or withdrawal is the owner's signed act, and nothing else makes one
+line 20: G001 refused: task T3 assigns R1 ("the upscaler must preserve artistic intent") as work with a done-condition, but R1 has no adopted measure, so nothing decides when it is done. Measures for R1: M1 (not adopted; proposed by grokbot), M2 (not adopted; proposed by grokbot). A task whose output is proposed measures forms: 'task T3 = propose R1 assigned_to <who>'
+line 21: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: none
+line 22: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: none
+line 23: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: none
+line 25: G002 refused: check of R1 names no adopted measure, so it has no answer: write 'check R1 by <M> on <data>' with R1's adopted measure. Adopted for R1: none
+
+## 7. Second requirement: drops should feel fair (one row per equal-weight slot)
+
+    requirement R2 = "drops should feel fair"
+      owner patsak
+    measure F1 for R2 proposed_by grokbot
+      says "each tier's share of the equal-weight slots equals its published odds: 79, 15, 5, 1 percent"
+      fragment "F1.fragment" sha256:d57a76b2700c9b751f8cdf0917e2c2dc02c54eb023bd8021228c8f667f3dc299
+    measure F2 for R2 proposed_by grokbot
+      says "each tier has at least 1 percent of the equal-weight slots"
+      fragment "F2.fragment" sha256:458a038a02458c665bece7403f3a1c8725fc1ef871ad6ac4e93398bba967a477
+
+line 25: requirement R2 recorded, OFFERED: "drops should feel fair" (owner patsak)
+  Reality does not read this text. R2 cannot be delivered or checked until patsak adopts a measure for it.
+line 27: measure F1 proposed for R2 by grokbot (tool), sha256:d57a76b2...c299, 8 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "each tier's share of the equal-weight slots equals its published odds: 79, 15, 5, 1 percent"
+line 30: measure F2 proposed for R2 by grokbot (tool), sha256:458a038a...a477, 4 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "each tier has at least 1 percent of the equal-weight slots"
+
+## 8. Patsak adopts F1, signed (this run: a throwaway TEST key, not Patsak's)
+
+    adopt F1 for R2 by patsak at "2026-11-14T15:02:00+01:00"
+      requirement_text sha256:28b6e46f04bb2223bfeaf2bc886b36fbd6fa31a4ad84ee8d2b9e0664aef905ca measure sha256:d57a76b2700c9b751f8cdf0917e2c2dc02c54eb023bd8021228c8f667f3dc299 sig "adopt-F1.sig"
+
+line 33: F1 ADOPTED for R2 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of F1 before adoption
+
+## 9. Checks of the drop tables, and a trial of F2
+
+    check R2 by F1 on sha256:ae92af6e52eaa3e80a1334033abe77cd9d0e90f751db92e9426ef5cdacdfc5b3
+    check R2 by F1 on sha256:1f93834f9787b6f81596ec60091fa814e77ae3276e2f4249bb3ac80d96597136
+    try F2 on sha256:1f93834f9787b6f81596ec60091fa814e77ae3276e2f4249bb3ac80d96597136
+
+line 35: check R2 by F1 on sha256:ae92af6e...c5b3
+  requirement R2: "drops should feel fair" (owner patsak)
+  measure F1: sha256:d57a76b2...c299, proposed by grokbot, adopted on line 33
+    fragment line 2: share(where(t, eq("tier", "common")), t) = 790/1000 (Exact)
+    fragment line 5: share(where(t, eq("tier", "uncommon")), t) = 150/1000 (Exact)
+    fragment line 8: share(where(t, eq("tier", "rare")), t) = 50/1000 (Exact)
+    fragment line 11: share(where(t, eq("tier", "legendary")), t) = 10/1000 (Exact)
+  F1 HOLDS on this data: 8 of 8 conditions hold.
+  This is a statement about F1 on this data. Reality did not decide whether F1 is the right measure for R2's text; the owner's adoption did.
+line 36: check R2 by F1 on sha256:1f93834f...7136
+  requirement R2: "drops should feel fair" (owner patsak)
+  measure F1: sha256:d57a76b2...c299, proposed by grokbot, adopted on line 33
+    fragment line 2: share(where(t, eq("tier", "common")), t) = 790/1000 (Exact)
+    fragment line 5: share(where(t, eq("tier", "uncommon")), t) = 150/1000 (Exact)
+    fragment line 8: share(where(t, eq("tier", "rare")), t) = 54/1000 (Exact)
+    fragment line 11: share(where(t, eq("tier", "legendary")), t) = 6/1000 (Exact)
+    fragment line 10 does not hold: v4: atmost(): the claim says the value is at most 0.05; computed from the bytes it is 0.054
+    fragment line 12 does not hold: v4: atleast(): the claim says the value is at least 0.01; computed from the bytes it is 0.006
+  F1 DOES NOT HOLD on this data: 6 of 8 conditions hold, 2 do not.
+  This is a statement about F1 on this data. Reality did not decide whether F1 is the right measure for R2's text; the owner's adoption did.
+line 37: TRIAL of F2 on sha256:1f93834f...7136: F2 is not adopted for R2, and this says nothing about R2.
+  requirement R2: "drops should feel fair" (owner patsak)
+  measure F2: sha256:458a038a...a477, proposed by grokbot
+    fragment line 5 does not hold: v4: atleast(): the claim says the value is at least 0.01; computed from the bytes it is 0.006
+  F2 DOES NOT HOLD on this data: 3 of 4 conditions hold, 1 does not.
+
+## 10. Third requirement, for a playtest: offered, and handed out as work: refused
+
+    requirement R3 = "players understand wall-running"
+      owner patsak
+      from "made-up playtest example; not Valve data"
+    task T4 = deliver R3 assigned_to alex
+
+line 38: requirement R3 recorded, OFFERED: "players understand wall-running" (owner patsak)
+  Reality does not read this text. R3 cannot be delivered or checked until patsak adopts a measure for it.
+line 41: G001 refused: task T4 assigns R3 ("players understand wall-running") as work with a done-condition, but R3 has no adopted measure, so nothing decides when it is done. Measures for R3: none. A task whose output is proposed measures forms: 'task T4 = propose R3 assigned_to <who>'
+
+## 11. A measure is proposed before the playtest
+
+    measure P1 for R3 proposed_by grokbot
+      says "share of first-time players who complete the tutorial, without external help, in under 240 s, at least 80 percent"
+      fragment "P1.fragment" sha256:d01eec1a6b0f0050ccc43a73c14a6293f35ae9e7f5b770b9aebbd8e631f8afbf
+
+line 42: measure P1 proposed for R3 by grokbot (tool), sha256:d01eec1a...afbf, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "share of first-time players who complete the tutorial, without external help, in under 240 s, at least 80 percent"
+
+## 12. Patsak adopts P1 before playtest 1, signed (this run: a throwaway TEST key, not Patsak's)
+
+    adopt P1 for R3 by patsak at "2026-11-14T15:02:00+01:00"
+      requirement_text sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 measure sha256:d01eec1a6b0f0050ccc43a73c14a6293f35ae9e7f5b770b9aebbd8e631f8afbf sig "adopt-P1.sig"
+
+line 45: P1 ADOPTED for R3 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of P1 before adoption
+
+## 13. Playtest 1 (50 made-up players), checked by P1
+
+    check R3 by P1 on sha256:acf5027e42d5b4f45639a038abaf78c4e688776200096047bc0261251eaaaf58
+
+line 47: check R3 by P1 on sha256:acf5027e...af58
+  requirement R3: "players understand wall-running" (owner patsak)
+  measure P1: sha256:d01eec1a...afbf, proposed by grokbot, adopted on line 45
+    fragment line 3: share(u, t) = 37/50 (Exact)
+    fragment line 4 does not hold: v4: atleast(): the claim says the value is at least 0.8; computed from the bytes it is 0.74
+  P1 DOES NOT HOLD on this data: 0 of 1 conditions hold, 1 does not.
+  This is a statement about P1 on this data. Reality did not decide whether P1 is the right measure for R3's text; the owner's adoption did.
+
+## 14. P1's bar edited after the result (0.8 -> 0.7, and the measure line's hash updated to match)
+
+    check R3 by P1 on sha256:acf5027e42d5b4f45639a038abaf78c4e688776200096047bc0261251eaaaf58
+
+line 45: G014 refused: the adoption on line 45 was for R3's text sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 and P1's fragment sha256:d01eec1a6b0f0050ccc43a73c14a6293f35ae9e7f5b770b9aebbd8e631f8afbf; they are now sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 and sha256:23679c3563ed7873c6b6dca3889f8b66b902f509bf31030226e7499d78e3f840. A changed text or measure is not the one adopted
+line 47: G014 refused: the adoption on line 45 was for R3's text sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 and P1's fragment sha256:d01eec1a6b0f0050ccc43a73c14a6293f35ae9e7f5b770b9aebbd8e631f8afbf; they are now sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 and sha256:23679c3563ed7873c6b6dca3889f8b66b902f509bf31030226e7499d78e3f840. A changed text or measure is not the one adopted
+line 48: G014 refused: the adoption on line 45 was for R3's text sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 and P1's fragment sha256:d01eec1a6b0f0050ccc43a73c14a6293f35ae9e7f5b770b9aebbd8e631f8afbf; they are now sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 and sha256:23679c3563ed7873c6b6dca3889f8b66b902f509bf31030226e7499d78e3f840. A changed text or measure is not the one adopted
+
+## 15. After a tutorial change: playtest 2 (50 made-up players), checked by the same P1
+
+    check R3 by P1 on sha256:69daf328932350e787a4cd61a89210084db2ddf26fc09699ad4d72bc5d9af452
+
+line 48: check R3 by P1 on sha256:69daf328...f452
+  requirement R3: "players understand wall-running" (owner patsak)
+  measure P1: sha256:d01eec1a...afbf, proposed by grokbot, adopted on line 45
+    fragment line 3: share(u, t) = 42/50 (Exact)
+  P1 HOLDS on this data: 1 of 1 conditions hold.
+  This is a statement about P1 on this data. Reality did not decide whether P1 is the right measure for R3's text; the owner's adoption did.
+
+## 16. A lower bar is a new measure and a later, separate act: P1 withdrawn, signed (this run: a throwaway TEST key, not Patsak's)
+
+    withdraw P1 for R3 by patsak at "2026-11-14T15:09:00+01:00"
+      requirement_text sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 measure sha256:d01eec1a6b0f0050ccc43a73c14a6293f35ae9e7f5b770b9aebbd8e631f8afbf sig "withdraw-P1.sig"
+
+line 49: P1 WITHDRAWN for R3 by patsak at "2026-11-14T15:09:00+01:00"; signature checked. R3 has no adopted measure now
+  checks made under P1 stay statements about P1
+
+## 17. P1b proposed at 70 percent, after both results
+
+    measure P1b for R3 proposed_by grokbot
+      says "share of first-time players who complete the tutorial, without external help, in under 240 s, at least 70 percent"
+      fragment "P1b.fragment" sha256:918edb7c286f81725b255a3dbe16c10f91cd496c7a789adc402ba8cd9818b508
+
+line 51: measure P1b proposed for R3 by grokbot (tool), sha256:918edb7c...b508, 1 condition; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "share of first-time players who complete the tutorial, without external help, in under 240 s, at least 70 percent"
+
+## 18. Patsak adopts P1b, signed (this run: a throwaway TEST key, not Patsak's)
+
+    adopt P1b for R3 by patsak at "2026-11-14T15:09:00+01:00"
+      requirement_text sha256:2246bf6c77b5823469f8aef017c7bafe6d752a98a9074334c62d8182da35c559 measure sha256:918edb7c286f81725b255a3dbe16c10f91cd496c7a789adc402ba8cd9818b508 sig "adopt-P1b.sig"
+
+line 54: P1b ADOPTED for R3 by patsak at "2026-11-14T15:09:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of P1b before adoption
+
+## 19. Playtest 1 by P1b; the P1 result on line 47 still stands, labelled with P1
+
+    check R3 by P1b on sha256:acf5027e42d5b4f45639a038abaf78c4e688776200096047bc0261251eaaaf58
+    status R3
+
+line 56: check R3 by P1b on sha256:acf5027e...af58
+  requirement R3: "players understand wall-running" (owner patsak)
+  measure P1b: sha256:918edb7c...b508, proposed by grokbot, adopted on line 54
+    fragment line 3: share(u, t) = 37/50 (Exact)
+  P1b HOLDS on this data: 1 of 1 conditions hold.
+  This is a statement about P1b on this data. Reality did not decide whether P1b is the right measure for R3's text; the owner's adoption did.
+line 57: R3 is ADOPTED: "players understand wall-running"
+  measures: P1 (withdrawn; adopted line 45 at "2026-11-14T15:02:00+01:00", withdrawn line 49 at "2026-11-14T15:09:00+01:00"; proposed by grokbot), P1b (adopted line 54 at "2026-11-14T15:09:00+01:00"; proposed by grokbot)

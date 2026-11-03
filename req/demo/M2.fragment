@@ -1,0 +1,13 @@
+# M2 edge retention: per frame, share of reference edge pixels that are edge pixels in the output, at least 1/2
+let e0 = where(t, eq("frame", "f0"), eq("ref_edge", "1"))
+claim share(where(e0, eq("out_edge", "1")), e0)
+claim atleast(share(where(e0, eq("out_edge", "1")), e0), c = 0.5)
+let e1 = where(t, eq("frame", "f1"), eq("ref_edge", "1"))
+claim share(where(e1, eq("out_edge", "1")), e1)
+claim atleast(share(where(e1, eq("out_edge", "1")), e1), c = 0.5)
+let e2 = where(t, eq("frame", "f2"), eq("ref_edge", "1"))
+claim share(where(e2, eq("out_edge", "1")), e2)
+claim atleast(share(where(e2, eq("out_edge", "1")), e2), c = 0.5)
+let e3 = where(t, eq("frame", "f3"), eq("ref_edge", "1"))
+claim share(where(e3, eq("out_edge", "1")), e3)
+claim atleast(share(where(e3, eq("out_edge", "1")), e3), c = 0.5)

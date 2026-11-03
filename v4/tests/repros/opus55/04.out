@@ -1,0 +1,8 @@
+line 22: formed: Below[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[Difference[D
+accepted
+exit 0
+== same, 120 MB limit
+line 21: refused [X001, bug]: internal error MemoryError; nothing formed (please report)
+line 22: refused [N003, item 1]: a name used here comes from the statement on line 21, which was refused
+refused (2 statements)
+exit 1

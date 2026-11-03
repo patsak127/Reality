@@ -1,0 +1,13 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\22-manifest-unchecked-fields.rl --files findings\22-m --root findings\22-ds
+line 3: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 1 (Exact)
+  #1 = sha256:7e109487442ec0fcb8397e5edcfddd02f07b08599b08f9b96bb416195bd2b1d8
+  #2 = sha256:293eac506f0087701fbb7d96e686c1ce554da692f1c2632044080c81408203ff
+line 4: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2]] = 5 (Exact)
+  #1 = sha256:7e109487442ec0fcb8397e5edcfddd02f07b08599b08f9b96bb416195bd2b1d8
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

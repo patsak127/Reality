@@ -1,0 +1,14 @@
+line 6: formed: Difference[Decimal[Cell[TSV[#1], row 1, col 4]], Decimal[Cell[TSV[#1], row 1, col 4]]] = 0 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 7: formed: Below[Difference[Decimal[Cell[TSV[#1], row 1, col 4]], Decimal[Cell[TSV[#1], row 1, col 4]]], c = 1] holds
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 8: formed: Widened[Decimal[Cell[TSV[#1], row 1, col 4]], tolerance = 0] = 24 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 9: formed: Count[Rows[TSV[#1] where col 2 = "equalRange" and col 2 != "equalIndifference"]] = 54 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 10: formed: Count[Rows[TSV[#1] where col 2 = "equalRange" and col 2 = "equalIndifference"]] = 0 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 11: formed: Count[Rows[TSV[#1] where col 2 = "equalRange" and col 2 != "equalRange"]] = 0 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+line 12: refused [S008, item 1]: the condition eq(col 2, "equalRange") is written twice; the second does not bear on the answer
+refused (1 statement)

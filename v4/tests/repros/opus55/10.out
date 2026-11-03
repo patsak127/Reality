@@ -1,0 +1,5 @@
+line 4: refused [F001, text]: no supplied file has sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8; the text names it, so its bytes are part of the text
+line 5: refused [B00, reading rules]: the dataset does not conform to BIDS 1.0.1 (648 failures), so nothing BIDS-based forms from it (principle §1, whole-dataset conformance). B07 x432, first: sub-001/func/sub-001_task-MGT_run-01_events.tsv has no BOLD file; BIDS 1.0.1 §8.5: "Each task events file requires a corresponding task imaging data file"; B12 x216, first: sub-001/fmap/sub-001_phasediff.json: no phasediff image (sub-001/fmap/sub-001_phasediff.nii[.gz]); §8.9.1 case 1 requires it
+line 6: formed: RowCount[TSV[#1]] = 108 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+refused (2 statements)

@@ -1,0 +1,11 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\10-sidecar-precedence.rl --files findings\10-m --root findings\10-ds
+line 2: formed: RepetitionTime[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x acq a rec b run 1: #2], from #3] is recorded as 2 s (Recorded[s])
+  #1 = sha256:b83c31be03e9ec1a05ed7a0e1491ad4c660992738a2c2d4c0d4d5d85e9ced8e3
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:b31421f10215b59c9aaea164ebec9cf1ec67b995c0892ff082f66d96d535f746
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

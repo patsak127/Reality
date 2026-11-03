@@ -1,0 +1,22 @@
+### list-valued PhaseEncodingDirection
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\16-x001-from-valid-json.rl --files findings\16-m-a --root findings\16-ds-a
+line 2: refused [X001, bug]: internal error TypeError; nothing formed (please report)
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 13 MB]
+```
+
+### JSON nested 970 deep
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\16-x001-from-valid-json-b.rl --files findings\16-m-b --root findings\16-ds-b
+line 3: refused [X001, bug]: internal error RecursionError; nothing formed (please report)
+line 4: formed: Count[Participants[BIDS-1.0.1[#1] from #2]] = 1 (Exact)
+  #1 = sha256:b9a4f467dbccbed70c3f7f23bf18fcd5bbba5f7ac699a360df63d06f1a454220
+  #2 = sha256:293eac506f0087701fbb7d96e686c1ce554da692f1c2632044080c81408203ff
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 12 MB]
+```

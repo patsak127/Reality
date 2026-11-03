@@ -1,0 +1,6 @@
+line 3: refused [X001, bug]: internal error ValueError; nothing formed (please report)
+refused (1 statement)
+== PYTHONINTMAXSTRDIGITS=0
+line 3: formed: Exceeds[Decimal[Cell[TSV[#1], row 1, col 1]], c = 0] holds
+  #1 = sha256:d54faf8cd4f274b57ba67510bdcb7171725fb4c6d2390f4a6299fec74a12e6fe
+accepted

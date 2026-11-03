@@ -1,0 +1,17 @@
+line 7: formed: VolumeCount[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2]] = 3 (Exact)
+  #1 = sha256:245c46b8e672ed890d788a81f3fce12fbd6ad02f1c08f289dccca7e4d6e309df
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+line 8: formed: RepetitionTime[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], from #3] is recorded as 1 s (Recorded[s])
+  #1 = sha256:245c46b8e672ed890d788a81f3fce12fbd6ad02f1c08f289dccca7e4d6e309df
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:c5a7795448ad5cce6dc8928af7acd9715fdd840c48d9434ea2356567dc7270fa
+line 9: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 1] is recorded as 4.071 s (Recorded[s])
+  #1 = sha256:245c46b8e672ed890d788a81f3fce12fbd6ad02f1c08f289dccca7e4d6e309df
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:8f4461b0dcdc1d8e8d9ae1975a99d0476d95e8083432cf586f2508ebe8f8be53
+line 10: formed: EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 001 task MGT run 01: #2], #3 row 64] is recorded as 441.024 s (Recorded[s])
+  #1 = sha256:245c46b8e672ed890d788a81f3fce12fbd6ad02f1c08f289dccca7e4d6e309df
+  #2 = sha256:3c861ed4e406d263e96081501fc6ead18ca4f6564f4aa5c90c78d5c30172114b
+  #3 = sha256:8f4461b0dcdc1d8e8d9ae1975a99d0476d95e8083432cf586f2508ebe8f8be53
+line 11: refused [V004, item 2]: recording(): 0 BOLD recordings in the dataset match sub-001 task-MGT run-04 (a recording with run labels needs the run; one without needs none); exactly one is needed
+refused (1 statement)

@@ -1,0 +1,28 @@
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\03-onset-difference-across-recordings.rl --files findings\03-m --root findings\03-ds
+line 6: formed: Difference[EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 02 task x: #2], #3 row 1], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #4], #5 row 1]] is recorded as 5.75 s (Recorded[s])
+  #1 = sha256:69afb96445b1476693779165a85d7dc414bb894deb7595291da441813c7a1188
+  #2 = sha256:6ca4c457ee33ce2cbd26a094bbe63a160c1ec34b39c6b727fadda19301152691
+  #3 = sha256:b04ccf4072aa7ead718dd5377e1994d438c4a9f78d12b9a6c1a229614d7acb97
+  #4 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #5 = sha256:275f55117f8267ee63bdd8d01a544fe7a39b827ef185b6f1f37bd7d36c2c7f7c
+line 7: formed: Exceeds[Difference[EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 02 task x: #2], #3 row 1], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #4], #5 row 1]], c = 5 s] holds of the recorded value
+  #1 = sha256:69afb96445b1476693779165a85d7dc414bb894deb7595291da441813c7a1188
+  #2 = sha256:6ca4c457ee33ce2cbd26a094bbe63a160c1ec34b39c6b727fadda19301152691
+  #3 = sha256:b04ccf4072aa7ead718dd5377e1994d438c4a9f78d12b9a6c1a229614d7acb97
+  #4 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #5 = sha256:275f55117f8267ee63bdd8d01a544fe7a39b827ef185b6f1f37bd7d36c2c7f7c
+line 9: formed: Difference[RepetitionTime[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2], from #3], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2], #4 row 1]] is recorded as 0.5 s (Recorded[s])
+  #1 = sha256:69afb96445b1476693779165a85d7dc414bb894deb7595291da441813c7a1188
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:5a7c297e28eea4b96a0b3ef942021fa63e206b296183997633aa1864f829052e
+  #4 = sha256:275f55117f8267ee63bdd8d01a544fe7a39b827ef185b6f1f37bd7d36c2c7f7c
+line 11: formed: Difference[EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2], #3 row 2], EventOnset[BOLDRecording[BIDS-1.0.1[#1], sub 01 task x: #2], #3 row 1]] is recorded as 7.75 s (Recorded[s])
+  #1 = sha256:69afb96445b1476693779165a85d7dc414bb894deb7595291da441813c7a1188
+  #2 = sha256:2332e1fb224ea541dcec22cd75345b9c9fb9b0f396c46a10cec5254eb5bbde6e
+  #3 = sha256:275f55117f8267ee63bdd8d01a544fe7a39b827ef185b6f1f37bd7d36c2c7f7c
+accepted
+[exit code 0; wall 0.1 s; peak private memory 12 MB]
+```

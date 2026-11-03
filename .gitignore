@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.lake/
+*.zip
+*.tgz
+*.tar.gz
+.env
+.env.*
+# Third-party fixture, not redistributed here (see README, "Tests")
+v4/tests/data/ds001734-box/

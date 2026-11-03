@@ -1,0 +1,20 @@
+### no cap
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -m reality2 check findings\06-memory-decides-verdict.rl --files findings\06-wide.tsv
+line 3: formed: RowCount[TSV[#1]] = 330 (Exact)
+  #1 = sha256:a8946905fe99b45f7b0db2c115baee2470ec2c2f6c6121a9712ce489668edf3b
+accepted
+[exit code 0; wall 0.1 s; peak private memory 32 MB]
+```
+
+### 30 MB per-process cap (a smaller machine)
+```
+> set PYTHONPATH=src
+set PYTHONIOENCODING=utf-8
+python -I scratch\runlimit.py --memcap 30 -- check findings\06-memory-decides-verdict.rl --files findings\06-wide.tsv
+line 3: refused [X001, bug]: internal error MemoryError; nothing formed (please report)
+refused (1 statement)
+[exit code 1; wall 0.1 s; peak private memory 30 MB]
+```

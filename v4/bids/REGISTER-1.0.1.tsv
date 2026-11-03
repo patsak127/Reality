@@ -1,0 +1,634 @@
+id	line	sha256_12	class	codes	decision	note	text
+S0001	1	d0ae79c4c7fd	notfiles			title, changelog or table of contents	The Brain Imaging Data Structure (BIDS) Specification version 1.0.1 Available under the CC-BY 4.0 International license.
+S0002	6	85ae95e7726c	notfiles			title, changelog or table of contents	Latest version of the specification: http://bids.neuroimaging.io Browse example datasets: https://github.com/INCF/BIDS-examples Download example datasets: https://drive.google.com/folderview?id=0B2JWN60ZLkgkMGlUY3B4MXZIZW8&usp=sharing BIDS 2.0 - suggestions and changes that break backward compatibility: https://docs.google.com/document/d/1LEgsMiisGDe1Gv-hBp1EcLmoz7AlKj6VYULUgDD3Zdw/edit#
+S0003	16	469a81fafbbd	notfiles			title, changelog or table of contents	1 Changelog 1.0.1
+S0004	16	f86c19b0dd4f	notfiles			title, changelog or table of contents	● Added InstitutionName field [8.4 Task (including resting state) imaging data]
+S0005	16	91cf662f0ee9	notfiles			title, changelog or table of contents	● Added InstitutionAddress field [8.4 Task (including resting state) imaging data]
+S0006	16	03df57836f1c	notfiles			title, changelog or table of contents	● Added DeviceSerialNumber field [8 .4 Task (including resting state) imaging data]
+S0007	16	6e17d023bdc6	notfiles			title, changelog or table of contents	● Added NumberOfVolumesDiscardedByUser and NumberOfVolumesDiscardedByScanner field [8.4 Task (including resting state) imaging data]
+S0008	16	ceea92285f21	notfiles			title, changelog or table of contents	● Added TotalReadoutTime to functional images metadata list [8.4 Task (including resting state) imaging data].
+S0009	16	423d07c07d40	notfiles			title, changelog or table of contents	1.0.1-rc1
+S0010	16	8db5c2cb6775	notfiles			title, changelog or table of contents	● Added T1 Rho maps [8.3 Anatomy imaging data]
+S0011	16	4c061e5ebcfb	notfiles			title, changelog or table of contents	● Added support for phenotypic information split into multiple files [8.11 Participant key file]
+S0012	16	fb956445bb77	notfiles			title, changelog or table of contents	● Added recommendations for multi site datasets
+S0013	16	16acea4107ad	notfiles			title, changelog or table of contents	● Added SoftwareVersions.
+S0014	16	b265a83caa51	notfiles			title, changelog or table of contents	● Added run-<run_index> to the phase encoding maps.
+S0015	16	b583df9bbb4e	notfiles			title, changelog or table of contents	Improved the description.
+S0016	16	960592d6cdf1	notfiles			title, changelog or table of contents	● Added InversionTime metadata key.
+S0017	16	493251c63a22	notfiles			title, changelog or table of contents	● Clarification on the source vs raw language.
+S0018	16	154d1a64800c	notfiles			title, changelog or table of contents	● Added trial_type column to the event files.
+S0019	16	a4797340a2c1	notfiles			title, changelog or table of contents	● Added missing sub-<participant_label> in behavioural data file names
+S0020	16	5f6a410f5c48	notfiles			title, changelog or table of contents	● Added ability to store stimuli files.
+S0021	16	eef10f9e1f94	notfiles			title, changelog or table of contents	● Clarified the language describing allowed subject labels.
+S0022	16	7ac56a8f2c6b	notfiles			title, changelog or table of contents	● Added quantitative proton density maps.
+S0023	16	92521fc3cbd9	notfiles			title, changelog or table of contents	1.0.0
+S0024	16	6a1f4f1f24e2	notfiles			title, changelog or table of contents	● Added ability to specify fieldmaps acquired with multiple parameter sets.
+S0025	16	d8fe187113dd	notfiles			title, changelog or table of contents	● Added ability to have multiple runs of the same fieldmap.
+S0026	16	70f90c0e0bb1	notfiles			title, changelog or table of contents	● Added FLASH anatomical images.
+S0027	16	16395ab900b5	notfiles			title, changelog or table of contents	1.0.0-rc4
+S0028	44	c0a2f2c6a412	notfiles			title, changelog or table of contents	－1－
+S0029	44	dcb48e49bd24	notfiles			title, changelog or table of contents	● Replaced links to neurolex with explicit DICOM Tags.
+S0030	44	a50e7f5a8037	notfiles			title, changelog or table of contents	● Added sourcedata.
+S0031	44	7f9079d1a66e	notfiles			title, changelog or table of contents	● Added data dictionaries.
+S0032	44	2851afa6b563	notfiles			title, changelog or table of contents	● Be more explicit about contents of JSON files for structural (anatomical) scans.
+S0033	44	9e3e6fa6af5b	notfiles			title, changelog or table of contents	1.0.0-rc3
+S0034	44	8ee60b2e6674	notfiles			title, changelog or table of contents	● Renamed PhaseEnc odingDirection values from “x”, “y”, “z” to “i”, “j”, “k” to avoid confusion with FSL parameters
+S0035	44	840cbb860f91	notfiles			title, changelog or table of contents	● Renamed SliceEnc odingDirection values from “x”, “y”, “z” to “i”, “j”, “k” 1.0.0-rc2
+S0036	44	419556bff255	notfiles			title, changelog or table of contents	● Removed the requirement that TSV files cannot include more than two consecutive spaces.
+S0037	44	0f18ae6a3d35	notfiles			title, changelog or table of contents	● Refactor of the definitions sections (copied from the manuscript)
+S0038	44	da084a4146cb	notfiles			title, changelog or table of contents	● Make support for uncompressed .nii files more explicit.
+S0039	44	7b8acdf8fb76	notfiles			title, changelog or table of contents	● Added BIDSVersion to dataset.json
+S0040	44	0f1544e3a3d0	notfiles			title, changelog or table of contents	● Remove the statement that SliceEncodingDirection is necessary for slice time correction
+S0041	44	7632afa707a5	notfiles			title, changelog or table of contents	● Change dicom converter recommendation from dcmstack to dcm2nii and dicm2nii following interactions with the community (see https://github.com/moloney/dcmstack/issues/39 and https://github.com/neurolabusc/dcm2niix/issues/4)
+S0042	44	5407e6f716ea	notfiles			title, changelog or table of contents	● Added section on behavioral experiments with no accompanying MRI acquisition
+S0043	44	d313f1d0b5e3	notfiles			title, changelog or table of contents	● Add _magnitude.nii[.gz] image for GE type fieldmaps.
+S0044	44	39334165b370	notfiles			title, changelog or table of contents	● Replaced EchoTimeD ifference with EchoTime1 and EchoTime2 (SPM toolbox requires this input).
+S0045	44	74f2a9dcffd0	notfiles			title, changelog or table of contents	● Added support for single band reference image for DWI.
+S0046	44	38612eb8111b	notfiles			title, changelog or table of contents	● Added DatasetDOI field in the dataset description.
+S0047	44	7ba5931aae06	notfiles			title, changelog or table of contents	● Added description of more metadata fields relevant to DWI fieldmap correction.
+S0048	44	4746eda5ad5e	notfiles			title, changelog or table of contents	● PhaseEncodingDirection is now expressed in “x”, “y” etc. instead of “PA” “RL” for DWI scans (so it’s the same as BOLD scans)
+S0049	44	15844d32501c	notfiles			title, changelog or table of contents	● Added rec-<label> flag to BOLD files to distinguish between different reconstruction algorithms (analogous to anatomical scans).
+S0050	44	480e46c416ec	notfiles			title, changelog or table of contents	● Added recommendation to use _ physio suffix for continuous recordings of motion parameters obtained by the scanner side reconstruction algorithms.
+S0051	44	483fef0cef6f	notfiles			title, changelog or table of contents	1.0.0-rc1
+S0052	44	11e4d732fb33	notfiles			title, changelog or table of contents	● Initial release
+S0053	78	578c03851d78	notfiles			title, changelog or table of contents	2 Table of contents
+S0054	80	eece45a98d26	notfiles			title, changelog or table of contents	1 Changelog 2 Table of contents 3 Introduction 3.1 Motivation 3.2 Definitions 3.3 Compulsory, optional, and additional 3.4 Source vs. raw vs. derived data
+S0055	88	21aea0e1ca99	notfiles			title, changelog or table of contents	－2－ 3.5 The Inheritance Principle 3.6 Extensions 4 File Format specification 4.1 Imaging files 4.2 Tabular files 4.2.1 Example: 4.2.2 Example: 4.3 Key/value files (dictionaries) 4.3.1 Example: 5 Participant names and other labels 6 Units 7 Directory structure 7.1 Single session example 8 Detailed file descriptions 8.1 Dataset description 8.1.1 Example: 8.1.2 Example: 8.2 Code 8.3 Anatomy imaging data 8.4 Task (including resting state) imaging data 8.4.1 Example: 8.5 Task events 8.5.1 Example: 8.5.2 Example: 8.6 Physiological and other continuous recordings 8.6.1 Example: 8.7 Behavioral experiments (with no MRI) 8.8 Diffusion imaging data 8.8.1 bvec example: 8.8.2 bval example: 8.8.3 json example: 8.9 Fieldmap data 8.9.1 Case 1: Phase difference image and at least one magnitude image 8.9.2 Case 2: Two phase images and two magnitude images 8.9.3 Case 3: A single, real fieldmap image (showing the field inhomogeneity in each voxel) 8.9.4 Case 4: Multiple phase encoded directions (topup) 8.10 Scans key file 8.10.1 Example: 8.11 Participant key file 8.11.1 participants.tsv example: 9 Longitudinal studies with multiple sessions (visits) 9.1 Sessions file 9.1.1 Multiple sessions example:
+S0056	133	fec6623183e5	notfiles			title, changelog or table of contents	－3－ 10 Multi-site or multi-center studies 10.1 Option 1: Treat each site/center as a separate dataset.
+S0057	133	a08931689e08	notfiles			title, changelog or table of contents	10.2 Option 2: Combining sites/centers into one dataset 11 Appendix I: Licenses 11.1 What is below is not part of the specifications : brainstorming / material / idea … 11.1.1 Proposal: Switch from JSON to YAML 11.1.2 Question: 11.1.3 IDEA: BIDS also for internal long-term data storage (Enrico Glerean)
+S0058	144	09445310cafc	notfiles			motivation and definitions	3 Introduction 3.1 Motivation Neuroimaging experiments result in complicated data that can be arranged in many different ways.
+S0059	144	04a621d7345f	notfiles			motivation and definitions	So far there is no consensus how to organize and share data obtained in neuroimaging experiments.
+S0060	144	85ad07913b82	notfiles			motivation and definitions	Even two researchers working in the same lab can opt to arrange their data in a different way.
+S0061	144	d909a90687dc	notfiles			motivation and definitions	Lack of consensus (or a standard) leads to misunderstandings and time wasted on rearranging data or rewriting scripts expecting certain structure.
+S0062	144	7a03a6ad16ed	notfiles			motivation and definitions	Here we describe a simple and easy to adopt way of organising neuroimaging and behavioural data.
+S0063	144	41881bcd285a	notfiles			motivation and definitions	By using this standard you will benefit in the following ways:
+S0064	144	14cbb0d9fdb4	notfiles			motivation and definitions	● It will be easy for another researcher to work on your data.
+S0065	144	2056f3970255	notfiles			motivation and definitions	To understand the organisation of the files and their format you will only need to refer them to this document.
+S0066	144	8f6bb52a9d80	notfiles			motivation and definitions	This is especially important if you are running your own lab and anticipate more than one person working on the same data over time.
+S0067	144	b5cd0523ecdf	notfiles			motivation and definitions	By using BIDS you will save time trying to understand and reuse data acquired by a graduate student or postdoc that has already left the lab.
+S0068	144	88280f0405de	notfiles			motivation and definitions	● There is a growing number of data analysis software packages that can understand data organised according to BIDS.
+S0069	144	9514830e1788	notfiles			motivation and definitions	● Databases such as OpenfMRI.org accept datasets organised according to BIDS.
+S0070	144	6ad78c131036	notfiles			motivation and definitions	If you ever plan to share your data publicly (nowadays some journals require this) you can minimize the additional time and energy spent on publication, and speed up the curation process by using BIDS to structure and describe your data right after acquisition.
+S0071	144	7393e285aa6d	notfiles			motivation and definitions	● There are validation tools that can check your dataset integrity and let you easily spot missing values.
+S0072	165	802f85a894af	notfiles			motivation and definitions	BIDS is heavily inspired by the format used internally by OpenfMRI.org.
+S0073	165	78bb0791b128	notfiles			motivation and definitions	While working on BIDS we consulted many neuroscientists to make sure it covers most common experiments, but at the same time is intuitive and easy to adopt.
+S0074	165	ac25c9a849c8	notfiles			motivation and definitions	The specification is intentionally based simple file formats and folder structures to reflect current lab practices and make it accessible to wide range of scientists coming from different backgrounds.1
+S0075	170	bfd282cecf81	notfiles			motivation and definitions	3.2 Definitions Throughout this protocol we use a list of different MRI related terms.
+S0076	170	6ad159fdd5a1	notfiles			motivation and definitions	To avoid misunderstanding we clarify them here.
+S0077	176	3b21f29fea8f	notfiles			motivation and definitions	1 For review of other data organization standards in neuroimaging see Appendix. －4－ 1.
+S0078	176	a0827159e4bd	notfiles			motivation and definitions	Dataset - a set of neuroimaging and behavioural data acquired for a purpose of a particular study.
+S0079	176	b960d556bb9c	notfiles			motivation and definitions	A dataset consists of data acquired from one or more subjects, possibly from multiple sessions.
+S0080	176	6bc54f13bea5	notfiles			motivation and definitions	2.
+S0081	176	08b473186212	notfiles			motivation and definitions	Subject - a person or animal participating in the study.
+S0082	176	267c23695b6e	notfiles			motivation and definitions	3.
+S0083	176	390c144646ad	notfiles			motivation and definitions	Session - a logical grouping of neuroimaging and behavioural data consistent across subjects.
+S0084	176	bbf90338396d	notfiles			motivation and definitions	Session can (but doesn't have to) be synonymous to a visit in a longitudinal study.
+S0085	176	5ea2fdf26e23	notfiles			motivation and definitions	In general, subjects will stay in the scanner during one session.
+S0086	176	22ddf583d5ec	notfiles			motivation and definitions	However if a subject has to leave the scanner room and then be re-positioned on the scanner bed, the set of MRI acquisitions will still be considered as a session and match sessions acquired in other subjects.
+S0087	176	21a53c39f889	notfiles			motivation and definitions	Similarly in situations where different type of data is obtained over several visits (for example fMRI on one day followed by DWI the day after) those can be grouped in one session.
+S0088	176	eba65e5a28c8	notfiles			motivation and definitions	Defining multiple sessions is appropriate when several identical or similar data acquisitions are planned and performed on all -or most- subjects, often in the case of some intervention between sessions (e.g., training).
+S0089	176	23f663630e2f	notfiles			motivation and definitions	4.
+S0090	176	b50da6e966a6	notfiles			motivation and definitions	MRI acquisition - a continuous uninterrupted block of time during which an MRI scanner was acquiring data according to particular scanning sequence/protocol.
+S0091	176	540dd397b2d3	notfiles			motivation and definitions	5.
+S0092	176	8c6d10553f05	notfiles			motivation and definitions	Data type - a functional group of different types of MRI data.
+S0093	176	7154a2d92d4b	notfiles			motivation and definitions	In BIDS we define four data types: func (task based and resting state functional MRI), dwi (diffusion weighted imaging), fmap (field inhomogeneity mapping data such as field maps), anat (structural imaging such as T1, T2, etc.) 6.
+S0094	176	c70f3e9937e3	notfiles			motivation and definitions	Task - a set of activities performed by the subject that aim at eliciting changes in the brain.
+S0095	176	55882b569ec3	notfiles			motivation and definitions	Tasks are usually accompanied by stimuli and responses, and can greatly vary in complexity.
+S0096	176	f096b31402c3	notfiles			motivation and definitions	For the purpose of this protocol we consider the so-called “resting state” a task.
+S0097	176	c0eb320a222e	unshowable			whether a task was one acquisition is a fact of the experiment	In context of MR, a task is always tied to one MRI acquisition.
+S0098	176	da7e578d9a5d	notfiles			motivation and definitions	Therefore, even if during one acquisition the subject performed multiple conceptually different behaviours (with different sets of instructions) they will be considered one (combined) task.
+S0099	176	a50aa8b9a980	notfiles			motivation and definitions	7.
+S0100	176	191be7b1ce10	notfiles			motivation and definitions	Event - a stimulus or subject response recorded during a task.
+S0101	176	2dcda8737a7b	checked	B06		onset and duration are the first two columns	Each event has an onset time and duration.
+S0102	176	3470f9b7b629	notfiles			motivation and definitions	Note that not all tasks will have recorded events (e.g., resting state).
+S0103	176	6ce012fd1056	notfiles			motivation and definitions	8.
+S0104	176	1fc434dd76dd	notfiles			motivation and definitions	Run - an uninterrupted repetition of an MRI acquisition that has the same acquisition parameters and task (however events can change from run to run due to different subject response or randomized nature of the stimuli).
+S0105	208	747621695f42	notfiles			about the standard	3.3 Compulsory, optional, and additional The following standard describes a way of arranging data and writing down metadata for a subset of neuroimaging experiments.
+S0106	208	983e5676b05e	notfiles			about the standard	Some aspects of the standard are compulsory.
+S0107	208	01219ee63de9	notfiles			about the standard	For example a particular file name format is required when saving structural scans.
+S0108	208	db0836568330	notfiles			about the standard	Some aspects are regulated but optional.
+S0109	208	8ac3c6d3b977	notfiles			about the standard	For example a T2 volume does not need to be included, but when it is available is should be saved under a particular file name specified in the standard.
+S0110	208	ea91421754a8	notfiles			about the standard	This standard aspires to describe a majority of datasets, but acknowledges that there will be cases that do not fit.
+S0111	208	c03887b9e75e	reality-call	B17		call 3: a file in a defined datatype folder that matches no template refuses B17; elsewhere an extra file is allowed	In such cases one can include additional files and subfolders to the existing folder structure following common sense.
+S0112	208	b32bda62cba4	reality-call	B17		call 3: a file in a defined datatype folder that matches no template refuses B17; elsewhere an extra file is allowed	For example one may want to include eye tracking data in a vendor specific format that is not covered by this standard.
+S0113	208	c9d8065c6ac7	reality-call	B17		call 3: a file in a defined datatype folder that matches no template refuses B17; elsewhere an extra file is allowed	The most sensible place to put it is next to the continuous recording file with the same naming scheme but different extensions.
+S0114	208	55fb31a00165	reality-call	B17		call 3: a file in a defined datatype folder that matches no template refuses B17; elsewhere an extra file is allowed	The solutions will change from case to case and publicly available datasets will be reviewed to include common data types in the future releases of the BIDS spec.
+S0115	223	477310a61e3a	unshowable			about how data were processed or kept	－5－ 3.4 Source vs. raw vs. derived data BIDS in its current form is designed to harmonize and describe raw (unprocessed or minimally process due to file format conversion) data.
+S0116	223	9ff406e7712d	unshowable			about how data were processed or kept	During analysis such data will be transformed and partial as well as final results will be saved.
+S0117	223	c8c1853e60db	unshowable			about how data were processed or kept	Derivatives of the raw data (other than products of DICOM to NIftI conversion) should be kept separate from the raw data.
+S0118	223	67d313180439	unshowable			about how data were processed or kept	This way one can protect the raw data from accidental changes by file permissions.
+S0119	223	13c65fba7ae7	unshowable			about how data were processed or kept	In addition it is easy to distinguish partial results from the raw data and share the latter.
+S0120	223	fa41a5e62c09	unshowable			about how data were processed or kept	Similarly rule apply to source data which is defined as data before harmonization and/or file format conversion (for example ePrime event logs or DICOM files).
+S0121	233	69b0414a7e90	unshowable			about how data were processed or kept	This specification currently does not go into details of recommending a particular naming scheme for including different types of source data (raw event logs, parameter files, etc. before conversion to BIDS) and data derivatives (correlation maps, brain masks, contrasts maps, etc.).
+S0122	233	328848353ce8	unshowable			about how data were processed or kept	However, in the case that these data are to be included: 1.
+S0123	233	e6d475fb007e	reality-call	read		code/, derivatives/, sourcedata/, stimuli/ are read as extra; their contents are not checked as raw BIDS data	We do recommend keeping them in separate “sourcedata” and “derivatives” folders each with a similar folder structure as presented below for the BIDS-managed data.
+S0124	233	820e8b465cc8	reality-call	read		code/, derivatives/, sourcedata/, stimuli/ are read as extra; their contents are not checked as raw BIDS data	For example: derivatives/fmriprep/sub-01/ses-pre/mask.nii.gz or sourcedata/sub-01/ses-pre/func/sub-01_task-rest_bold.dicom.tgz or sourcedata/sub-01/ses-pre/func/MyEvent.sce.
+S0125	233	6bc54f13bea5	unshowable			about how data were processed or kept	2.
+S0126	233	46579f2f0ace	reality-call	B01		Reality's own call (BB's call on Patsak's behalf 2026-10-26, reversible; replaces Patsak 22:29): the bytes are the floor. A README is required at derivatives/ or sourcedata/ whenever the manifest holds a file under that folder (B01); a folder with no file has no manifest entry, so the rule binds nothing there	A README file should be found at the root of the “s ourcedata” or the “derivatives” folder (or both).
+S0127	233	56e82619660c	unshowable			about how data were processed or kept	This file should describe the nature of the raw data or the derived data.
+S0128	233	3e39120b331f	unshowable			about how data were processed or kept	In the case of the existence of a “derivatives” folder, we recommend to include details about the software stack and settings used to generate the results.
+S0129	233	2b9829508e90	unshowable			about how data were processed or kept	Non-imaging objects to improve reproducibility are encouraged (scripts, setting files, etc.).
+S0130	233	267c23695b6e	unshowable			about how data were processed or kept	3.
+S0131	233	668c64b428b0	unshowable			about how data were processed or kept	We encourage to include the pdf print-out with the actual sequence parameters generated by the scanner in the “sourcedata” folder.
+S0132	250	1cfc81419fd6	checked	B14 B03		a metadata name at the root or in a subject folder is never extra: JSON is read (B03), TSV/bval/bvec not implemented (B14)	3.5 The Inheritance Principle Any metadata file (.json, .bvec, .tsv, etc.) may be defined at any directory level.
+S0133	250	dcea73bc833e	silent	B30	same-folder-values	deeper folder wins (read); two files in one folder with different values: B30	The values from the top level are inherited by all lower levels unless they are overridden by a file at the lower level.
+S0134	250	6a0fd1dea96e	checked	B14		tasks.tsv: an inherited TSV, a file kind v4 does not implement: a dataset with it refuses B14	For example, tasks.tsv may be specified at the participant level, setting TR to a specific value.
+S0135	250	a3baa8210bff	checked	B14		tasks.tsv: an inherited TSV, a file kind v4 does not implement: a dataset with it refuses B14	If one of the series has a different TR than the one specified in that file, another tasks.tsv file can be placed within that specific series directory specifying the TR for that specific run.
+S0136	250	edfc8aa1a4f2	checked	read		inheritance never unsets a key	There is no notion of “unsetting” a key/value.
+S0137	250	74bce66a810a	checked	read		inheritance never unsets a key	For example if there is a JSON file corresponding to particular subject/run defining a key/value and there is a JSON file on the root level of the dataset that does not define this key/value it will not be “unset” for all subjects/runs.
+S0138	260	211beea916a4	notfiles			extensions	3.6 Extensions BIDS specification can be extended.
+S0139	260	bf3e29ad52d6	notfiles			extensions	Currently we are working on Model and hypothesis specification is one such extension.
+S0140	267	ad28a5df5b33	checked	B05		NIfTI-1 or NIfTI-2, whole header and data	－6－ 4 File Format specification 4.1 Imaging files Imaging data are stored using the NIfTI file format, preferably compressed NIfTI files (.nii.gz), either 1.0 or 2.0 version.
+S0141	267	5743f68533d2	unshowable			about the conversion tool	Imaging data should be converted to the NIfTI format using a tool that provides as much of the NIfTI header information (such as orientation and slice timing information) as possible.
+S0142	267	6fc8c2248d11	unshowable			about the conversion tool	Since the NIfTI standard offers limited support for the various image acquisition parameters available in DICOM files, we also encourage users to provide additional meta information extracted from DICOM files in a sidecar JSON file (with the same filename as the .nii[.gz] file, but with a .json extension).
+S0143	267	261d98406041	notfiles			tools	Extraction of BIDS compatible metadata can be performed using dcm2nii (https://www.nitrc.org/projects/dcm2nii/) and dicm2nii (http://www.mathworks.com/matlabcentral/fileexchange/42997-dicom-to-nifti-converter/content/dicm2nii.m) DICOM to NIfTI converters.
+S0144	267	0cf854bde63f	notfiles			tools	A provided validator (https://github.com/INCF/bids-validator) will check for conflicts between the JSON file and the data recorded in the NIfTI header.
+S0145	281	564534ba269f	reality-call	B04		tab-separated with a header line (B04). Line ends are Reality's own call (DESIGN 5.1; BB's call on Patsak's behalf 2026-10-26, reversible): CR LF ends a line like LF, in BIDS TSVs as in plain ones; mixed line ends refuse (T010; B04 in a BIDS TSV), a lone CR too (T002). 'aka csv files' is not read as fixing it	4.2 Tabular files Other files are saved as tab delimited values (.tsv) files, aka csv files where commas are replaced by tabs.
+S0146	281	981d72666e07	checked	B04		tab-separated with a header line; the required columns are checked by B06, B11, B22	Tabs need to be true tab characters and not a series of space characters.
+S0147	281	f573dd19a7bd	checked	B04		tab-separated with a header line; the required columns are checked by B06, B11, B22	Each TSV file needs to start with a header line listing the names of all columns (with the exception for physiological and other continuous acquisition data - see below for details).
+S0148	281	4ce51b68178d	checked	B04		tab-separated with a header line; the required columns are checked by B06, B11, B22	Names need to be separated with tabs.
+S0149	281	37469fb7256e	reality-call	B04		a double quote has two readings (quote-aware and plain readers): refused (T005 under B04)	String values containing tabs must be escaped using double quotes.
+S0150	281	92a17b8975ad	checked	B04		an empty cell refuses (call 2)	Missing values should be coded as “n/a”.
+S0151	289	0953897764c2	notfiles			example or heading	4.2.1 Example:2 onset duration response_time correct stop_trial go_trial 200 20 0 n/a n/a n/a
+S0152	293	528a65b517c7	checked	B19		dictionary keys name columns of the TSV it describes	Tabular files can be optionally accompanied by a simple data dictionary in a JSON format (see below).
+S0153	293	a1e2d7ba8ddf	checked	B19		dictionary keys name columns of the TSV it describes	The data dictionaries should have the same name as their corresponding tabular files but with .json extensions.
+S0154	293	9a9ee0e7cf7d	checked	B19		dictionary keys name columns of the TSV it describes	Each entry in the data dictionary has a name corresponding to a column name and the following fields:
+S0155	293	392c11e27309	unshowable			what a description says about a column	● LongName - Long (unabbreviated) name of the column.
+S0156	293	d785f87480a0	unshowable			what a description says about a column	● Description - Description of the the column.
+S0157	293	b46c44c3f9e7	checked	B19		the form only: Levels is a dictionary of values to string descriptions (v4-fixes 10); what they say is not in the bytes	● Levels - For categorical variables: a dictionary of possible values (keys) and their descriptions (values).
+S0158	293	0880ccdf91da	unshowable			what a description says about a column	● Units - Measurement units.
+S0159	293	d4b92085d0af	unshowable			what a description says about a column	● TermURL - URL pointing to a formal definition in an ontology available on the web.
+S0160	303	4bb48b69ad9e	notfiles			example or heading	4.2.2 Example: { "education": { "LongName": "Education level",
+S0161	308	c8b7a8cce999	checked	B04		two successive tabs are an empty cell: B04	2 Note that to make the display clearer, the second row does contain two successive tabs, which should not happen in an actual BIDS tsv file. －7－ "Description": "Education level, self-rated by participant", "Levels": { "1": "Finished primary school", "2": "Finished secondary school", "3": "Student at university", "4": "Has degree from university" } }, "bmi": { "LongName": "Body mass index", "Units": "kilograms per squared meters", "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/60621009" } }
+S0162	328	201889bd04ed	checked	B03		JSON object	4.3 Key/value files (dictionaries) Javascript Object Notation Style (JSON) files will be used for storing key/value pairs.
+S0163	328	2d6eeec4650b	notfiles			tools	Extensive documentation of the format can be found here: http://json.org/.
+S0164	328	394cc05a689d	notfiles			tools	Several editors have built-in support for JSON syntax highlighting that aids manual creation of such files.
+S0165	328	f5b25e73765a	notfiles			tools	An online editor for JSON with built-in validation is available at: http://jsoneditoronline.org.
+S0166	328	05a1fc0bb7a2	checked	B03		JSON is read as strict UTF-8	JSON files should be in UTF-8 encoding.
+S0167	334	22b36e55d001	notfiles			example or heading	4.3.1 Example: { "RepetitionTime": 3.0, "Instruction": "Lie still and keep your eyes open" }
+S0168	340	614430334685	checked	B17 B11		labels are [a-zA-Z0-9]+	5 Participant names and other labels BIDS uses custom user defined labels in several situations (naming of participants, sessions, acquisition schemes etc.) Labels can consist of letters (lower or upper case) and/or numbers.
+S0169	340	328f1e8bd9ec	reality-call			call 2: an encouragement or recommendation is not a 'should', so it does not bind	If numbers are used we strongly encourage zero padding (“01” instead of “1” if you have more than nine subjects) to make alphabetical sorting more intuitive.
+S0170	340	ae1c7adc92f1	checked	B11 B17		sub- prefix in names and participant_id	Please note that sub- prefix is not part of the subject label, but is required to include in file names (similarly to other key names)..
+S0171	347	80d950c32770	unshowable			the unit of a number is not in its bytes; RepetitionTime is cross-checked with pixdim[4] (B09)	6 Units Elapsed time should be expressed in seconds.
+S0172	347	74ade4f2cbb8	unshowable			the unit of a number is not in its bytes; RepetitionTime is cross-checked with pixdim[4] (B09)	Please note that some DICOM parameters have been traditionally expressed in milliseconds.
+S0173	347	1dbb30537857	unshowable			the unit of a number is not in its bytes; RepetitionTime is cross-checked with pixdim[4] (B09)	Those need to be converted to seconds.
+S0174	351	241a4ffeab90	unshowable			the unit of a number is not in its bytes; RepetitionTime is cross-checked with pixdim[4] (B09)	Frequency should be expressed in Hertz.
+S0175	353	6af255a3afa9	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	Describing dates and timestamps:
+S0176	356	9c9bd905374b	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	－8－
+S0177	356	35f122172672	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	● Date time information should be expressed in the following format YYYY-MM-DDThh:mm:ss (ISO8601 date-time format).
+S0178	356	95f872839d96	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	For example: 2009-06-15T13:45:30
+S0179	356	c13418bc4f4c	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	● Time stamp information should be expressed in the following format: 13:45:30
+S0180	356	be9b6b5c14e4	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	● Dates can be shifted by a random number of days for privacy protection reasons.
+S0181	356	7aea9719b28e	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	To distinguish real dates from shifted dates always use year 1900 or earlier when including shifted years.
+S0182	356	87a58620151c	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	For longitudinal studies please remember to shift dates within one subject by the same number of days to maintain the interval information.
+S0183	356	b4db372e4df7	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	Example: 1867-06-15T13:45:30
+S0184	356	a4a701294bbc	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	● Age should be given as the number of years since birth at the time of scanning (or first scan in case of multi session datasets).
+S0185	356	ecdd46b65ddb	unshowable			dates and ages: about the world; scans.tsv acq_time is B14	Using higher accuracy (weeks) should be avoided due to privacy protection.
+S0186	367	c4c30a4ea84c	notfiles			example or heading	7 Directory structure Overall directories hierarchy is
+S0187	367	a4b66ba3b4a2	checked	B17 B14		sub-<label>/<data_type>/; sessions B14	● sub-<participant_label>[/ses-<session_label>]/<data_type>/
+S0188	367	45c3dffebe7c	checked	read		optional folders, read as extra	● [code/]
+S0189	367	0d1a42f21c52	checked	read		optional folders, read as extra	● [derivatives/]
+S0190	367	11713a62d702	checked	read		optional folders, read as extra	● [stimuli/]
+S0191	367	d0b5e70e263a	checked	read		optional folders, read as extra	● [sourcedata/] where [] depict optional content.
+S0192	367	103cc1d9b6f1	notfiles			example or heading	Session level is optional, first we detail single session example.
+S0193	367	1de3be2c5ab3	notfiles			example or heading	See below (section 9) for an example with multiple sessions.
+S0194	377	de432da4a848	notfiles			example or heading	7.1 Single session example This is an overview of the folder and file structure.
+S0195	377	5334a1fb7e79	notfiles			example or heading	Because there is only one session, the session level is not required by the format.
+S0196	377	463a644243b9	notfiles			example or heading	For details on individual files see descriptions in the next section:
+S0197	381	349a0ba2d60a	notfiles			example or heading	● sub-control01
+S0198	381	7e71ac4d65cd	notfiles			example or heading	○ anat ■ sub-control01_T1w.nii.gz ■ sub-control01_T1w.json ■ sub-control01_T2w.nii.gz ■ sub-control01_T2w.json
+S0199	381	6d4f4ec8172f	notfiles			example or heading	○ func ■ sub-control01_task-nback_bold.nii.gz ■ sub-control01_task-nback_bold.json ■ sub-control01_task-nback_events.tsv ■ sub-control01_task-nback_physio.tsv.gz ■ sub-control01_task-nback_physio.json ■ sub-control01_task-nback_sbref.nii.gz
+S0200	381	491672c87d16	notfiles			example or heading	○ dwi ■ sub-control01_dwi.nii.gz ■ sub-control01_dwi.bval ■ sub-control01_dwi.bvec
+S0201	381	449e82da5ebd	notfiles			example or heading	○ fmap ■ sub-control01_phasediff.nii.gz
+S0202	401	242474df152c	notfiles			example or heading	－9－ ■ sub-control01_phasediff.json ■ sub-control01_magnitude1.nii.gz
+S0203	401	315792a5203b	notfiles			example or heading	○ sub-control01_scans.tsv
+S0204	401	f4c344213164	checked	B17		extra files in a datatype folder: call 3, B17	○ Additional files and folders containing raw data may be added as needed for special cases.
+S0205	401	c3baaee01fd3	checked	B17		extra files in a datatype folder: call 3, B17	They should be named using all lowercase with a name that reflects the nature of the scan (e.g., “calibration”).
+S0206	401	8b1e71f450b8	checked	B17		extra files in a datatype folder: call 3, B17	Naming of files within the directory should follow the same scheme as above (e.g., “sub-control01_calibration_Xcalibration.nii.gz”)
+S0207	401	efb3d7e6579d	notfiles			example or heading	● code
+S0208	401	ab9d03716d8c	notfiles			example or heading	○ deface.py
+S0209	401	291acc25f157	notfiles			example or heading	● derivatives
+S0210	401	402eaa76de78	notfiles			example or heading	○ README
+S0211	401	e79bd704d49a	notfiles			example or heading	● participants.tsv
+S0212	401	707bbea743d2	notfiles			example or heading	● dataset_description.json
+S0213	401	d0eb383db95a	notfiles			example or heading	● README
+S0214	401	86186784ef15	notfiles			example or heading	● CHANGES
+S0215	418	0eb84d53ad38	checked	B01		dataset_description.json required	8 Detailed file descriptions 8.1 Dataset description Template: dataset_description.json, README, and CHANGES
+S0216	422	bede8baae8c3	notfiles			example or heading	A JSON file describing the dataset.
+S0217	422	a0b1499848b6	checked	B01 B02		Name and BIDSVersion strings; version 1.0.1 only	Every dataset need to include this file with the following mandatory fields:
+S0218	422	f37e8c6d15e2	checked	B01 B02		Name and BIDSVersion strings; version 1.0.1 only	● Name: name of the dataset
+S0219	422	d0fc72b5dda9	checked	B01 B02		Name and BIDSVersion strings; version 1.0.1 only	● BIDSVersion : The version of the BIDS standard that was used
+S0220	426	ef4c6827f670	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	In addition the following fields can be provided:
+S0221	426	2f48c7446c44	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● License: what license is this dataset distributed under?
+S0222	426	a8e94ade8372	reality-call			call 2: an encouragement or recommendation is not a 'should', so it does not bind	The use of license name abbreviations is suggested for specifying a license.
+S0223	426	5facd77fbf3e	reality-call			call 2: an encouragement or recommendation is not a 'should', so it does not bind	A list of common licenses with suggested abbreviations can be found in appendix III.
+S0224	426	7bb507c5b43f	checked	B01		the form only: Authors is a list of strings (v4-fixes 10); whether they are the authors is not in the bytes	● Authors: List of individuals who contributed to the creation/curation of the dataset
+S0225	426	5b4b44e68c09	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● Acknowledgements : who should be acknowledge in helping to collect the data
+S0226	426	0f80d9d53cff	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● HowToAcknowledge: Instructions how researchers using this dataset should acknowledge the original authors.
+S0227	426	b5701b9aba28	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	This field can also be used to define a publication that should be cited in publications that use the dataset,
+S0228	426	861f692f3346	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● Funding: sources of funding (grant numbers)
+S0229	426	8c341efa1b38	checked	B01		the form only: ReferencesAndLinks is a list of strings (v4-fixes 10)	● ReferencesAndLinks: a list of references to publication that contain information on the dataset, or links.
+S0230	426	d042eafbffc1	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● DatasetDOI : the Document Object Identifier of the dataset (not the corresponding paper).
+S0231	441	c3f08292a226	notfiles			erratum (PDF p.11): the dataset_description.json example has no comma after "Authors", so it is not JSON and binds nothing; JSON stays strict (B03)	8.1.1 Example: { "Name": "The mother of all experiments",
+S0232	445	9f3e51eb4f1e	notfiles			erratum (PDF p.11): the dataset_description.json example has no comma after "Authors", so it is not JSON and binds nothing; JSON stays strict (B03)	－ 10 － "BIDSVersion": "1.0.0rc1", "License": "CC0", "Authors": ["Ramon y Cajal", "2nd author"] "Acknowledgements": "say here what are your acknowledgments", "HowToAcknowledge": "say here how you would like to be acknowledged", "Funding": "list your funding sources", "ReferencesAndLinks": ["a data paper", "a resource to be cited when using the data"], "DatasetDOI": "10.0.2.3/dfjj.10" }
+S0233	457	5bedb64d049b	checked	B01		call 2: a missing root README refuses	In addition a free form text file (README) describing the dataset in more details should be provided.
+S0234	457	475cbb2aef72	checked	read		CHANGES optional	Version history of the dataset (describing changes, updates and corrections) can be provided in a form of a CHANGES text file.
+S0235	457	5d86e03277d4	checked	B31 B30		CPAN::Changes::Spec 0.04 + CPAN::Meta::Spec Version Formats, pinned with sha256 in team/research/sources (v4 SPEC 8.5); BIDS's well-formed example 1.0.1 wins on the leading v and zero components; a point with two readings refuses B30 (BB's call on Patsak's behalf 2026-10-26, reversible; replaces Patsak 22:29)	This file should follow the following the CPAN Changelog convention: http://search.cpan.org/~haarg/CPAN-Changes-0.400002/lib/CPAN/Changes/Spec.pod.
+S0236	457	2ba22204fbbe	checked	B18			README and C HANGES files should be either in ASCII or UTF-8 encoding.
+S0237	464	9570c15ee40b	notfiles			example (PDF p.11): well-formed, so BIDS's own reading of CHANGES: versions like 1.0.1 (no leading v, zero components) conform (S0235)	8.1.2 Example: 1.0.1 2015-08-27
+S0238	467	590bcf309b8e	notfiles			example (PDF p.11): well-formed, so BIDS's own reading of CHANGES: versions like 1.0.1 (no leading v, zero components) conform (S0235)	- Fixed slice timing information.
+S0239	469	0cf14f04d222	notfiles			example (PDF p.11): well-formed, so BIDS's own reading of CHANGES: versions like 1.0.1 (no leading v, zero components) conform (S0235)	1.0.0 2015-08-17
+S0240	471	6ab963c5b21d	notfiles			example (PDF p.11): well-formed, so BIDS's own reading of CHANGES: versions like 1.0.1 (no leading v, zero components) conform (S0235)	- Initial release.
+S0241	474	1b2859db8af8	checked	read		code/ read as extra	8.2 Code Template: code/*
+S0242	478	e2fc420a475c	unshowable			about the scripts	Source code of scripts that were used to prepare the dataset (for example if it was anonymized or defaced) can be stored here.3 Extra care should be taken to avoid including original IDs or any identifiable information with the source code.
+S0243	478	43b6fb45299f	unshowable			about the scripts	There are no limitations or recommendation on the language and or code organization of these scripts at the moment.
+S0244	483	aead0c2af058	checked	B17 B14		anat template; sessions B14	8.3 Anatomy imaging data Template: sub-<participant_label>/[ses-<session_label>/] anat/
+S0245	490	52ed0aa74d30	unshowable			about where source files are kept	3 Storing actual source files with the data is preferred over links to external source repositories to maximize long term preservation (which would suffer if an external repository would not be available anymore). － 11 － sub-<participant_label>[_ses-<session_label>][_acq-<label>][_rec-<label>][_run- <index>]_<modality_label>.nii[.gz]
+S0246	498	68550e1b91e6	notfiles			example or heading	Anatomical (structural) data acquired for that participant.
+S0247	498	39f715c79918	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Possible modalities include, but are not limited to:
+S0248	501	92dadfd06d64	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Name modality_label Description
+S0249	503	13b1a3784cde	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	T1 weighted T1w
+S0250	505	30b3897a7453	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	T2 weighted T2w
+S0251	507	0697637d9e52	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	T1 Rho map T1rho Quantitative T1rho brain imagig http://www.ncbi.nlm.nih.gov/pubmed/244 74423
+S0252	511	8489d8d1648e	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	http://www.ncbi.nlm.nih.gov/pmc/articles/ PMC4346383/
+S0253	515	e8e8dc688b18	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	T1 map T1map quantitative T1 map
+S0254	517	6591c77ea123	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	T2 map T2map quantitative T2 map
+S0255	519	5f1daf17bc55	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	FLAIR FLAIR
+S0256	521	754e5438cb8a	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	FLASH FLASH
+S0257	523	c150e9f419f0	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Proton density PD
+S0258	525	9117cb9c2c0c	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Proton density map PDmap
+S0259	527	b6c146be38f4	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Combined PD/T2 PDT2
+S0260	529	8b1aaaeaca7a	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Inplane T1 inplaneT1 T1-weighted anatomical image matched to functional acquisition
+S0261	532	12aa87c926dd	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Inplane T2 inplaneT2 T2-weighted anatomical image matched to functional acquisition
+S0262	535	9b11969bca7a	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Angiography angio
+S0263	537	a04487f8f1af	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Defacing mask defacemask Mask used for defacing
+S0264	539	2a5fbc4ff42c	checked	read		open list ('not limited to'): any suffix of key form is an anatomical image	Susceptibility SWImagandphase Magnitude and corresponding phase images Weighted Imaging of the SWI (SWI)
+S0265	543	601a8be0652c	silent	B30	run-index	run-1 vs run-01, or a run omitted next to indexed runs: computed both ways, B30 when results differ	Several scans of the same modality can be acquired and will be indexed with a suffix: _ run-01, _run-02, _run-03 etc.
+S0266	543	06319b8be302	silent	B30	run-index	run-1 vs run-01, or a run omitted next to indexed runs: computed both ways, B30 when results differ	When there is only one scan of a given type the suffix can be omitted.
+S0267	543	7157205d467a	notfiles			example or heading	Please note that diffusion
+S0268	546	bdd4e97940f7	notfiles			example or heading	－ 12 － imaging data is stored elsewhere (see below).
+S0269	546	bbf11f6a94f7	checked	read		acq, rec, sidecar JSON; entity order B17	Metadata corresponding to each anatomical NifTi file can be provided in a JSON file with the same name but .json extension.
+S0270	546	52822acb5db1	checked	read		acq, rec, sidecar JSON; entity order B17	The optional “acq-<label>” key/value pair corresponds to a custom label the user may use to distinguish a different set of parameters used for acquiring the same modality.
+S0271	546	d53738ea143c	checked	read		acq, rec, sidecar JSON; entity order B17	For example this should be used when a study includes two T1w images - one full brain low resolution and and one restricted field of view but high resolution.
+S0272	546	14cd194dcabc	checked	read		acq, rec, sidecar JSON; entity order B17	In such case two files could have the following names: sub-01_acq-highres_T1w.nii.gz and sub-01_acq-lowres_T1w.nii.gz, however the user is free to choose any other label than “highres” and “lowres” as long as they are consistent across subjects and sessions.
+S0273	546	deebeddda57c	checked	read		acq, rec, sidecar JSON; entity order B17	Similarly the optional “rec-<label>” key/value can be used to distinguish different reconstruction algorithms (for example ones using motion correction).
+S0274	558	ce584b62962d	checked	read		acq, rec, sidecar JSON; entity order B17	Some meta information about the acquisition can be provided in an additional JSON file.
+S0275	558	67cab03b7633	checked	read		acq, rec, sidecar JSON; entity order B17	See Task (including resting state) imaging data for a list of terms and their definitions.
+S0276	561	380f88ce7acc	checked	B17 B14		func template; sessions B14	8.4 Task (including resting state) imaging data Template: sub-<participant_label>/[ses-<session_label>/] func/
+S0277	566	21fb823a62c2	checked	B17 B14		func template; sessions B14	sub-<participant_label>[_ses-<session_label>]_task-<task_label>[_acq-<label>][_rec-<label>][_run-<inde x>]_bold.nii[.gz]
+S0278	570	74865077ea65	notfiles			example or heading	Imaging data acquired during BOLD imaging.
+S0279	570	2c509b1f413c	notfiles			example or heading	This includes but is not limited to task based fMRI as well as resting state fMRI (i.e. rest is treated as another task).
+S0280	570	ab0d93992c80	unshowable	B07		whether a scan is task-based is a fact of the experiment; an events file needs its BOLD (B07)	For task based fMRI a corresponding task events file (see below) must be provided (please note that this file is not necessary for resting state scans).
+S0281	570	69b46571db72	checked	read		sbref	For multiband acquisitions, one can also save the single-band reference image as type “sbref” (e.g. sub-control01_task-nback_sbref.nii.gz).
+S0282	576	2438297a5b4a	checked	B08 B17			Each task has a unique label consisting of letters and/or numbers (other characters including spaces and underscores are not allowed).
+S0283	576	b8dedf778f38	unshowable			whether two labels name one task is about the experiment; B08 checks label = TaskName	Those labels have to be consistent across subjects and sessions.
+S0284	576	069e4b1b18e0	silent	B30	run-index	as S0265	If more than one run of the same task has been acquired a key/value pair: _run-01, _run-02, _run-03 etc. can be used.
+S0285	576	cd5be52e4659	silent	B30	run-index	as S0265	If only one run was acquired the suffix can be omitted.
+S0286	576	bb6b7f4f98ff	notfiles			example or heading	In the context of functional imaging a run is defined as the same task, but a different set of stimuli (for example randomized order) and participant responses.
+S0287	576	919140e31716	checked	read		acq, rec	The optional “acq-<label>” key/value pair correspond to a custom label user may use to distinguish different set of parameters used for acquiring the same task.
+S0288	576	b63051e8dcc9	checked	read		acq, rec	For example this should be used when a study includes two resting state images - one single band and one multiband.
+S0289	576	3e598e80c463	checked	read		acq, rec	In such case two files could have the following names: sub-01_task-rest_acq-singleband_bold.nii.gz and sub-01_task-rest_acq-multiband_bold.nii.gz, however the user is free to choose any other label than “singleband” and “multiband” as long as they are consistent across subjects and sessions.
+S0290	576	deebeddda57c	checked	read		acq, rec	Similarly the optional “rec-<label>” key/value can be used to distinguish different reconstruction algorithms (for example ones using motion correction).
+S0291	591	7a6bb99f4a7a	checked	B08			Some meta information about the acquisition needs to be provided in an additional JSON file.
+S0292	593	621a73bec202	notfiles			example or heading	－ 13 － Required fields:
+S0293	593	74d486a64a3b	checked	B08 B21		positive number	● RepetitionTime : The time in seconds between the beginning of an acquisition of one volume and the beginning of acquisition of the volume following it (TR).
+S0294	593	5c3ba5a1fcf9	unshowable			sparse acquisition is about the scan	Please note that this definition includes time between scans (when no data has been acquired) in case of sparse acquisition schemes.
+S0295	593	e8934641b5e5	checked	B09		pixdim[4] in xyzt_units, the float nearest to RepetitionTime	This value needs to be consistent with the ‘pixdim[4]’ field (after accounting for units stored in ‘xyzt_units’ field) in the NIFTI header.
+S0296	593	dcdd692f9bba	checked	B08			● TaskName: Name of the task.
+S0297	593	028a4967dff4	checked	B08			No two tasks should have the same name.
+S0298	593	bd55ed93f791	checked	B08			Task label ( “task-<task_label>”) included in the file name is derived from this field by removing all non alphanumeric ([a-zA-Z0-9]) characters.
+S0299	593	8b86278fe2aa	notfiles			example or heading	For example task name “faces n-back” will corresponds to task label “facesnback”.
+S0300	593	87149d9fdb24	reality-call			call 2: an encouragement or recommendation is not a 'should', so it does not bind	An optional but recommended convention is to name resting state task labels beginning with "rest".
+S0301	606	984a6bb1468f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Other recommended metadata.
+S0302	606	2b983274137c	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	MRI acquisition parameters are divided into several categories based on “A checklist for fMRI acquisition methods reporting in the literature” by Ben Inglis:
+S0303	606	ea7ddcff2685	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● Scanner Hardware
+S0304	606	5d98873f032f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ Manufacturer: Manufacturer of the equipment that produced the composite instances.
+S0305	606	d622f91f0c28	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0008, 0070 ”Manufacturer”
+S0306	606	1fd832888f56	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ ManufacturersModelName: Manufacturer`s model name of the equipment that produced the composite instances.
+S0307	606	e0fb24727a6f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0008, 1090 “Manufacturers Model Name”
+S0308	606	1b61677940dd	checked	B21		a number	○ MagneticFieldStrength: Nominal field strength of MR magnet in Tesla.
+S0309	606	e33adb115677	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018,0087 “Magnetic Field Strength”
+S0310	606	905d251947dc	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ DeviceSerialNumber : The serial number of the equipment that produced the composite instances.
+S0311	606	7f8bad9070b7	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 1000 ”DeviceSerialNumber”.
+S0312	606	718c76a3fb97	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	A pseudonym can also be used to prevent the equipment from being identifiable, so long as each pseudonym is unique within the dataset.
+S0313	606	bbb878be8684	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ SoftwareVersions: Manufacturer’s designation of software version of the equipment that produced the composite instances.
+S0314	606	a5e5ba3f03b4	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 1020 “Software Versions”
+S0315	606	9e05ed00867f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ HardcopyDeviceSoftwareVersion: (Deprecated) Manufacturer’s designation of the software of the device that created this Hardcopy Image (the printer).
+S0316	606	ae94d72f3a6f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 101A “Hardcopy Device Software Version”
+S0317	606	4a80cfb2eed9	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ ReceiveCoilName: Information describing the receiver coil (Note: This isn’t a consistent field name across vendors.
+S0318	606	18d4869e9b34	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	This name is the dcmstack output from a GE dataset, but it doesn’t seem to be simply coded into the dcmstack output for a Siemens scan).
+S0319	606	525b9e2d8807	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	This doesn’t correspond to a term in the DICOM ontology
+S0320	606	62ce6ce54690	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ GradientSetType: It should be possible to infer the gradient coil from the scanner model.
+S0321	606	000cacb1dc4c	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	If not, because of a custom upgrade or use of a gradient insert set, then the specifications of the actual gradient coil should be reported independently.
+S0322	606	e5c588a1c640	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ MRTransmitCoilSequence : This is a relevant field if a non-standard transmit coil is used.
+S0323	606	18ca15727135	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 9049 “MR Transmit Coil Sequence”
+S0324	606	6e044bdb79f8	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ MatrixCoilMode: (If used) A method for reducing the number of independent channels by combining in analog the signals from multiple coil elements.
+S0325	606	000364059400	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	There are typically different default modes when using un-accelerated or accelerated ( GRAPPA, SENSE) imaging.
+S0326	638	d9a00b61bda1	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	－ 14 －
+S0327	638	23bf6199c811	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ CoilCombinationMethod: Almost all fMRI studies using phased-array coils use root-sum-of-squares (rSOS) combination, but other methods exist.
+S0328	638	aa42aa4f4471	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	The image reconstruction is changed by the coil combination method (as for the matrix coil mode above), so anything non-standard should be reported.
+S0329	638	d03691da31b8	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● In-Plane Spatial Encoding
+S0330	638	17fbc4235278	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ PulseSequenceType: A general description of the pulse sequence used for the scan (I.e.
+S0331	638	180db49669c7	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	MPRAGE, Gradient Echo EPI, Spin Echo EPI, Multiband gradient echo EPI)
+S0332	638	2db001ea43b4	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ PulseSequenceDetails: Information beyond pulse sequence type that identifies the specific pulse sequence used (I.e.
+S0333	638	52714dcc4b5e	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	"Standard Siemens Sequence distributed with the VB17 software,” “Siemens WIP ### version #.##,” or “Sequence written by X using a version compiled on MM/DD/YYYY”)
+S0334	638	877d6c9bf5c9	checked	B21		a number	○ NumberShots: The number of RF excitations need to reconstruct a slice or volume.
+S0335	638	b0a35eeb5a01	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Please mind that this is not the same as Echo Train Length which denotes the number of lines of k-space collected after an excitation.
+S0336	638	5db316c2572d	checked	B21		a number	○ ParallelReductionFactorInPlane : The parallel imaging (e.g, GRAPPA) factor.
+S0337	638	2aec618ac674	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Use the denominator of the fraction of k-space encoded for each slice.
+S0338	638	50ddeef502e9	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	For example, 2 means half of k-space is encoded.
+S0339	638	fb3fa4b05c9c	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 9069 “Parallel Reduction Factor In-plane”.
+S0340	638	f666499ea752	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ ParallelAcquisitionTechnique : The type of parallel imaging used (e.g.
+S0341	638	0d62aff6ab2f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	GRAPPA, SENSE).
+S0342	638	ff7481ebb6f0	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 9078 “Parallel Acquisition Technique”.
+S0343	638	b3f646a94308	checked	B21		a number	○ PartialFourier: The fraction of partial Fourier information collected.
+S0344	638	6b6cf156a9f6	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 9081 ”Partial Fourier”.
+S0345	638	a38cdcff2967	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ PartialFourierDirection: The direction where only partial Fourier information was collected.
+S0346	638	1400461329b4	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 9036 “Partial Fourier Direction”.
+S0347	638	c9baa1cb6340	checked	B10		one of i j k i- j- k-	○ PhaseEncodingDirection : Possible values: “i”, “j”, “k”, “i-”, “j-”, “k-”.
+S0348	638	ea232d487b31	unshowable			what the axis means for the scan	The letters “i”, “j”, “k” correspond to the first, second and third axis of the data in the NIFTI file.
+S0349	638	6b252f1d1bd5	unshowable			what the axis means for the scan	The polarity of the phase encoding is assumed to go from zero index to maximum index unless ‘-’ sign is present (then the order is reversed - starting from the highest index instead of zero).
+S0350	638	9582c6e7a857	unshowable			what the axis means for the scan	PhaseEncodingDirection is defined as the direction along which phase is was modulated which may result in visible distortions.
+S0351	638	aa10f0cc2a8a	unshowable			what the axis means for the scan	Note that this is not the same as the DICOM term InPlanePhaseEncodingDirection which can have “ROW” or “COL” values.
+S0352	638	b4a9a45d417a	checked	B10		required with a fieldmap; the different-directions half cannot be shown when no direction is written	T his parameter is required if a corresponding fieldmap data is present or when using multiple runs with different phase encoding directions (which can be later used for field inhomogeneity correction).
+S0353	638	05c269d7c0f6	checked	B21		a number	○ EffectiveEchoSpacing : The sampling interval also known as the dwell time; required for unwarping distortions using field maps; expressed in seconds.
+S0354	638	e34191d3888f	notfiles			a link	See here how to calculate it.
+S0355	638	26dee3044cc7	checked	B10			This parameter is required if a corresponding fieldmap data is present.
+S0356	638	260bfc0eaa6c	checked	B21		a number	○ TotalReadoutTime: defined as the time (i n seconds) from the center of the first echo to the center of the last echo (aka “FSL definition” - see here and here how to calculate it).
+S0357	638	241a3e302b93	checked	B14		case 4 fieldmaps: a file kind v4 does not implement: a dataset with it refuses B14	T his parameter is required if a corresponding multiple phase encoding directions fieldmap (see 8.9.4) data is present.
+S0358	638	1b87af68875f	notfiles			example or heading	● Timing Parameters:
+S0359	638	5bd32dbc08b1	checked	B21		a number or a list of numbers	○ EchoTime: The echo time (TE) for the acquisition, specified in seconds.
+S0360	638	e2e379e7d372	checked	B21		a number or a list of numbers	May be a list of values separated for multi-echo acquisitions.
+S0361	638	26dee3044cc7	checked	B10			This parameter is required if a corresponding fieldmap data is present.
+S0362	638	ac7c86f08c22	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 0081 “Echo Time”. － 15 －
+S0363	638	d338927a4e94	checked	B21		a number	○ InversionTime: The inversion time (TI) for the acquisition, specified in seconds.
+S0364	638	a867b67d0036	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Inversion time is the time after the middle of inverting RF pulse to middle of excitation pulse to detect the amount of longitudinal magnetization.
+S0365	638	2e149c9d7a6c	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0018, 0082 “Inversion Time”.
+S0366	638	0d36365248a9	checked	B10		list of numbers, one per slice, in [0, TR)	○ SliceTiming : The time at which each slice was acquired during the acquisition.
+S0367	638	f31a803e9e69	checked	B10		list of numbers, one per slice, in [0, TR)	Slice timing is not slice order - it describes the time (sec) of each slice acquisition in relation to the beginning of volume acquisition.
+S0368	638	78f67e6f0e5e	checked	B10		list of numbers, one per slice, in [0, TR)	It is described using a list of times (In JSON format) referring to the acquisition time for each slice.
+S0369	638	1fff3dae51d6	silent	B30	slice-axis	no default slice axis: without SliceEncodingDirection or slice_dim, a length fitting one spatial axis reads that axis; fitting several: B30; fitting none: B10	The list goes through slices along the slice axis in the slice encoding dimension (see below).
+S0370	638	d6d0c9a2a802	unshowable			whether a sequence is sparse is about the scan	This parameter is required for sparse sequences.
+S0371	638	971d21772f46	notfiles			about analysis	In addition without this parameter slice time correction will not be possible.
+S0372	638	d299257c8a6d	checked	B10			○ SliceEncodingDirection : Possible values: “i”, “j”, “k”, “i-”, “j-”, “k-” (corresponding to the first, second and third axis of the data in the NIFTI file; ‘-’ sign corresponds to reverse order - starting from the highest index instead of zero).
+S0373	638	59c59b1800db	unshowable			what the axis means for the scan	The axis of the NIFTI data along which a slices were acquired.
+S0374	638	be91d9b76f1f	checked	B10		consistent with slice_dim	This value needs to be consistent with the ‘slice_dim’ field in the NIFTI header.
+S0375	638	256cd1307bb2	checked	B21		a number	○ NumberOfVolumesDiscardedByScanner : Number of volumes ("dummy scans") discarded by the user (as opposed to those discarded by the user post hoc) before saving the imaging file.
+S0376	638	1f45bd778e16	notfiles			example or heading	For example, a sequence that automatically discards the first 4 volumes before saving would have this field as 4.
+S0377	638	9424caf94f9b	notfiles			example or heading	A sequence that doesn't discard dummy scans would have this set to 0.
+S0378	638	2dea768f7db5	unshowable			what time 0 was in the scanner	Please note that the onsets recorded in the _event.tsv file should always refer to the beginning of the acquisition of the first volume in the corresponding imaging file - independent of the value of NumberOfVolumesDiscardedByScanner field.
+S0379	638	2f4df3474e50	checked	B21		a number	○ NumberOfVolumesDiscardedByUser : Number of volumes ("dummy scans") discarded by the user before including the file in the dataset.
+S0380	638	4dc10860d51f	reality-call			call 2: an encouragement or recommendation is not a 'should', so it does not bind	If possible, including all of the volumes is strongly recommended.
+S0381	638	861c1ec3d49d	unshowable			what time 0 was in the scanner	Please note that the onsets recorded in the _event.tsv file should always refer to the beginning of the acquisition of the first volume in the corresponding imaging file - independent of the value of NumberOfVolumesDiscardedByUser field.
+S0382	638	1f444cd5d56c	notfiles			example or heading	○
+S0383	638	6d090f83a776	notfiles			example or heading	● RF & Contrast
+S0384	638	8f7c8db33722	checked	B21		a number	○ FlipAngle : Flip angle for the acquisition, specified in degrees.
+S0385	638	f16b18d51a23	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to: DICOM Tag 0018, 1314 “Flip Angle”.
+S0386	638	83e29cd93dda	notfiles			example or heading	● Slice Acceleration
+S0387	638	92cdc2abe502	checked	B21		a number	○ MultibandAccelerationFactor : The multiband factor, for multiband acquisitions
+S0388	638	f7bd811f793e	notfiles			example or heading	● fMRI task information
+S0389	638	05fd2dbddb83	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ Instructions : Text of the instructions given to participants before the scan.
+S0390	638	e63048fb768f	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	This is especially important in context of resting state fMRI and distinguishing between eyes open and eyes closed paradigms.
+S0391	638	39e059c73ee7	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ TaskDescription : Longer description of the task.
+S0392	638	3e028eb283e6	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ CogAtlasID : URL of the corresponding Cognitive Atlas Task term
+S0393	638	0a9a67474740	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ CogPOID: URL of the corresponding CogPO term
+S0394	638	fdb6558a5e85	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	● Institution information
+S0395	638	6819d84c61af	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ InstitutionName : The name of the institution in charge of the equipment that produced the composite instances.
+S0396	638	3694a4727595	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0008, 0080 ”InstitutionName”.
+S0397	638	18e6ee157bfd	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	○ InstitutionAddress : The address of the institution in charge of the equipment that produced the composite instances.
+S0398	638	6badb20258c1	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	Corresponds to DICOM Tag 0008, 0081 ”InstitutionAddress”.
+S0399	728	51caa46442d2	reality-call			call 2: an encouragement or recommendation is not a 'should', so it does not bind	－ 16 － When adding additional metadata please use the camelcase version of DICOM ontology terms whenever possible.
+S0400	732	c5662860cd7d	notfiles			erratum (PDF p.17): the bold JSON example writes "InstitutionAddress: "450 ... and no comma before DeviceSerialNumber, so it is not JSON and binds nothing; JSON stays strict (B03)	8.4.1 Example: sub-control01/ func/ sub-control01_task-nback_bold.json { "RepetitionTime": 3.0, "EchoTime": 0.03, "FlipAngle": 78, "SliceTiming": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8], "MultibandAccellerationFactor": 4, "ParallelReductionFactorInPlane": 2, "PhaseEncodingDirection": "j", "InstitutionName": "Stanford University", "InstitutionAddress: "450 Serra Mall, Stanford, CA 94305-2004, USA" "DeviceSerialNumber": "11035" }
+S0401	750	3f1fe939ec93	checked	read		root sidecar inherited; the subject's own file takes precedence (deeper wins)	If this information is the same for all participants, sessions and runs it can be provided in task-<task_label>_bold.json (in the root directory of the dataset).
+S0402	750	43488473088d	checked	read		root sidecar inherited; the subject's own file takes precedence (deeper wins)	However, if the information differs between subjects/runs it can be specified in the sub-<participant_label>/func/sub-<participant_label>_task-<task_label>[_acq-<lab el>][_run-<index>]_bold.json file.
+S0403	750	639ce8bdf3e6	checked	read		root sidecar inherited; the subject's own file takes precedence (deeper wins)	If both files are specified the one corresponding to a particular participant, task and run takes precedence.
+S0404	757	570aa3b3dedf	checked	B17 B07		events template, matches its BOLD file	8.5 Task events Template: sub-<participant_label>/[ses-<session_label>] func/ <matches>_events.tsv
+S0405	763	265257100449	checked	B17 B07		events template, matches its BOLD file	Where <matches> corresponds to task file name.
+S0406	763	3a96acfa16c7	checked	B17 B07		events template, matches its BOLD file	For example: sub-control01_task-nback
+S0407	765	b2e07cd5127f	notfiles			example or heading	The purpose of this file is to describe timing and other properties of events recorded during the scan.
+S0408	765	1a2b49ef9f94	notfiles			example or heading	Those can be both stimuli presented to the participant, or participant responses.
+S0409	765	24fab4b99c00	checked	B07			Each task events file requires a corresponding task imaging data file.
+S0410	765	52e482fc37b8	checked	B06			The first two columns are mandatory and should contain “onset” and “duration” in that order.
+S0411	765	006f5cf84c27	unshowable			seconds or milliseconds is not in the bytes	Both should be expressed in seconds (not milliseconds).
+S0412	765	206af4e90664	reality-call	B30		Reality's own rule (DESIGN 5 call 3; BB's call on Patsak's behalf 2026-10-26, reversible): an onset at or after volumes x TR refuses B30. 1.0.1 does not say an event must fall inside its run; this is not a 1.0.1 ambiguity	Timing should be measured from the beginning of the acquisition of the first volume in the corresponding task imaging data file.
+S0413	765	7b1927f1ceb5	unshowable			which scans were discarded	If any acquired scans have been discarded before forming the imaging data file, ensure that a time of 0 corresponds to
+S0414	772	732c3f83bf6d	unshowable			which scans were discarded	－ 17 － the first image stored.
+S0415	772	ad6eb12fd1db	checked	B06		onset a number (negative allowed), duration > 0	Therefore negative numbers in “onset” are allowed4 (however “duration” needs to be always positive and greater than zero).
+S0416	772	49b18089f081	checked	B06		a number or n/a	If response time was measured it should be included as the “response_time” column also expressed in seconds.
+S0417	777	02dfdf8e4108	checked	B20		stim_file names a file under stimuli/	An optional “stim_file“ column can be added to represent the location of the stimulus file (image, video, sound etc.) presented at the given onset time.
+S0418	777	1b39aedadd78	checked	B20		stim_file names a file under stimuli/	There are no restrictions on the file formats of the stimuli files, but they should be stored in the /stimuli folder (under the root folder of the dataset; with optional subfolders).
+S0419	777	14785fb2987d	checked	B20		stim_file names a file under stimuli/	The values under the stim_file column correspond to a path relative to “/stimuli”.
+S0420	777	8eeea50f2c3d	checked	B20		stim_file names a file under stimuli/	For example “images/cat03.jpg” will be translated to “/stimuli/images/cat03.jpg”.
+S0421	783	2391770534af	checked	read		trial_type and extra columns	Another optional column - “trial_type“ - represents primary categorisation of each trial to identify them as instances of the experimental conditions.
+S0422	783	b2c3417bad6b	checked	read		trial_type and extra columns	For example: for a response inhibition task, it could take on values "go" and "no-go" to refer to response initiation and response inhibition experimental conditions.
+S0423	787	ae0717408379	checked	read		trial_type and extra columns	An arbitrary number of additional columns can be added.
+S0424	787	a107ba9dbcbf	checked	read		trial_type and extra columns	Those allow describing other properties of events that could be later referred in modelling and hypothesis extensions of BIDS.
+S0425	791	2e9a16895151	notfiles			example or heading	8.5.1 Example: sub-control01/ func/ sub-control01_task-stopsignal_events.tsv onset duration trial_type response_time stim_file 1.2 0.6 go 1.435 images/red_square.jpg 5.6 0.6 stop 1.739 images/blue_square.jpg
+S0426	799	9978656a84f3	checked	read		extra columns	References to existing databases can also be encoded using additional columns.
+S0427	799	499f03c35008	checked	read		extra columns	Example 2 includes references to the Karolinska Directed Emotional Faces (KDEF) database5:
+S0428	802	6bf238683747	notfiles			example or heading	8.5.2 Example: sub-control01/ func/ sub-control01_task-emoface_events.tsv onset duration trial_type identifier database response_time 1.2 0.6 afraid AF01AFAF kdef 1.435 5.6 0.6 angry AM01AFAN kdef 1.739 5.6 0.6 sad AF01ANSA kdef 1.739
+S0429	814	8d31ea9d7052	unshowable			what happened before the scan	4 For example in case there is an in scanner training phase that begins before the scanning sequence has started events from this sequence should have negative onset time counting down to the beginning of the acquisition of the first volume.
+S0430	814	e3329c7918d2	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	5 http://www.emotionlab.se/resources/kdef － 18 － 8.6 Physiological and other continuous recordings Template: sub-<participant_label>/[ses-<session_label>/] func/ <matches>[_recording-<label>]_physio.tsv.gz and sub-<participant_label>/[ses-<session_label>/] func/ <matches>[_recording-<label>]_physio.json
+S0431	830	b6ca6668b631	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] func/ <matches>[_recording-<label>]_stim.tsv.gz and sub-<participant_label>/[ses-<session_label>/] func/ <matches>[_recording-<label>]_stim.json Optional: yes
+S0432	839	fa1a6161c1c5	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Where <matches> corresponds to task file name without the _bold.nii[.gz] suffix.
+S0433	839	2c26574b1a68	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	For example: sub-control01_task-nback_run-01.
+S0434	839	571bd25c89f4	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	If the same continuous recording has been used for all subjects (for example in the case where they all watched the same movie) one file can be used and placed in the root directory.
+S0435	839	32624db5276b	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	For example: task-movie_stim.tsv.gz
+S0436	844	8c47a6250a39	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Physiological recordings such as cardiac and respiratory signals and other continuous measures (such as parameters of a film or audio stimuli) can be specified using two files: a gzip compressed TSV file with data (without header line) and a JSON for storing start time, sampling frequency, and name of the columns from the TSV.
+S0437	844	aa1414e94bef	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Please note that in contrast to other TSV files this one does not include a header line.
+S0438	844	a3903b93d071	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Instead the name of columns are specified in the JSON file.
+S0439	844	8fdd99d266a9	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	This is to improve compatibility with existing software (FSL PNM) as well as make support for other file formats possible in the future.
+S0440	844	f9232bb7b9ad	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Start time should be expressed in seconds with relation of the time of start of acquisition of first volume in the corresponding imaging file (negative values are allowed).
+S0441	844	9129c700de0a	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Sampling frequency should be expressed in Hz.
+S0442	844	acc38bd02683	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	Recordings with different sampling frequencies and/or starting times should be stored in separate files.
+S0443	844	87eec5eaaf81	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	The following naming conventions should be used for column names:
+S0444	844	930af316b2bb	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	● cardiac: continuous pulse measurement
+S0445	844	f4ca31d6e20c	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	● respiratory: continuous breathing measurement
+S0446	844	4977b8b28089	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	● trigger: continuous measurement of the scanner trigger signal Any combination of those three can be included as well as any other stimuli related continuous variables (such as low level image properties in a video watching paradigm).
+S0447	863	18a98a1132ed	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	－ 19 － Physiological recordings (including eye tracking) should use the _physio suffix, and signals related to the stimulus should use _stim suffix.
+S0448	863	0a0130d09a19	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	For motion parameters acquired from scanner side motion correction please use _physio suffix.
+S0449	868	2a5a160ec99e	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	More than one continuous recording file can be included (with different sampling frequencies).
+S0450	868	8bcae005b3d9	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	In such case use different labels.
+S0451	868	43c059346f5a	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	For example: _recording-contrast, _recording-saturation.
+S0452	868	2ae8a70c8efb	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	The full file name could then look like this: sub-control01_task-nback_run-02_recording-movie_stim.tsv.gz
+S0453	873	620ed1333437	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	8.6.1 Example: sub-control01/ func/ sub-control01_task-nback_physio.tsv.gz (after decompression) 34 110 0 44 112 0 23 100 1
+S0454	881	e1c264b24dc9	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	sub-control01/ func/ sub-control01_task-nback_physio.json { "SamplingFrequency": 100.0, "StartTime": -22.345, "Columns": ["cardiac", "respiratory", "trigger"] }
+S0455	891	ddf3c86a6f5c	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	8.7 Behavioral experiments (with no MRI) Template: sub-<participant_label>/[ses-<session_label>/] beh/ sub-<participant_label>[_ses-<session_label>]_task-<task_name>_events .tsv sub-<participant_label>/[ses-<session_label>/] beh/ sub-<participant_label>[_ses-<session_label>]_task-<task_name>_beh.js on sub-<participant_label>/[ses-<session_label>/] beh/ sub-<participant_label>[_ses-<session_label>]_task-<task_name>_physio .tsv.gz sub-<participant_label>/[ses-<session_label>/] beh/
+S0456	908	53a9c7647c97	checked	B14		physiological and continuous recordings, behavioural data: a file kind v4 does not implement: a dataset with it refuses B14	－ 20 － sub-<participant_label>[_ses-<session_label>]_task-<task_name>_physio .json sub-<participant_label>/[ses-<session_label>/] beh/ sub-<participant_label>[_ses-<session_label>]_task-<task_name>_stim.t sv.gz sub-<participant_label>/[ses-<session_label>/] beh/ sub-<participant_label>[_ses-<session_label>]_task-<task_name>_stim.j son
+S0457	920	98b2c4214cc8	checked	B14		beh/: a file kind v4 does not implement: a dataset with it refuses B14	In addition to logs from behavioral experiments performed along MRI acquisitions one can also include data from experiments performed outside of the scanner.
+S0458	920	60a07c8c3126	checked	B14		beh/: a file kind v4 does not implement: a dataset with it refuses B14	The results of those experiments can be stored in the beh folder using the same formats for event timing (_events.tsv), metadata (_ beh.json), physiological (_physio.tsv.gz, _physio.json) and other continuous recordings (_stim.tsv.gz, _stim.json) as for tasks performed during MRI acquisitions.
+S0459	928	a7483a6aeb4a	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	8.8 Diffusion imaging data Template: sub-<participant_label>/[ses-<session_label>/] dwi/ sub-<participant_label>[_ses-<session_label>][_acq-<label>][_run-<ind ex>]_dwi.nii[.gz]
+S0460	935	a6db32dbb552	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] dwi/ sub-<participant_label>[_ses-<session_label>][_acq-<label>][_run-<ind ex>]_dwi.bval
+S0461	940	7939069b18d6	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] dwi/ sub-<participant_label>[_ses-<session_label>][_acq-<label>][_run-<ind ex>]_dwi.bvec
+S0462	945	2775f3be836b	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] dwi/ sub-<participant_label>[_ses-<session_label>][_acq-<label>][_run-<ind ex>]_dwi.json
+S0463	950	d2d437f5ea93	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	Diffusion-weighted imaging data acquired for that participant.
+S0464	950	49883bd54ebb	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The optional “acq-<label>” key/value pair corresponds to a custom label the user may use to distinguish different set of parameters.
+S0465	950	74ca6bb1d941	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	For example this should be used when a study includes two diffusion images - one single band and one multiband.
+S0466	950	4518c5fa119b	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	In such case
+S0467	954	98964e0a713c	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	－ 21 － two files could have the following names: sub-01_acq-singleband_dwi.nii.gz and sub-01_acq-multiband_dwi.nii.gz, however the user is free to choose any other label than “singleband” and “multiband” as long as they are consistent across subjects and sessions.
+S0468	954	bdbe1d7d9f8b	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	For multiband acquisitions, one can also save the single-band reference image as type “sbref” (e.g. dwi/sub-control01_sbref.nii[.gz]).
+S0469	954	6eaf54851313	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The bvec and bval files are in the FSL format6: The bvec files contain 3 rows with n space-delimited floating-point numbers (corresponding to the n volumes in the relevant Nifti file).
+S0470	954	22edcd6adfc3	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The first row contains the x elements, the second row contains the y elements and third row contains the z elements of a unit vector in the direction of the applied diffusion gradient, where the i-th elements in each row correspond together to the i-th volume with [0,0,0] for non-diffusion-weighted volumes.
+S0471	966	b506b51d2d2b	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	8.8.1 bvec example: 0 0 0.021828 -0.015425 -0.70918 -0.2465 0 0 0.80242 0.22098 -0.00063106 0.1043 0 0 -0.59636 0.97516 -0.70503 -0.96351
+S0472	971	280052f8a7ac	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The bval file contains the b-values (in s/mm2 ) corresponding to the volumes in the relevant Nifti file), with 0 designating non-diffusion-weighted volumes, space-delimited.
+S0473	975	a4762fbd3aee	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	8.8.2 bval example: 0 0 2000 2000 1000 1000
+S0474	978	475f50856453	checked	B14		bval/bvec at any level: a file kind v4 does not implement: a dataset with it refuses B14	.bval and .bvec files can be saved on any level of the directory structure and thus define those values for all sessions and/or subjects in one place (see Inheritance principle).
+S0475	981	f5d51d0463f1	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The following metadata can be included in the corresponding JSON file.
+S0476	981	50f81ba16676	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	All of them are optional, but their inclusion is highly recommended, because they are crucial for some data processing steps.
+S0477	984	c9baa1cb6340	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	○ PhaseEncodingDirection : Possible values: “i”, “j”, “k”, “i-”, “j-”, “k-”.
+S0478	984	ea232d487b31	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The letters “i”, “j”, “k” correspond to the first, second and third axis of the data in the NIFTI file.
+S0479	984	6b252f1d1bd5	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	The polarity of the phase encoding is assumed to go from zero index to maximum index unless ‘-’ sign is present (then the order is reversed - starting from the highest index instead of zero).
+S0480	984	9582c6e7a857	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	PhaseEncodingDirection is defined as the direction along which phase is was modulated which may result in visible distortions.
+S0481	984	aa10f0cc2a8a	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	Note that this is not the same as the DICOM term InPlanePhaseEncodingDirection which can have “ROW” or “COL” values.
+S0482	984	b4a9a45d417a	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	T his parameter is required if a corresponding fieldmap data is present or when using multiple runs with different phase encoding directions (which can be later used for field inhomogeneity correction).
+S0483	984	05c269d7c0f6	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	○ EffectiveEchoSpacing : The sampling interval also known as the dwell time; required for unwarping distortions using field maps; expressed in seconds.
+S0484	984	e34191d3888f	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	See here how to calculate it.
+S0485	984	26dee3044cc7	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	This parameter is required if a corresponding fieldmap data is present.
+S0486	998	4f7ad4607455	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	6 http://fsl.fmrib.ox.ac.uk/fsl/fsl4.0/fdt/fdt_dtifit.html － 22 －
+S0487	998	5bd32dbc08b1	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	○ EchoTime: The echo time (TE) for the acquisition, specified in seconds.
+S0488	998	e2e379e7d372	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	May be a list of values separated for multi-echo acquisitions.
+S0489	998	26dee3044cc7	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	This parameter is required if a corresponding fieldmap data is present.
+S0490	998	98087cfdcc84	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	○ TotalReadoutTime: defined as the time (in seconds) from the center of the first echo to the center of the last echo (aka “FSL definition” - see here and here how to calculate it).
+S0491	1007	aeee2ca0afff	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	Example JSON file:
+S0492	1009	4cfe7cde6079	checked	B14		diffusion data: a file kind v4 does not implement: a dataset with it refuses B14	8.8.3 json example: { "PhaseEncodingDirection": "j-", "TotalReadoutTime": 0.095 }
+S0493	1016	46c191542887	notfiles			introduction	8.9 Fieldmap data Data acquired to correct for B0 inhomogeneities can come in different forms.
+S0494	1016	d49e9a47018e	notfiles			introduction	The current version of this standard considers four different scenarios.
+S0495	1016	c9702726794d	silent	B30	intendedfor-source	IntendedFor from the phasediff JSON or from any image JSON: B30 when the results differ	Please note that in all cases fieldmap data can be linked to a specific scan(s) it was acquired for by filling the IntendedFor field in the corresponding JSON file.
+S0496	1016	cef80b2a4395	notfiles			example or heading	For example: { "IntendedFor": "func/sub-01_task-motor_bold.nii.gz" }
+S0497	1024	6f8b5d642385	checked	B12		a path or list of paths to a scan of the subject	The IntendedFor field consists of one or more relative paths stripped from the “sub-<label>”.
+S0498	1024	8c547549a18e	notfiles			example or heading	Here’s an example with multiple target scans: { "IntendedFor": ["ses-pre/func/sub-01_task-motor_run-01_bold.nii.gz", "ses-post/func/sub-01_task-motor_run-01_bold.nii.gz"] }
+S0499	1031	e8ee844d89e6	silent	B10	fieldmap-without-intendedfor	no IntendedFor: v4 takes the fieldmap as corresponding to every scan of its subject (B10 fields required); the other reading (none) conforms only when they are missing, so the result is a refusal either way	The IntendedFor field is optional and in case the fieldmaps do not correspond to any particular scans it does not have to be filled.
+S0500	1034	e1a9cf707942	silent	B30	run-index	as S0265	Multiple fieldmaps can be stored.
+S0501	1034	1b764bcc2966	silent	B30	run-index	as S0265	In such case the “_run-01”, “_run-02” should be used.
+S0502	1034	49883bd54ebb	checked	read		acq	The optional “acq-<label>” key/value pair corresponds to a custom label the user may use to distinguish different set of parameters.
+S0503	1038	ccf38eb3aed6	checked	B12		case 1: phasediff and magnitude1, magnitude2 optional	8.9.1 Case 1: Phase difference image and at least one magnitude image Template: sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_pha sediff.nii[.gz]
+S0504	1045	1d76fff78af9	checked	B12		case 1: phasediff and magnitude1, magnitude2 optional	－ 23 － sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_pha sediff.json
+S0505	1051	a2fd59847ffd	checked	B12		case 1: phasediff and magnitude1, magnitude2 optional	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_mag nitude1.nii[.gz]
+S0506	1056	035c4a375b58	checked	B12		case 1: phasediff and magnitude1, magnitude2 optional	(optional) sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_mag nitude2.nii[.gz]
+S0507	1062	540e2c065aa8	notfiles			about scanners	This is a common output for build in fieldmap sequence on Siemens scanners.
+S0508	1062	659789318e60	checked	B12		EchoTime1 and EchoTime2 numbers	In this particular case the sidecar JSON file has to define the Echo Times of the two phase images used to create the difference image.
+S0509	1062	652744a2ab28	notfiles			example or heading	For example:
+S0510	1065	0e8f1062b8f8	notfiles			example; cited by intendedfor-source	{ "EchoTime1": 0.00600, "EchoTime2": 0.00746, "IntendedFor": "func/sub-01_task-motor_bold.nii.gz" }
+S0511	1072	4e89e163013d	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	8.9.2 Case 2: Two phase images and two magnitude images Template: sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_pha se1.nii[.gz]
+S0512	1079	cd682b46ba88	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_pha se1.json
+S0513	1084	27070f448187	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_pha se2.nii[.gz]
+S0514	1089	90ba91b0d119	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	－ 24 － sub-<participant_label>/ fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_pha se2.json
+S0515	1095	a2fd59847ffd	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_mag nitude1.nii[.gz]
+S0516	1100	020db112d2b9	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_mag nitude2.nii[.gz]
+S0517	1105	f658e057495d	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	Similar to the case above, but instead of a precomputed phase difference map two separate phase images are presented.
+S0518	1105	7ca74878f74e	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	The two sidecar JSON file need to specify corresponding EchoTime values.
+S0519	1105	652744a2ab28	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	For example:
+S0520	1108	e72a257247a7	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	{ "EchoTime": 0.00746, IntendedFor": "func/sub-01_task-motor_bold.nii.gz" " }
+S0521	1115	e161f551ee37	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	8.9.3 Case 3: A single, real fieldmap image (showing the field inhomogeneity in each voxel) Template: sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_mag nitude.nii[.gz]
+S0522	1122	20203ca0f5df	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>][_run-<run_index>]_fie ldmap.nii[.gz]
+S0523	1127	4625897749c3	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[ses-<session_label>][_acq-<label>][_run-<run_index>]_fiel dmap.json
+S0524	1135	ced4e0135040	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	－ 25 － In some cases (for example GE) the scanner software will output a precomputed fieldmap denoting the B0 inhomogeneities along with a magnitude image used for coregistration.
+S0525	1135	4faef546ad1c	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	In this case the sidecar JSON file needs to include the units of the fieldmap.
+S0526	1135	60aa33237e3c	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	The possible options are: “Hz”, “rad/s”, or “Tesla”.
+S0527	1135	652744a2ab28	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	For example:
+S0528	1140	636d801763e2	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	{ "Units": "rad/s", IntendedFor": "func/sub-01_task-motor_bold.nii.gz" " }
+S0529	1147	82b4cd753471	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	8.9.4 Case 4: Multiple phase encoded directions (topup) Template: sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>]_dir-<dir_label>[_run- <run_index>]_epi.nii[.gz]
+S0530	1154	591523081a7c	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	sub-<participant_label>/[ses-<session_label>/] fmap/ sub-<label>[_ses-<session_label>][_acq-<label>]_dir-<dir_label>[_run- <run_index>]_epi.json
+S0531	1160	fb1e04eb69ad	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	This technique combines two or more Spin Echo EPI scans with different phase encoding directions.
+S0532	1160	5b1a50237197	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	In such a case, the phase encoding direction is specified in the corresponding JSON file as one of: “i”, “j”, “k”, “i-”, “j-, “k-”.
+S0533	1160	e1b737eb6ccc	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	For these differentially phase encoded sequences, one also needs to specify the Total Readout Time defined as the time (in seconds) from the center of the first echo to the center of the last echo (aka “FSL definition” - see h ere and here how to calculate it).
+S0534	1160	f85c1f8a053b	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	For example
+S0535	1166	c7b1bade8c6b	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	{ "PhaseEncodingDirection": "j-", "TotalReadoutTime": 0.095, IntendedFor": "func/sub-01_task-motor_bold.nii.gz" " }
+S0536	1173	8a9fcd41fef0	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	dir_label value can be set to arbitrary alphanumeric label ([a-zA-Z0-9]+ for example “LR” or “AP”) that can help users to distinguish between different files, but should not be used to infer any scanning parameters (such as phase encoding directions) of the corresponding sequence.
+S0537	1173	ea4b37a941c7	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	Please rely only on the JSON file to obtain scanning parameters. _epi files can be a 3D or 4D - in the latter case all timepoints share the same scanning parameters.
+S0538	1173	b988a1030718	checked	B14		fieldmap cases 2-4: a file kind v4 does not implement: a dataset with it refuses B14	To indicate which run is intended to be used with which functional or diffusion scan the I ntendedFor field in the JSON file should be used.
+S0539	1183	f4560ab6f667	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	－ 26 － 8.10 Scans key file Template: sub-<participant_label>/[ses-<session_label>/] sub-<participant_label>_scans.tsv
+S0540	1189	e83071d376fd	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	Optional: yes
+S0541	1191	9b2f35d0752e	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	The purpose of this file is to describe timing and other properties of each imaging acquisition sequence (each run .nii[.gz] file) within one session.
+S0542	1191	bbb5d0c1cfc7	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	Each .nii[.gz] file should be described by at most one row.
+S0543	1191	3dc5c1df8136	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	Relative paths to files should be used under a compulsory “filename” header.
+S0544	1191	398244b7b57b	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	If acquisition time is included it should be under “acq_time” header.
+S0545	1191	58e6f360a4f5	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14. When implemented: the example 2009-06-15T13:45:30 is well-formed ISO 8601 local time, so an offset-less date-time conforms although RFC 3339 requires an offset (precedence, DESIGN §9 call 4)	Datetime should be expressed in the following format 2009-06-1 5T13:45:30 (year, month, day, hour (24h), minute, second; this is equivalent to the RFC3339 “date-time” format, time zone is always assumed as local time).
+S0546	1191	4f1fc94a3ce8	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	For anonymization purposes all dates within one subject should be shifted by a randomly chosen (but common across all runs etc.) number of days.
+S0547	1191	5e476472c0ba	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	This way relative timing would be preserved, but chances of identifying a person based on the date and time of their scan would be decreased.
+S0548	1191	b31f7bfeeb8a	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	Dates that are shifted for anonymization purposes should be set to a year 1900 or earlier to clearly distinguish them from unmodified data.
+S0549	1191	24fdd972e627	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	Shifting dates is recommended, but not required.
+S0550	1191	b5c339a12eee	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	Additional fields can include external behavioural measures relevant to the scan.
+S0551	1191	8903db850714	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	For example vigilance questionnaire score administered after a resting state scan.
+S0552	1208	fb5fb18c0780	checked	B14		scans files: a file kind v4 does not implement: a dataset with it refuses B14	8.10.1 Example: filename acq_time func/sub-control01_task-nback_bold.nii.gz 1877-06-15T13:45:30 func/sub-control01_task-motor_bold.nii.gz 1889-06-15T13:55:33
+S0553	1213	9a6e80041c41	checked	B11 B22 B19		participants and phenotype files	8.11 Participant key file Template: (single session case) participants.tsv participants.json phenotype/<measurement_tool_name>.tsv phenotype/<measurement_tool_name>.json
+S0554	1221	a7762f276b19	checked	read		participants.tsv optional	Optional: Yes
+S0555	1223	7f9d2af98bad	unshowable			whether the value is true of the scanner, the dataset or the people is not in the bytes	The purpose of this file is to describe properties of participants such as age, handedness, gender etc.
+S0556	1223	51922bc37e65	checked	B11		exactly one participant_id column of sub-<label>, and it is the first ("followed by"; BB's call 12 on Patsak's behalf, 26 Oct 2026)	In case of single session studies this file has one compulsory column participant_id that consists of sub-<participant_label>, followed by a list of optional columns describing participants.
+S0557	1223	6d400f87728a	checked	B11		one row per participant; rows without a subject folder also refuse B11 (Reality's call 1, not a 1.0.1 sentence)	Each participant needs to be described by one and only one row.
+S0558	1228	86f94d04f2db	notfiles			example or heading	－ 27 － 8.11.1 participants.tsv example: participant_id age sex group sub-control01 34 M control sub-control02 12 F control sub-patient01 33 F patient
+S0559	1235	fa52d88f1188	checked	B22 B17		phenotype/<name>.tsv with participant_id of the dataset's participants	If the dataset includes multiple sets of participant level measurements (for example responses from multiple questionnaires) they can be split into individual files separate from participants.tsv.
+S0560	1235	53233dfb9882	checked	B22 B17		phenotype/<name>.tsv with participant_id of the dataset's participants	Those measurements should be kept in phenotype/ folder and end with the .tsv extension.
+S0561	1235	85dd12dfcd96	checked	B22 B17		phenotype/<name>.tsv with participant_id of the dataset's participants	They can include arbitrary set of columns, but one of them has to be participant_id with matching sub-<participant_label>.
+S0562	1235	96b2f7c57e55	checked	B19		dictionary keys name columns, or MeasurementToolMetadata, which has only the string keys Description and TermURL (v4-fixes 10)	As with all other tabular data those additional phenotypic information files can be accompanied with a JSON file describing the columns in detail (see Section 4.2).
+S0563	1235	baa0b2c943a9	checked	B19		dictionary keys name columns, or MeasurementToolMetadata, which has only the string keys Description and TermURL (v4-fixes 10)	In addition to the column description a section describing the measurement tool (as a whole) can be added under the name "MeasurementToolMetadata".
+S0564	1235	9e379d5b7558	checked	B19		dictionary keys name columns, or MeasurementToolMetadata, which has only the string keys Description and TermURL (v4-fixes 10)	This section consists of two keys: "Description" - a free text description of the tool, and "TermURL" a link to an entity in an ontology corresponding to this tool.
+S0565	1235	3f1c52116170	notfiles			erratum (PDF p.28): the phenotype JSON example ends with a trailing comma, so it is not JSON and binds nothing; JSON stays strict (B03)	For example (content of phenotype/acds_adult.json): { "MeasurementToolMetadata": { "Description": "Adult ADHD Clinical Diagnostic Scale V1.2", "TermURL": "http://www.cognitiveatlas.org/task/id/trm_5586ff878155d" }, "adhd_b": { "Description": "B.
+S0566	1235	647113ae626d	notfiles			example or heading	CHILDHOOD ONSET OF ADHD (PRIOR TO AGE 7)", "Levels": { "1": "YES", "2": "NO" } }, "adhd_c_dx": { "Description": "As child met A, B, C, D, E and F diagnostic criteria", "Levels": { "1": "YES", "2": "NO" } }, }
+S0567	1265	e277a5456872	notfiles			example or heading	Please note that in this example "MeasurementToolMetadata" includes information about the questionnaire and "adhd_b" and "adhd_c_dx" correspond to individual columns.
+S0568	1268	5dabf68af86c	checked	B30		a column description key other than LongName, Description, Levels, Units, TermURL (and Derivative in participants and phenotype files) fixes no reading: B30 (BB's call 12 on Patsak's behalf, 26 Oct 2026)	In addition to the keys available to describe columns in all tabular files (LongName, Description, Levels, Units, and TermURL) the participants.json file as well as phenotypic files can also include
+S0569	1271	37bba95e1a68	checked	B19		the form only: Derivative is true or false (v4-fixes 10); what it says is not in the bytes	－ 28 － column descriptions with Derivative field that, when set to true, indicates that values in the corresponding column is a transformation of values from other columns (for example a summary score based on a subset of items in a questionnaire)..
+S0570	1276	e7e1fbc1acf2	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	9 Longitudinal studies with multiple sessions (visits) Multiple sessions (visits) are encoded by adding an extra layer of directories and file names in the form of ses-<session_label>.
+S0571	1276	361990084623	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	Session label can consist only of alphanumeric characters [a-zA-Z0-9] and should be consistent across subjects.
+S0572	1276	a46384477aaa	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	If numbers are used in session labels we recommend using zero padding (for example ses-01, ses-11 instead of ses-1, ses-11).
+S0573	1276	f547bf05df8f	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	This makes results of alphabetical sorting more intuitive.
+S0574	1276	1518c64ec6de	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	Acquisition time of session can be defined in the sessions file (see below for details).
+S0575	1283	6b2167ee303c	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	The extra session layer (at least one /ses-<session_label> subfolder) should be added for all subjects if at least one subject in the dataset has more than one session.
+S0576	1283	d2173e55a9f6	checked	B14		sessions: a file kind v4 does not implement: a dataset with it refuses B14	Skipping the session layer for only some subjects in the dataset is not allowed.
+S0577	1287	349a0ba2d60a	notfiles			example or heading	● sub-control01
+S0578	1287	b056f7315c87	notfiles			example or heading	○ ses-predrug ■ anat
+S0579	1287	1f978428eb3b	notfiles			example or heading	● sub-control01_ses-predrug_T1w.nii.gz
+S0580	1287	63c5d9d91a52	notfiles			example or heading	● sub-control01_ses-predrug_T1w.json
+S0581	1287	c41bb69e6f22	notfiles			example or heading	● sub-control01_ses-predrug_T2w.nii.gz
+S0582	1287	aeb87c76c061	notfiles			example or heading	● sub-control01_ses-predrug_T2w.json ■ func
+S0583	1287	14460ebba588	notfiles			example or heading	● sub-control01_ses-predrug_task-nback_bold.nii.gz
+S0584	1287	4d8e3903353b	notfiles			example or heading	● sub-control01_ses-predrug_task-nback_bold.json
+S0585	1287	736d86934916	notfiles			example or heading	● sub-control01_ses-predrug_task-nback_events.tsv
+S0586	1287	9e6041b05f15	notfiles			example or heading	● sub-control01_ses-predrug_task-nback_cont-physio.tsv.gz
+S0587	1287	0408dc50025c	notfiles			example or heading	● sub-control01_ses-predrug_task-nback_cont-physio.json
+S0588	1287	cdb1088143d9	notfiles			example or heading	● sub-control01_ses-predrug_task-nback_sbref.nii.gz ■ dwi
+S0589	1287	c3a58a7db5bc	notfiles			example or heading	● sub-control01_ses-predrug_dwi.nii.gz
+S0590	1287	fa44a6c9f359	notfiles			example or heading	● sub-control01_ses-predrug_dwi.bval
+S0591	1287	86a731fa4f20	notfiles			example or heading	● sub-control01_ses-predrug_dwi.bvec ■ fmap
+S0592	1287	fb14bf09841a	notfiles			example or heading	● sub-control01_ses-predrug_phasediff.nii.gz
+S0593	1287	93f803b979eb	notfiles			example or heading	● sub-control01_ses-predrug_phasediff.json
+S0594	1287	e10d0b3fc023	notfiles			example or heading	● sub-control01_ses-predrug_magnitude1.nii.gz ■ sub-control01_ses-predrug_scans.tsv
+S0595	1287	0a8cbafdb8de	notfiles			example or heading	○ ses-postdrug ■ func
+S0596	1287	cc78574a81e4	notfiles			example or heading	● sub-control01_ses-postdrug_task-nback_bold.nii.gz
+S0597	1287	4e3475edcc31	notfiles			example or heading	● sub-control01_ses-postdrug_task-nback_bold.json
+S0598	1287	c5c1467fe272	notfiles			example or heading	● sub-control01_ses-postdrug_task-nback_events.tsv － 29 －
+S0599	1287	8c42021afd64	notfiles			example or heading	● sub-control01_ses-postdrug_task-nback_cont-physio.tsv.gz
+S0600	1287	6a9730fbdae9	notfiles			example or heading	● sub-control01_ses-postdrug_task-nback_cont-physio.json
+S0601	1287	349e06b4253c	notfiles			example or heading	● sub-control01_ses-postdrug_task-nback_sbref.nii.gz ■ fmap
+S0602	1287	65b2cfebceb6	notfiles			example or heading	● sub-control01_ses-postdrug_phasediff.nii.gz
+S0603	1287	bbe8890198c5	notfiles			example or heading	● sub-control01_ses-postdrug_phasediff.json
+S0604	1287	aadc595a2580	notfiles			example or heading	● sub-control01_ses-postdrug_magnitude1.nii.gz ■ sub-control01_ses-postdrug_scans.tsv
+S0605	1287	308f2615a8f2	notfiles			example or heading	○ sub-control01_sessions.tsv
+S0606	1287	e79bd704d49a	notfiles			example or heading	● participants.tsv
+S0607	1287	707bbea743d2	notfiles			example or heading	● dataset_description.json
+S0608	1287	d0eb383db95a	notfiles			example or heading	● README
+S0609	1287	86186784ef15	notfiles			example or heading	● CHANGES
+S0610	1331	25a355f7d94a	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	9.1 Sessions file Template: sub-<participant_label>/[ses-<session_label>/] sub-<participant_label>[_ses-<session_label>]_sessions.tsv
+S0611	1336	a7762f276b19	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	Optional: Yes
+S0612	1338	80d839a26a84	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	In case of multiple sessions there is an option of adding an additional participant key files describing variables changing between sessions.
+S0613	1338	60e281a14f0f	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	In such case one file per participant should be added.
+S0614	1338	673244761591	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	These files need to include compulsory “session_id” column and describe each session by one and only one row.
+S0615	1338	e1d4bd027d78	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	Column names in per participant key files have to be different from group level participant key column names.
+S0616	1344	47d36942e66c	checked	B14		sessions files: a file kind v4 does not implement: a dataset with it refuses B14	9.1.1 Multiple sessions example: session_id acq_time systolic_blood_pressure ses-predrug 2009-06-15T13:45:30 120 ses-postdrug 2009-06-16T13:45:30 100 ses-followup 2009-06-17T13:45:30 110
+S0617	1351	8c231d9fe34e	notfiles			advice on multi-site studies	10 Multi-site or multi-center studies This version of the BIDS specification does not explicitly cover studies with data coming from multiple sites or multiple centers (such extension is planned in BIDS 2.0.0).
+S0618	1351	72f228c9e2e0	notfiles			advice on multi-site studies	There are however ways to model your data without any loss in terms of metadata.
+S0619	1359	692cd592c1e7	notfiles			advice on multi-site studies	－ 30 － 10.1 Option 1: Treat each site/center as a separate dataset.
+S0620	1359	521fb88b9c1c	notfiles			advice on multi-site studies	The simplest way of dealing with multiple sites is to treat data from each site as a separate and independent BIDS dataset with a separate participants.tsv and other metadata files.
+S0621	1359	1362b903f780	notfiles			advice on multi-site studies	This way you can feed each dataset individually to BIDS Apps and everything should just work.
+S0622	1365	6e0163d1392b	notfiles			advice on multi-site studies	10.2 Option 2: Combining sites/centers into one dataset Alternatively you can combine data from all sites into one dataset.
+S0623	1365	f6bbd4518105	notfiles			advice on multi-site studies	To identify which site each subjects comes from you can add a "site" column in the participants.tsv file indicating the source site.
+S0624	1365	85cce173ea2d	notfiles			advice on multi-site studies	This solution allows you to analyze all of the subjects together in one dataset.
+S0625	1365	65625d216cf7	notfiles			advice on multi-site studies	One caveat is that subjects from all sites will have to have unique labels.
+S0626	1365	a6477b0fb62c	notfiles			advice on multi-site studies	To enforce that and improve readability you can use a subject label prefix identifying the site.
+S0627	1365	f894c637b7f2	notfiles			advice on multi-site studies	For example sub-NUY001, sub-MIT002, sub-MPG002 etc.
+S0628	1365	175a0e6e0213	checked	B17		labels are [a-zA-Z0-9]+	Remember that hyphens and underscores are not allowed in subject labels.
+S0629	1376	d0eb29319d33	notfiles			example or heading	－ 31 － 11 Appendix I: Licenses This section lists a number of common licenses for datasets and defines suggested abbreviations for use in the dataset metadata specifications
+S0630	1382	f78892a710b4	notfiles			example or heading	PD Public Domain No license required for any purpose; the work is not subject to copyright in any jurisdiction.
+S0631	1385	4f1ff243468b	notfiles			example or heading	PDDL Open Data License to assign public domain like permissions without giving up Commons Public the copyright: http://opendatacommons.org/licenses/pddl/ Domain Dedication and License
+S0632	1390	a10dc6fd42a3	notfiles			example or heading	CC0 Creative Commons Use this if you are a holder of copyright or database rights, and you Zero 1.0 Universal. wish to waive all your interests in your work worldwide: https://creativecommons.org/about/cc0
+S0633	1397	3deff7c373e1	notfiles			example or heading	－ 32 －

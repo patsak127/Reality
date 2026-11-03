@@ -1,0 +1,3 @@
+c1a6a7765984445670bf423039268e60c853605be6d1d095d4964f01de5e0fe3 *-
+3facb0f6e22794d9a42aed5045f93b4dcfd7b2ea8d73b7386872de5d61fbad9e *-
+UnicodeEncodeError: 'ascii' codec can't encode character '\xa7' in position 160: ordinal not in range(128)

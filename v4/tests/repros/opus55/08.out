@@ -1,0 +1,6 @@
+line 2: formed: RowCount[TSV[#1]] = 108 (Exact)
+  #1 = sha256:d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8
+accepted
+== renamed
+line 0: refused [R001, item 1]: the program is longer than 1000000 bytes (Reality bounds)
+refused: the program is not Reality text
