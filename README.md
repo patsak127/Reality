@@ -16,7 +16,7 @@ first-time players finish the tutorial without external help in under 240 second
 signed with the adopter's SSH key. Once adopted, the measure is checked against the data and the
 result is HOLDS, DOES NOT HOLD or NOT CHECKED. Editing the bar after a result is refused; the team
 can change its mind only with new, later, signed lines (withdraw the old measure, adopt a new
-one), and the old result stays on record. Reality never says whether a measure is a good one.
+one), and the old result stays on record. Reality never says whether a measure is a good one. Its job is to make evaluation criteria explicit and their history impossible to rewrite, not to choose them.
 
 The adoption step is analogous to pre-registration in science: the criterion is fixed before the
 experiment is run.
