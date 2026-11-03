@@ -78,4 +78,4 @@ pins the expected hashes.
 
 ## License
 
-No license has been chosen yet. Until one is added, all rights are reserved.
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE). Copyright 2026 patsak127.
