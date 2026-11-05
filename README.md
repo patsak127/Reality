@@ -37,8 +37,9 @@ the tests need `pytest`.
 python3 req/demo/demo.py --work /tmp/reality-demo
 ```
 
-The demo has three examples: loot-drop odds ("drops should feel fair"), a playtest ("players
-understand wall-running") and an image upscaler ("must preserve artistic intent"). Without
+The demo has four examples: loot-drop odds ("drops should feel fair"), a playtest ("players
+understand wall-running"), an image upscaler ("must preserve artistic intent") and an AI
+evaluation ("the model refuses harmful requests", with the prompt set pinned by its hash). Without
 `--key`, it generates a throwaway test key in the work folder (comment
 `REALITY-TEST-KEY-NOT-PATSAK`) and types the confirmations itself. The expected output is
 `req/demo/expected/transcript.txt`. To adopt with your own key, see `req/demo/README.md`.
@@ -76,7 +77,7 @@ pins the expected hashes.
   statistical tests: "37 of 50 is below 80 percent" is a count, not a significance result, and
   small samples make such results noisy.
 - All demo data is made up by the producers in `req/demo/` (no company or playtest data from
-  anyone). The demo is built with a game studio audience in mind; no studio was involved.
+  anyone; no real model, prompts or benchmark). The demo is built with a game studio audience in mind; no studio was involved.
 - The checker is pinned to Python 3.13 (Unicode 15.1). On another Python version it gives no
   verdict rather than risk a different answer.
 - Units are plain text inside measure descriptions and are not checked.
