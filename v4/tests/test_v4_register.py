@@ -8,7 +8,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 V4 = os.path.join(HERE, "..")
 REG = os.path.join(V4, "bids", "REGISTER-1.0.1.tsv")
-TEXTS = [os.path.join(V4, "context", "sources", "bids-1.0.1.txt"), "/workspace/team/research/sources/bids-1.0.1.txt"]   # a review package; the box
+TEXTS = [os.path.join(V4, "context", "sources", "bids-1.0.1.txt")]  # public BIDS 1.0.1 text, when present
 BIDS = open(os.path.join(V4, "src", "reality4", "bids101.py"), encoding="utf-8").read()
 
 

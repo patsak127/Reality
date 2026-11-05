@@ -573,10 +573,7 @@ def test_call6_other_files_delimiters_are_bytes(tmp_path):
     s, m = tsv(tmp_path, "s.csv", "a\n1;2\n")
     ok, text = run(f"file s = sha256:{m}\nclaim cell(csv(s), 1, 1)\n", [s])
     assert "[T009" in lines(text, 2), text
-    pr = "/workspace/team/research/principle-nonsense-unformable.md"
-    if os.path.exists(pr):   # the principle lives on the box only
-        t = open(pr, encoding="utf-8").read()
-        assert "'|' in CSV and ',' in TSV are bytes" in t and os.path.exists(pr.replace(".md", ".pre-amendment-2026-10-26-delimiters.md"))
+    # The principle file is not in this repository; the behaviour above is what call 6 requires.
 
 
 # ---- taste call 3 (BB's call on Patsak's behalf, 2026-10-26): README in derivatives/ and sourcedata/ -

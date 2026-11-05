@@ -30,6 +30,6 @@ out.write(b"== envmatrix corpus rc=%d\n" % rc + so + b"\n== stderr\n" + se)
 out.close()
 raw = open(sys.argv[1], "rb").read()
 import re
-# the same bytes as /tmp/snapshot.py run in /workspace/reality/v4 (paths are the only difference)
-norm = re.sub(rb"/tmp/snapcorpus-[a-z0-9_]+", b"/tmp/snapcorpus", re.sub(rb"/tmp/snapdiff-[a-z0-9_]+", b"/tmp/snapdiff", raw.replace(os.path.dirname(V4).encode(), b"/workspace/reality")))
+# Normalise absolute parent paths and temp dirs so snapshots compare across machines.
+norm = re.sub(rb"/tmp/snapcorpus-[a-z0-9_]+", b"/tmp/snapcorpus", re.sub(rb"/tmp/snapdiff-[a-z0-9_]+", b"/tmp/snapdiff", raw.replace(os.path.dirname(V4).encode(), b"<repo>")))
 print(hashlib.sha256(raw).hexdigest(), len(raw), "normalised:", hashlib.sha256(norm).hexdigest(), len(norm))

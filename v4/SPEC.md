@@ -501,8 +501,8 @@ rule is the sidecars', so one dataset has one reading of its metadata.
 
 ### 8.5 CHANGES (S0235; BB's call on Patsak's behalf, 26 Oct 2026, reversible)
 
-A CHANGES file follows CPAN::Changes::Spec 0.04 (the version BIDS 1.0.1 links; pinned in
-`team/research/sources/CPAN-Changes-0.400002-Spec.pod`, sha256 22df2f5f…5e5a) with versions in
+A CHANGES file follows CPAN::Changes::Spec 0.04 (the version BIDS 1.0.1 links; pinned as
+`CPAN-Changes-0.400002-Spec.pod`, sha256 22df2f5f…5e5a, not included in this repository) with versions in
 CPAN::Meta::Spec's Version Formats (`CPAN-Meta-2.150005-Spec.pm`, c17f5d81…7950). Precedence: a
 BIDS 1.0.1 example that is well-formed in its own kind's grammar is BIDS's own reading and wins over
 a reference on the point where they conflict, for that point only; an example with no reading at

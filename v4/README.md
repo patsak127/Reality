@@ -1,8 +1,8 @@
 # Reality v4 (in progress)
 
 Reality v4 is being built on local branch `v4` from v3 (`../v3`, unchanged). It implements the
-principle "nonsense is unformable" (`/workspace/team/research/principle-nonsense-unformable.md`,
-with the amendments of §10, 24 Oct 2026, §11, 25 Oct 2026, 21:14 CET, and §12, 22:10 CET) through three general
+design principle "nonsense is unformable" (not included in this repository; with the amendments of
+§10, 24 Oct 2026, §11, 25 Oct 2026, 21:14 CET, and §12, 22:10 CET) through three general
 mechanisms instead of v3's case lists: witnesses for idleness (W1/W2), a register of every
 sentence of BIDS 1.0.1, and metered costs (DESIGN.md, SPEC.md).
 

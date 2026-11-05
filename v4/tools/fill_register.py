@@ -62,7 +62,7 @@ TABLE = [
     ("S0229", "checked", "B01", "", "the form only: ReferencesAndLinks is a list of strings (v4-fixes 10)"),
     ("S0233", "checked", "B01", "", "call 2: a missing root README refuses"),
     ("S0234", "checked", "read", "", "CHANGES optional"),
-    ("S0235", "checked", "B31 B30", "", "CPAN::Changes::Spec 0.04 + CPAN::Meta::Spec Version Formats, pinned with sha256 in team/research/sources (v4 SPEC 8.5); BIDS's well-formed example 1.0.1 wins on the leading v and zero components; a point with two readings refuses B30 (BB's call on Patsak's behalf 2026-10-26, reversible; replaces Patsak 22:29)"),
+    ("S0235", "checked", "B31 B30", "", "CPAN::Changes::Spec 0.04 + CPAN::Meta::Spec Version Formats, pinned with sha256 (v4 SPEC 8.5; sources not in this repository); BIDS's well-formed example 1.0.1 wins on the leading v and zero components; a point with two readings refuses B30 (BB's call on Patsak's behalf 2026-10-26, reversible; replaces Patsak 22:29)"),
     ("S0236", "checked", "B18", "", ""),
     ("S0241", "checked", "read", "", "code/ read as extra"),
     ("S0242-S0243", "unshowable", "", "", "about the scripts"),

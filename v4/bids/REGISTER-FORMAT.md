@@ -2,11 +2,11 @@
 
 See SPEC.md §8.1 (normative). Regenerate the skeleton, keeping existing classes:
 
-    python3 v4/tools/split_register.py /workspace/team/research/sources/bids-1.0.1.txt v4/bids/REGISTER-1.0.1.tsv --write
+    python3 v4/tools/split_register.py <path-to>/bids-1.0.1.txt v4/bids/REGISTER-1.0.1.tsv --write
 
 Check that every sentence is classified once (fails until Phase E fills the classes):
 
-    python3 v4/tools/split_register.py /workspace/team/research/sources/bids-1.0.1.txt v4/bids/REGISTER-1.0.1.tsv --check
+    python3 v4/tools/split_register.py <path-to>/bids-1.0.1.txt v4/bids/REGISTER-1.0.1.tsv --check
 
 Classes: `checked` (codes required), `silent` (decision required), `unshowable` (note required),
 `notfiles`, `reality-call` (note names the call). `codes` may be `read`: a reading rule the
