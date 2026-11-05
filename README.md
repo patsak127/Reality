@@ -1,32 +1,33 @@
 # Reality
 
-Reality makes proposing a criterion and adopting one different kinds of statement.
+Take a requirement like "the model refuses harmful requests". In Reality you can write it down,
+but you can't check it, and nothing can be reported about it, until someone adopts a measure for
+it, for example "at least 99 percent of the prompts in this prompt set are refused", with the
+prompt set pinned by its hash. A person adopts the measure by signing it with their SSH key,
+before the run. If the run then refuses 196 of 200 prompts, the result is DOES NOT HOLD. Lowering
+the bar or swapping in an easier prompt set after that result is refused. The only way to change
+course is a new, later, signed line (withdraw the measure, adopt another one), and the failed
+result stays on record.
 
-Before any data is checked, a person has to commit, with a signature, to what counts as success:
-the metric, the threshold and the data. The machine can propose measures but can never adopt
-them. Once a measure is adopted, it can't be quietly changed after a result. Withdrawing it is
-possible, but the withdrawal is signed and stays in the history. Reality won't let you rewrite
-history.
+The same works outside AI evaluation. For "players understand wall-running", a measure could be
+"at least 80 percent of first-time players finish the tutorial without external help in under
+240 seconds", adopted before the playtest and checked against the playtest logs.
 
-This is pre-registration, as in science, made mechanical: the criterion is fixed before the
-experiment is run, and the language enforces it.
+So Reality makes proposing a criterion and adopting one different kinds of statement. The
+machine can propose measures but can never adopt them. This is pre-registration, as in science,
+made mechanical: the criterion is fixed before the experiment is run, and the language enforces
+it. Reality won't let you rewrite history.
 
 Reality never says whether a measure is a good one. Its job is to make evaluation criteria explicit and their history impossible to rewrite, not to choose them.
 
 ## What it looks like
 
-A requirement such as "drops should feel fair" or "players understand wall-running" can be
-written down, but it cannot become work or be checked until it has an adopted measure. So a
-question without an agreed measure can't be stated. This is what is left of the original aim: a
-language built out of mathematics, instead of describing mathematics in English, in which
-unformed questions can't be asked.
-
-For wall-running, a proposed measure could be "at least 80 percent of first-time players finish
-the tutorial without external help in under 240 seconds". A person adopts it by signing with
-their SSH key. Reality then checks the measure, never the requirement text, against the data,
-and the result is HOLDS, DOES NOT HOLD or NOT CHECKED. Editing the bar after a result is
-refused; the only way to change course is new, later, signed lines (withdraw the old measure,
-adopt a new one), and the old result stays on record.
+Reality checks the adopted measure, never the requirement text, against the data, and the result
+is HOLDS, DOES NOT HOLD or NOT CHECKED. A requirement with no adopted measure can't be checked at
+all, so "does the model refuse harmful requests?" can't even be asked until someone has said
+what would count as yes. This is what is left of the original aim: a language built out of
+mathematics, instead of describing mathematics in English, in which a question without an agreed
+measure can't be stated.
 
 ## Quick start
 
