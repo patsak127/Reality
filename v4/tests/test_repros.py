@@ -32,6 +32,10 @@ def codes(text):
 
 
 def test_every_copied_reproducer_has_its_reviewed_verdict():
+    # EXPECTED.tsv was reviewed with the OpenNeuro ds001734-box fixture in the store;
+    # without it, programs that name its hashes refuse F001 instead of the reviewed codes.
+    if not os.path.isdir(bidsfix.BOX):
+        pytest.skip(bidsfix.SKIP_DS001734)
     out = io.StringIO()
     run_repros.run_all(run_repros.default_dirs(), out, full=False)
     with open(os.path.join(HERE, "repros", "EXPECTED.tsv"), encoding="utf-8") as f:

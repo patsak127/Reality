@@ -22,9 +22,17 @@ BOX_MANIFEST_SHA256 = "b6850de7d9ed854e78149bb842325892c4e888e312969b8812ea1fc9f
 PARTICIPANTS_SHA256 = "d127d700f9a519338da295ea56455bf7bb46ca572f726da72ef7b57c310687b8"
 
 
+SKIP_DS001734 = (
+    "needs OpenNeuro ds001734 fixture at tests/data/ds001734-box "
+    "(events and sidecars only; see README)"
+)
+
+
 def box_copy():
+    """Return the path to the local ds001734-box copy, or skip the calling test if absent."""
+    import pytest
     if not os.path.isdir(BOX):
-        raise RuntimeError(f"missing fixture {BOX}: copy neuro/data/ds001734 there (see DATA.md / .gitignore)")
+        pytest.skip(SKIP_DS001734)
     return BOX
 
 

@@ -621,7 +621,11 @@ CPAN_REFUSES = {
 def test_call4_ds001734_changes_bytes_form():
     from reality4.bids101 import changes
     import hashlib
-    data = open(os.path.join(os.path.dirname(__file__), "data", "ds001734-box", "CHANGES"), "rb").read()
+    import bidsfix
+    path = os.path.join(os.path.dirname(__file__), "data", "ds001734-box", "CHANGES")
+    if not os.path.isfile(path):
+        pytest.skip(bidsfix.SKIP_DS001734)
+    data = open(path, "rb").read()
     assert hashlib.sha256(data).hexdigest() == "362a1f073c0fa2b7e3532286532cb7999b447710242ae94a4da348c9b72d20c4"
     assert b"1.0.0\t2019-02-07\n\n\t- Initial snapshot\n" in data and b"Fix license \n" in data   # tab separator, blank lines, tab indent, trailing space
     assert changes(data.decode("utf-8")) is None

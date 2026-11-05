@@ -67,7 +67,7 @@ cd v4  && python3 -m pytest -q tests
 
 Part of the v4 suite reads a small copy of OpenNeuro dataset ds001734 (events files and JSON
 sidecars only, no images) at `v4/tests/data/ds001734-box/`. It is third-party data and is not
-included here; without it those tests error with "missing fixture". Download ds001734 from
+included here; without it those tests skip. Download ds001734 from
 https://openneuro.org/datasets/ds001734 and copy its non-image files there; `v4/tests/bidsfix.py`
 pins the expected hashes.
 

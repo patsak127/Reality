@@ -18,9 +18,14 @@ def dec(tmp_path_factory):
 
 
 def setup(fixture, box, complete, dec, tmp_path):
-    subs = {"P": A.P, "EV": A.EV, "BOX": box[2], "CMP": complete[2], "DEC": dec[1]}
-    files, roots = [box[0], box[1]], [box[1]]
-    if fixture == "complete":
+    """box/complete may be None when the case does not need the OpenNeuro fixture."""
+    subs = {"P": A.P, "EV": A.EV, "DEC": dec[1], "BOX": "", "CMP": ""}
+    files, roots = [], []
+    if fixture == "box":
+        subs["BOX"] = box[2]
+        files, roots = [box[0], box[1]], [box[1]]
+    elif fixture == "complete":
+        subs["CMP"] = complete[2]
         files, roots = [complete[0]], [complete[1]]
     elif fixture == "dec":
         files = [dec[0]]
@@ -34,6 +39,10 @@ def setup(fixture, box, complete, dec, tmp_path):
         os.makedirs(md)
         subs["MINI"] = helpers.manifest(root, md)
         files, roots = [md], [root]
+    elif fixture == "old":
+        pass
+    else:
+        raise ValueError(f"unknown fixture {fixture!r}")
     return subs, files, roots
 
 
@@ -42,7 +51,7 @@ def refusal_codes(text):
 
 
 @pytest.mark.parametrize("case", A.CASES, ids=[c[0] for c in A.CASES])
-def test_case(case, box, complete, dec, tmp_path):
+def test_case(case, dec, tmp_path, request):
     cid, fixture, prog, expect, _ = case
     if expect == "all-refused":
         for fn in sorted(os.listdir(os.path.join(HERE, "old"))):
@@ -51,6 +60,9 @@ def test_case(case, box, complete, dec, tmp_path):
                     ok, text = helpers.run(f.read())
                 assert not ok and "formed" not in text, fn
         return
+    # Only pull the OpenNeuro ds001734 fixtures when the case names them.
+    box = request.getfixturevalue("box") if fixture in ("box", "complete") else None
+    complete = request.getfixturevalue("complete") if fixture == "complete" else None
     subs, files, roots = setup(fixture, box, complete, dec, tmp_path)
     ok, text = helpers.run(prog.format(**subs), files, roots)
     if expect == "formed":
