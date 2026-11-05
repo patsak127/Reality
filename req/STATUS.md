@@ -3,7 +3,7 @@
 - Trusted lines (req/src/reality_req, without the untrusted sign.py): 668 of the 900 cap
   (form 299, syntax 133, say 111, run 57, __main__ 43, bind 24, __init__ 1). v4's trusted base is unchanged
   at 9,539 lines; v0-v3, core/ and checker/harness/ are untouched (`git diff 760acc9` is empty for them).
-- req tests: 47 passed (box, CPython 3.13; 46 before the playtest example). v4 suite at gate D code: 1484 passed, 4 skipped, 0 failed.
+- req tests: 48 passed (box, CPython 3.13; 47 before the AI-evaluation example, 46 before the playtest example). v4 suite at gate D code: 1484 passed, 4 skipped, 0 failed.
 - Demo: `python req/demo/demo.py --work DIR`; expected output in `demo/expected/transcript.txt`
   (also the printed fallback). MacBook key steps: `demo/README.md`.
 
@@ -18,6 +18,7 @@
 - Edge flags for M2 are computed by render_frames.py, outside the checker.
 - Units are plain text in the measure description and are not checked.
 - Fair drops: no streaks, runs or significance tests (v4 cannot say them).
+- AI-evaluation example: made-up prompt sets and eval runs (make_evals.py), no real model or benchmark; labels are data written outside the checker; 196 of 200 vs 99 percent is a count, no significance test.
 - Playtest example: made-up logs (make_playtest.py), not Valve data; 37 of 50 vs 80 percent is a count, no significance test.
 - MacBook timing not measured; the box run takes about 35-45 s.
 - M1 at +-4: stylised red exceeds the tolerance by only about 0.39 levels.

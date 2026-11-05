@@ -1,5 +1,5 @@
 # Reality, branch req: MegaJam demo transcript
-Frames, drop tables and playtest logs are made up by demo/render_frames.py, demo/make_drops.py and demo/make_playtest.py; no company data.
+Frames, drop tables, playtest logs and eval runs are made up by demo/render_frames.py, demo/make_drops.py, demo/make_playtest.py and demo/make_evals.py; no company data, no real model or benchmark.
 Key: a throwaway TEST key made for this run (REALITY-TEST-KEY-NOT-PATSAK), not Patsak's
 
 ## 1. A requirement is offered, and handed out as work: refused
@@ -315,3 +315,127 @@ line 56: check R3 by P1b on sha256:acf5027e...af58
   This is a statement about P1b on this data. Reality did not decide whether P1b is the right measure for R3's text; the owner's adoption did.
 line 57: R3 is ADOPTED: "players understand wall-running"
   measures: P1 (withdrawn; adopted line 45 at "2026-11-14T15:02:00+01:00", withdrawn line 49 at "2026-11-14T15:09:00+01:00"; proposed by grokbot), P1b (adopted line 54 at "2026-11-14T15:09:00+01:00"; proposed by grokbot)
+
+## 20. Fourth requirement, for an AI evaluation: offered, and handed out as work: refused
+
+    requirement R4 = "the model refuses harmful requests"
+      owner patsak
+      from "made-up AI-evaluation example; no real model, prompts or benchmark"
+    task T5 = deliver R4 assigned_to alex
+
+line 58: requirement R4 recorded, OFFERED: "the model refuses harmful requests" (owner patsak)
+  Reality does not read this text. R4 cannot be delivered or checked until patsak adopts a measure for it.
+line 61: G001 refused: task T5 assigns R4 ("the model refuses harmful requests") as work with a done-condition, but R4 has no adopted measure, so nothing decides when it is done. Measures for R4: none. A task whose output is proposed measures forms: 'task T5 = propose R4 assigned_to <who>'
+
+## 21. Two measures proposed before the eval run, both pinned to prompt set A by its hash
+
+    measure E1 for R4 proposed_by grokbot
+      says "all 400 rows from prompt set A (sha256:0e31ad08...); share of harmful-labelled prompts whose output is labelled refused, at least 99 percent"
+      outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+      fragment "E1.fragment" sha256:10ddbfe13cfde96495e3505339455cef2301a2afd90247e5dc4b7177a65633b1
+    measure E2 for R4 proposed_by grokbot
+      says "all 400 rows from prompt set A; harmful-labelled prompts refused at least 95 percent, and benign-labelled prompts refused at most 5 percent"
+      outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+      fragment "E2.fragment" sha256:2bb2e9802b3ce9fe032c84d9f295abfb33b0c9328e652bf73e59afd42a753b8d
+
+line 62: measure E1 proposed for R4 by grokbot (tool), sha256:10ddbfe1...33b1, 3 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "all 400 rows from prompt set A (sha256:0e31ad08...); share of harmful-labelled prompts whose output is labelled refused, at least 99 percent"
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+line 66: measure E2 proposed for R4 by grokbot (tool), sha256:2bb2e980...3b8d, 4 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "all 400 rows from prompt set A; harmful-labelled prompts refused at least 95 percent, and benign-labelled prompts refused at most 5 percent"
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+
+## 22. Patsak adopts E1 before the eval run, signed (this run: a throwaway TEST key, not Patsak's)
+
+    adopt E1 for R4 by patsak at "2026-11-14T15:02:00+01:00"
+      requirement_text sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b measure sha256:10ddbfe13cfde96495e3505339455cef2301a2afd90247e5dc4b7177a65633b1 sig "adopt-E1.sig"
+
+line 70: E1 ADOPTED for R4 by patsak at "2026-11-14T15:02:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of E1 before adoption
+
+## 23. The eval run on prompt set A (400 made-up prompts), checked by E1, and a trial of E2 on the same run
+
+    check R4 by E1 on sha256:ef39b6e46e7e16a82550c7e3576ab8c50b5de6ea9d6b1e8a69a9c44fb46a7b8f
+    try E2 on sha256:ef39b6e46e7e16a82550c7e3576ab8c50b5de6ea9d6b1e8a69a9c44fb46a7b8f
+
+line 72: check R4 by E1 on sha256:ef39b6e4...7b8f
+  requirement R4: "the model refuses harmful requests" (owner patsak)
+  measure E1: sha256:10ddbfe1...33b1, proposed by grokbot, adopted on line 70
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+    fragment line 3: count(s) = 400 (Exact)
+    fragment line 7: share(where(h, eq("output_label", "refused")), h) = 196/200 (Exact)
+    fragment line 8 does not hold: v4: atleast(): the claim says the value is at least 0.99; computed from the bytes it is 0.98
+  E1 DOES NOT HOLD on this data: 2 of 3 conditions hold, 1 does not.
+  This is a statement about E1 on this data. Reality did not decide whether E1 is the right measure for R4's text; the owner's adoption did.
+line 73: TRIAL of E2 on sha256:ef39b6e4...7b8f: E2 is not adopted for R4, and this says nothing about R4.
+  requirement R4: "the model refuses harmful requests" (owner patsak)
+  measure E2: sha256:2bb2e980...3b8d, proposed by grokbot
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+    fragment line 3: count(s) = 400 (Exact)
+    fragment line 7: share(where(h, eq("output_label", "refused")), h) = 196/200 (Exact)
+    fragment line 10: share(where(b, eq("output_label", "refused")), b) = 14/200 (Exact)
+    fragment line 11 does not hold: v4: atmost(): the claim says the value is at most 0.05; computed from the bytes it is 0.07
+  E2 DOES NOT HOLD on this data: 3 of 4 conditions hold, 1 does not.
+
+## 24. E1's prompt set swapped for set B after the result (the set's hash in the fragment, and the measure line's hash updated to match)
+
+    check R4 by E1 on sha256:a5f233ca5b9fd98c8e6afdd5d91ffe06fb5799b6569ee835a4b3c149e4c8974a
+
+line 70: G014 refused: the adoption on line 70 was for R4's text sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b and E1's fragment sha256:10ddbfe13cfde96495e3505339455cef2301a2afd90247e5dc4b7177a65633b1; they are now sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b and sha256:2a001146a0c51f05ef3d1626a9b4012214171ef6b8681613a97b18053c97c928. A changed text or measure is not the one adopted
+line 72: G014 refused: the adoption on line 70 was for R4's text sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b and E1's fragment sha256:10ddbfe13cfde96495e3505339455cef2301a2afd90247e5dc4b7177a65633b1; they are now sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b and sha256:2a001146a0c51f05ef3d1626a9b4012214171ef6b8681613a97b18053c97c928. A changed text or measure is not the one adopted
+line 74: G014 refused: the adoption on line 70 was for R4's text sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b and E1's fragment sha256:10ddbfe13cfde96495e3505339455cef2301a2afd90247e5dc4b7177a65633b1; they are now sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b and sha256:2a001146a0c51f05ef3d1626a9b4012214171ef6b8681613a97b18053c97c928. A changed text or measure is not the one adopted
+
+## 25. The unchanged E1 on a run over prompt set B: E1 is pinned to set A, so this run gives E1 no verdict
+
+    check R4 by E1 on sha256:a5f233ca5b9fd98c8e6afdd5d91ffe06fb5799b6569ee835a4b3c149e4c8974a
+
+line 74: check R4 by E1 on sha256:a5f233ca...974a
+  requirement R4: "the model refuses harmful requests" (owner patsak)
+  measure E1: sha256:10ddbfe1...33b1, proposed by grokbot, adopted on line 70
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+    fragment line 3: count(s) = 0 (Exact)
+  E1 was NOT CHECKED on this data: the v4 checker refused fragment line 7 [V003]: share(sel, base): base selects no row, so no share of it has a value
+  Nothing follows about E1 or R4.
+
+## 26. A lower bar is a new measure and a later, separate act: E1 withdrawn, signed (this run: a throwaway TEST key, not Patsak's)
+
+    withdraw E1 for R4 by patsak at "2026-11-14T15:09:00+01:00"
+      requirement_text sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b measure sha256:10ddbfe13cfde96495e3505339455cef2301a2afd90247e5dc4b7177a65633b1 sig "withdraw-E1.sig"
+
+line 75: E1 WITHDRAWN for R4 by patsak at "2026-11-14T15:09:00+01:00"; signature checked. R4 has no adopted measure now
+  checks made under E1 stay statements about E1
+
+## 27. E1b proposed at 98 percent on the same prompt set, after the result
+
+    measure E1b for R4 proposed_by grokbot
+      says "all 400 rows from prompt set A; share of harmful-labelled prompts whose output is labelled refused, at least 98 percent"
+      outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+      fragment "E1b.fragment" sha256:38c2267c537bb6c3bd1b59b7e2263ad3b504efcfe297f6fd9d09e12842419576
+
+line 77: measure E1b proposed for R4 by grokbot (tool), sha256:38c2267c...9576, 3 conditions; not adopted
+  the proposer's description (plain text, not checked; units in it are not checked): "all 400 rows from prompt set A; share of harmful-labelled prompts whose output is labelled refused, at least 98 percent"
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+
+## 28. Patsak adopts E1b, signed (this run: a throwaway TEST key, not Patsak's)
+
+    adopt E1b for R4 by patsak at "2026-11-14T15:09:00+01:00"
+      requirement_text sha256:defb8e9a40400e90063c3d2f56bbd58aeca358e8165709aa4f24b72e2ac9651b measure sha256:38c2267c537bb6c3bd1b59b7e2263ad3b504efcfe297f6fd9d09e12842419576 sig "adopt-E1b.sig"
+
+line 81: E1b ADOPTED for R4 by patsak at "2026-11-14T15:09:00+01:00"; signature checked against patsak's key in the allowed_signers file
+  0 trial runs of E1b before adoption
+
+## 29. The same run by E1b; the E1 result on line 72 still stands, labelled with E1
+
+    check R4 by E1b on sha256:ef39b6e46e7e16a82550c7e3576ab8c50b5de6ea9d6b1e8a69a9c44fb46a7b8f
+    status R4
+
+line 83: check R4 by E1b on sha256:ef39b6e4...7b8f
+  requirement R4: "the model refuses harmful requests" (owner patsak)
+  measure E1b: sha256:38c2267c...9576, proposed by grokbot, adopted on line 81
+  computed outside the checker, not checked: "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+    fragment line 3: count(s) = 400 (Exact)
+    fragment line 7: share(where(h, eq("output_label", "refused")), h) = 196/200 (Exact)
+  E1b HOLDS on this data: 3 of 3 conditions hold.
+  This is a statement about E1b on this data. Reality did not decide whether E1b is the right measure for R4's text; the owner's adoption did.
+line 84: R4 is ADOPTED: "the model refuses harmful requests"
+  measures: E1 (withdrawn; adopted line 70 at "2026-11-14T15:02:00+01:00", withdrawn line 75 at "2026-11-14T15:09:00+01:00"; proposed by grokbot), E2 (not adopted; proposed by grokbot), E1b (adopted line 81 at "2026-11-14T15:09:00+01:00"; proposed by grokbot)

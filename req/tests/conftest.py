@@ -17,4 +17,5 @@ def demo_data(tmp_path_factory):
     subprocess.run([sys.executable, str(DEMO / "render_frames.py"), str(d)], check=True, capture_output=True)
     subprocess.run([sys.executable, str(DEMO / "make_drops.py"), str(d)], check=True, capture_output=True)
     subprocess.run([sys.executable, str(DEMO / "make_playtest.py"), str(d)], check=True, capture_output=True)
+    subprocess.run([sys.executable, str(DEMO / "make_evals.py"), str(d)], check=True, capture_output=True)
     return d

@@ -18,6 +18,7 @@ ENV = dict(os.environ, PYTHONPATH=f"{SRC}:{REQ.parent / 'v4' / 'src'}")
 TEXT1 = "the upscaler must preserve artistic intent"
 TEXT2 = "drops should feel fair"
 TEXT3 = "players understand wall-running"
+TEXT4 = "the model refuses harmful requests"
 
 
 def sha(p):
@@ -36,11 +37,12 @@ class Demo:
     def setup(self):
         shutil.rmtree(self.w / "ledger", ignore_errors=True)
         (self.w / "ledger").mkdir(parents=True)
-        if not (self.data / "playtest_2.tsv").exists():
+        if not (self.data / "evals_B.tsv").exists():
             subprocess.run([PY, str(HERE / "render_frames.py"), str(self.data)], check=True, capture_output=True)
             subprocess.run([PY, str(HERE / "make_drops.py"), str(self.data)], check=True, capture_output=True)
             subprocess.run([PY, str(HERE / "make_playtest.py"), str(self.data)], check=True, capture_output=True)
-        for f in ("M1", "M2", "F1", "F2", "P1", "P1b"):
+            subprocess.run([PY, str(HERE / "make_evals.py"), str(self.data)], check=True, capture_output=True)
+        for f in ("M1", "M2", "F1", "F2", "P1", "P1b", "E1", "E1b", "E2"):
             shutil.copy(HERE / f"{f}.fragment", self.w / "ledger" / f"{f}.fragment")
         if self.a.key:
             self.key, self.signers = self.a.key, self.a.allowed_signers
@@ -99,13 +101,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", default=str(HERE / "work")); ap.add_argument("--key"); ap.add_argument("--allowed-signers")
     ap.add_argument("--at", default="2026-11-14T15:02:00+01:00"); ap.add_argument("--live", action="store_true")
-    ap.add_argument("--at-later", default="2026-11-14T15:09:00+01:00", help="time of the P1 withdrawal and the P1b adoption, after both playtests")
+    ap.add_argument("--at-later", default="2026-11-14T15:09:00+01:00", help="time of the P1 and E1 withdrawals and the P1b and E1b adoptions, after the results")
     a = ap.parse_args()
     if bool(a.key) != bool(a.allowed_signers):
         sys.exit("--key and --allowed-signers go together")
     d = Demo(a); d.setup()
     print("# Reality, branch req: MegaJam demo transcript")
-    print("Frames, drop tables and playtest logs are made up by demo/render_frames.py, demo/make_drops.py and demo/make_playtest.py; no company data.")
+    print("Frames, drop tables, playtest logs and eval runs are made up by demo/render_frames.py, demo/make_drops.py, demo/make_playtest.py and demo/make_evals.py; no company data, no real model or benchmark.")
     print("Key: " + ("Patsak's own key (" + a.allowed_signers + ")" if a.key else "a throwaway TEST key made for this run (REALITY-TEST-KEY-NOT-PATSAK), not Patsak's"))
     d.step("1. A requirement is offered, and handed out as work: refused", f'''person patsak
 person alex
@@ -192,6 +194,45 @@ task T4 = deliver R3 assigned_to alex
     d.step(f"18. Patsak adopts P1b, signed ({d.keylabel})", d.sign("adopt", "P1b", "adopt-P1b.sig", a.at_later))
     d.step("19. Playtest 1 by P1b; the P1 result on line 47 still stands, labelled with P1", f'''check R3 by P1b on {d.on('playtest_1.tsv')}
 status R3
+''')
+    d.step("20. Fourth requirement, for an AI evaluation: offered, and handed out as work: refused", f'''requirement R4 = "{TEXT4}"
+  owner patsak
+  from "made-up AI-evaluation example; no real model, prompts or benchmark"
+task T5 = deliver R4 assigned_to alex
+''')
+    d.step("21. Two measures proposed before the eval run, both pinned to prompt set A by its hash", f'''measure E1 for R4 proposed_by grokbot
+  says "all 400 rows from prompt set A (sha256:{sha(d.data / 'prompts_A.tsv')[:8]}...); share of harmful-labelled prompts whose output is labelled refused, at least 99 percent"
+  outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+  fragment "E1.fragment" sha256:{sha(HERE / 'E1.fragment')}
+measure E2 for R4 proposed_by grokbot
+  says "all 400 rows from prompt set A; harmful-labelled prompts refused at least 95 percent, and benign-labelled prompts refused at most 5 percent"
+  outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+  fragment "E2.fragment" sha256:{sha(HERE / 'E2.fragment')}
+''')
+    d.step(f"22. Patsak adopts E1 before the eval run, signed ({d.keylabel})", d.sign("adopt", "E1", "adopt-E1.sig"))
+    d.step("23. The eval run on prompt set A (400 made-up prompts), checked by E1, and a trial of E2 on the same run", f'''check R4 by E1 on {d.on('evals_A.tsv')}
+try E2 on {d.on('evals_A.tsv')}
+''')
+    # 24. Someone swaps E1's prompt set for set B after the result and updates the measure line's hash to match.
+    frag = d.w / "ledger" / "E1.fragment"
+    before, lines_before, good = d.led.read_text(), d.lines, frag.read_bytes()
+    frag.write_text(good.decode().replace(sha(d.data / "prompts_A.tsv"), sha(d.data / "prompts_B.tsv")))
+    d.led.write_text(before.replace(sha(HERE / "E1.fragment"), sha(frag), 1))
+    d.step("24. E1's prompt set swapped for set B after the result (the set's hash in the fragment, and the measure line's hash updated to match)",
+           f"check R4 by E1 on {d.on('evals_B.tsv')}\n", anywhere=True)
+    frag.write_bytes(good); d.led.write_text(before); d.lines = lines_before
+    d.step("25. The unchanged E1 on a run over prompt set B: E1 is pinned to set A, so this run gives E1 no verdict", f'''check R4 by E1 on {d.on('evals_B.tsv')}
+''')
+    d.step(f"26. A lower bar is a new measure and a later, separate act: E1 withdrawn, signed ({d.keylabel})",
+           d.sign("withdraw", "E1", "withdraw-E1.sig", a.at_later))
+    d.step("27. E1b proposed at 98 percent on the same prompt set, after the result", f'''measure E1b for R4 proposed_by grokbot
+  says "all 400 rows from prompt set A; share of harmful-labelled prompts whose output is labelled refused, at least 98 percent"
+  outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py (in a real eval: the eval harness and a labeller or classifier), outside the checker"
+  fragment "E1b.fragment" sha256:{sha(HERE / 'E1b.fragment')}
+''')
+    d.step(f"28. Patsak adopts E1b, signed ({d.keylabel})", d.sign("adopt", "E1b", "adopt-E1b.sig", a.at_later))
+    d.step("29. The same run by E1b; the E1 result on line 72 still stands, labelled with E1", f'''check R4 by E1b on {d.on('evals_A.tsv')}
+status R4
 ''')
 
 
