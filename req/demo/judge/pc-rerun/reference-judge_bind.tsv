@@ -1,0 +1,16 @@
+key	value
+weights_sha256	sha256:061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a
+prompt_sha256	sha256:25223dd3ce2e20f6ca5124104df1b7e37045a679997f8a9807925d8e02ecccde
+model_file	Qwen3-1.7B-Q8_0.gguf
+model_repo	Qwen/Qwen3-1.7B-GGUF
+method	greedy_grammar
+temp	0.0
+top_k	1
+seed	20261112
+do_sample	0
+reasoning	off
+jinja	off
+grammar	refused|complied
+llamacpp_version	0.9.0-dev+cb44fdb
+backend	server
+n_examples	32

@@ -3,26 +3,28 @@
 Take a requirement like "the model refuses harmful requests". In Reality you can write it down,
 but you can't check it, and nothing can be reported about it, until someone adopts a measure for
 it, for example "at least 99 percent of the prompts in this prompt set are refused", with the
-prompt set pinned by its hash. A person adopts the measure by signing it with their SSH key,
-before the run. If the run then refuses 196 of 200 prompts, the result is DOES NOT HOLD. Lowering
-the bar or swapping in an easier prompt set after that result is refused. The only way to change
-course is a new, later, signed line (withdraw the measure, adopt another one). While that ledger
-file is kept, the earlier adoption and its checkable result remain in it: Reality authenticates
-what was signed and the order of adoption before check; it does not keep an external,
-tamper-proof archive of every past run.
+prompt set pinned by its hash. A person adopts the measure by signing it with their SSH key.
+A signed adoption precedes the check in the ledger you keep. If the run then refuses 196 of 200
+prompts, the result is DOES NOT HOLD. Lowering the bar or swapping in an easier prompt set after
+that result is refused. The only way to change course is a new, later, signed line (withdraw the
+measure, adopt another one). While that ledger file is kept, the earlier adoption and its
+checkable result remain in that order: Reality authenticates what was signed and that a signed
+adoption precedes the check in the ledger you keep. It does not prove nobody looked at the data
+offline first, and it does not stop the ledger file from being edited or deleted on disk.
 
 The same works outside AI evaluation. For "players understand wall-running", a measure could be
 "at least 80 percent of first-time players finish the tutorial without external help in under
-240 seconds", adopted before the playtest and checked against the playtest logs.
+240 seconds", with a signed adoption preceding the playtest check in the ledger you keep.
 
 So Reality makes proposing a criterion and adopting one different kinds of statement. The
-machine can propose measures but can never adopt them. This is pre-registration, as in science,
-made mechanical for checks that go through Reality: the criterion must be adopted in the ledger
-before a check of it forms, and a signature binds the exact text and measure. That is not the
-same as proving nobody looked at the data offline first, or that the ledger file cannot be
-edited or deleted on disk.
+machine can propose measures but can never adopt them. For checks that go through Reality, a
+signed adoption precedes the check in the ledger you keep, and a signature binds the exact text
+and measure. That is not the same as proving nobody looked at the data offline first, or that
+the ledger file cannot be edited or deleted on disk.
 
-Reality never says whether a measure is a good one. Its job is to make evaluation criteria explicit and to authenticate signed adoptions and their order in the ledger you keep, not to choose the criteria or to store an immutable history outside that file.
+Reality never says whether a measure is a good one. Its job is to make evaluation criteria
+explicit and to authenticate signed adoptions and their order in the ledger you keep, not to
+choose the criteria.
 
 ## What it looks like
 
@@ -54,11 +56,11 @@ evaluation ("the model refuses harmful requests", with the prompt set pinned by 
 | path | what |
 |---|---|
 | `req/` | the requirements layer: requirements, proposed and adopted measures, signed adoption and withdrawal, checks (`SPEC.md`, `STATUS.md`) |
-| `req/src/reality_req/` | its trusted code (668 lines; cap 900), plus the untrusted signing helper `sign.py` |
+| `req/src/reality_req/` | its trusted code (861 lines; cap 900), plus untrusted helpers `sign.py` and `ci_gate.py` |
 | `req/demo/` | the demo driver, its made-up data producers and the expected transcript |
 | `req/tests/` | tests of the requirements layer |
 | `v4/` | the checker kernel that `req` runs every adopted measure through (`SPEC.md`, `SPEC-EXACT.md`, `KNOWN-OPEN.md`) |
-| `v4/src/reality4/` | the kernel (trusted base 9,539 lines); `reality4_ref` is an independent reference implementation used by the tests |
+| `v4/src/reality4/` | the kernel (trusted base 10,000 lines, including native questions; `search.py` and `build.py` are outside the base); `reality4_ref` is an independent reference implementation used by the tests |
 | `v4/metatheory/` | Lean proofs about the kernel's arithmetic |
 | `v4/bids/` | the BIDS 1.0.1 sentence register the file reader follows |
 | `v4/tests/`, `v4/tools/` | the kernel's test suite and test tools |

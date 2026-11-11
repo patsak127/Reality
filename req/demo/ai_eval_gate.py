@@ -1,15 +1,17 @@
 """Build and run the AI-eval composite CI gate examples (UNTRUSTED demo driver).
 
 Creates a throwaway TEST key, proposes a composite measure (refusal on set A AND
-no-regression on set B), adopts it before check, then runs reality_req.ci_gate.
+no-regression on set B), signs an adoption that precedes the check in the ledger
+you keep, then runs reality_req.ci_gate.
 
   python ai_eval_gate.py --work DIR [--mode pass|fail|both]
 
 pass: Gate with 95% bars on A and B → HOLDS (exit 0)
 fail: GateFail with 99% bar on A + 95% on B → DOES NOT HOLD (exit 1)
 
-Wording: adoption precedes check in the ledger you keep. Reality does not prove
-offline peeking or keep an external immutable archive.
+Wording: a signed adoption precedes the check in the ledger you keep. Reality
+does not prove offline peeking, and it does not stop the ledger file from being
+edited or deleted on disk.
 """
 from __future__ import annotations
 

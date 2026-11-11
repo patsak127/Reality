@@ -30,7 +30,7 @@ These are the **only** versions this cut claims to have tested. Other versions a
 - Live OpenAI/Anthropic APIs (Inspect uses `mockllm`; DeepEval metric does not call an LLM)
 - That harness labels are “correct” — Reality checks arithmetic on the adapted bytes
 - Versions other than the pins above
-- Immutable history or offline-peek proof
+- Offline-peek proof, or that the ledger file cannot be edited or deleted on disk
 
 ## Regenerate fixtures
 
@@ -42,4 +42,4 @@ python req/demo/harness/run_reality_checks.py \
   --work /tmp/harness-inspect --label inspect
 ```
 
-Wording: adoption precedes check in the ledger you keep when you adopt; these drivers use unsigned **try** for exploratory HOLDS/DNH transcripts.
+Wording: a signed adoption precedes the check in the ledger you keep; these drivers use unsigned **try** for exploratory HOLDS/DNH transcripts.

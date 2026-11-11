@@ -38,6 +38,7 @@ def test_weights_sha_matches_public_gguf():
     assert rows["do_sample"] == "0"
     assert rows["reasoning"] == "off"
     assert "llamacpp_version" in rows and rows["llamacpp_version"]
+    assert rows.get("backend") == "server"
 
 
 def test_agreement_informative():

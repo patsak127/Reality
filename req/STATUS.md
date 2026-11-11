@@ -1,8 +1,9 @@
 # req/ status at gate G (3 Nov 2026)
 
-- Trusted lines (req/src/reality_req, without the untrusted sign.py): 668 of the 900 cap
-  (form 299, syntax 133, say 111, run 57, __main__ 43, bind 24, __init__ 1). v4's trusted base is unchanged
-  at 9,539 lines; v0-v3, core/ and checker/harness/ are untouched (`git diff 760acc9` is empty for them).
+- Trusted lines (req/src/reality_req, without untrusted `sign.py` and `ci_gate.py`): 861 of the 900 cap
+  (form 362, syntax 190, say 184, run 57, __main__ 43, bind 24, __init__ 1). v4's trusted base is
+  10,000 lines including native questions (`search.py` and `build.py` outside the base); v0-v3,
+  core/ and checker/harness/ are untouched for the req layer's purposes.
 - req tests: 48 passed (box, CPython 3.13; 47 before the AI-evaluation example, 46 before the playtest example). v4 suite at gate D code: 1484 passed, 4 skipped, 0 failed.
 - Demo: `python req/demo/demo.py --work DIR`; expected output in `demo/expected/transcript.txt`
   (also the printed fallback). MacBook key steps: `demo/README.md`.

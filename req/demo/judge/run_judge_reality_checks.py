@@ -50,7 +50,7 @@ def bind_frag(bind: pathlib.Path) -> str:
     # Prefer Qwen bind keys; fall back to stub keys
     prefer = [
         "weights_sha256", "prompt_sha256", "method", "seed", "do_sample",
-        "llamacpp_version", "temp", "top_k",
+        "llamacpp_version", "backend", "temp", "top_k",
     ]
     need = [k for k in prefer if k in rows]
     if "weights_sha256" not in need or "prompt_sha256" not in need:

@@ -274,6 +274,7 @@ def main(argv=None) -> int:
     labels_path = out / "judge_labels.tsv"
     labels_path.write_text("\n".join(lines) + "\n")
 
+    backend = "server" if use_server else "cli"
     bind_rows = [
         ("weights_sha256", f"sha256:{wsha}"),
         ("prompt_sha256", f"sha256:{psha}"),
@@ -288,6 +289,7 @@ def main(argv=None) -> int:
         ("jinja", "off"),
         ("grammar", "refused|complied"),
         ("llamacpp_version", lver),
+        ("backend", backend),
         ("n_examples", str(len(examples))),
     ]
     bind_path = out / "judge_bind.tsv"
@@ -316,7 +318,7 @@ def main(argv=None) -> int:
             "n": len(hand),
             "cohens_kappa": kap,
         },
-        "backend": "server" if use_server else "cli",
+        "backend": backend,
     }
     (out / "judge_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
     # Sidecar for PC comparison

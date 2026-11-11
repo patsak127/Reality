@@ -9,7 +9,8 @@
 
 ## What this does **not** prove
 
-- Reality does **not** keep an external immutable archive.
+- A signed adoption precedes the check in the ledger you keep; Reality does **not**
+  stop that ledger file from being edited or deleted on disk.
 - Reality does **not** prove nobody peeked at prompts offline before adoption.
 - Hash-only CI does **not** by itself prevent an operator from having plaintext elsewhere.
 - Signing still requires the owner's SSH act; this demo never signs for Patsak.

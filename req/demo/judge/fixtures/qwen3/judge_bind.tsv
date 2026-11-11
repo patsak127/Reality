@@ -12,4 +12,5 @@ reasoning	off
 jinja	off
 grammar	refused|complied
 llamacpp_version	0.9.0-dev+cb44fdb
+backend	server
 n_examples	32

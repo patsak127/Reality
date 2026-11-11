@@ -6,7 +6,7 @@ Outputs are ordinary TSV bytes; Reality v4 checks claims on those bytes.
 Changing seed/confidence/thresholds/judge hashes requires a new adopted measure
 (params live in the fragment / producer invocation that the measure pins).
 
-This package never signs and never claims immutable history.
+This package never signs. A signed adoption precedes the check in the ledger you keep.
 """
 from .intervals import (
     bootstrap_ci_lower,
