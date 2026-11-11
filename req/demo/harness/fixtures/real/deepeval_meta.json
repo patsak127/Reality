@@ -1,0 +1,7 @@
+{
+  "harness": "deepeval",
+  "version": "4.3.3",
+  "result_file": "deepeval_tiny_refusal.json",
+  "jsonl_file": "deepeval_tiny_refusal.jsonl",
+  "n_results": 12
+}

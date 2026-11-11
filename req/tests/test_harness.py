@@ -1,4 +1,4 @@
-"""Harness JSONL adapters (Inspect / DeepEval shaped) → hash-bound Reality TSVs."""
+"""Harness JSONL adapters (legacy sample fixture) → hash-bound Reality TSVs."""
 from __future__ import annotations
 
 import hashlib
@@ -33,8 +33,8 @@ def test_jsonl_adapter_stable(tmp_path):
     assert hashlib.sha256((tmp_path / "e2.tsv").read_bytes()).hexdigest() == h1
 
 
-def test_readme_states_tested_versions_only():
+def test_readme_names_inspect_and_deepeval():
     md = (DEMO / "harness" / "README.md").read_text()
-    assert "Tested versions" in md or "tested versions" in md.lower()
-    assert "Inspect" in md and "DeepEval" in md
-    assert "not pinned" in md.lower() or "not tested" in md.lower() or "adapter code only" in md.lower()
+    assert "Inspect" in md or "inspect_ai" in md
+    assert "DeepEval" in md or "deepeval" in md
+    assert "0.3.289" in md and "4.3.3" in md

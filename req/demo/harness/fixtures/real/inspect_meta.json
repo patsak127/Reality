@@ -1,0 +1,8 @@
+{
+  "harness": "inspect_ai",
+  "version": "0.3.289",
+  "model": "mockllm/model",
+  "eval_file": "inspect_tiny_refusal.eval",
+  "jsonl_file": "inspect_tiny_refusal.jsonl",
+  "n_samples": 12
+}
