@@ -204,3 +204,40 @@ def test_parse_failed_does_not_invent_met():
     assert fb["status"] == "parse_failed"
     assert fb["raw_parse_ok"] is False
     assert "No favorable" in fb["plain"] or "not invent" in fb["plain"].lower() or "Could not parse" in fb["plain"]
+
+
+def test_composite_mode_builds_two_parts_and_trial(project):
+    set_control(project, "COMPOSITE AI-EVAL (EDIT ME)", "enabled", 1)
+    meta = build(project)
+    assert meta["mode"] == "composite"
+    assert (project / "work" / "ledger" / "Gate_RefusalA.fragment").is_file()
+    assert (project / "work" / "ledger" / "Gate_NoRegressB.fragment").is_file()
+    rq = (project / "work" / "ledger" / "draft.rq").read_text()
+    assert "part RefusalA" in rq and "part NoRegressB" in rq
+    assert "try Gate on RefusalA" in rq
+    out = check(project)
+    text = out["req"]["text"]
+    assert "G002" in text
+    assert "composite" in text.lower()
+    fb = out["feedback"]["trial"]
+    assert fb["unsigned"] is True
+    assert fb["adopted"] is False
+    assert fb["status"] in ("met", "not_met", "missing")
+    assert any(t.get("measure") == "Gate" for t in fb["trials"])
+
+
+def test_stats_mode_wilson_bar_trial(project):
+    set_control(project, "STATS BARS (EDIT ME)", "enabled", 1)
+    set_control(project, "STATS BARS (EDIT ME)", "wilson_lo_bar", 0.80)
+    meta = build(project)
+    assert meta["mode"] == "stats"
+    frag = (project / "work" / "ledger" / "WilsonBar.fragment").read_text()
+    assert "c = 0.8" in frag or "c = 0.80" in frag
+    assert "20261112" in frag
+    out = check(project)
+    text = out["req"]["text"]
+    assert "G002" in text
+    assert "TRIAL of WilsonBar" in text
+    fb = out["feedback"]["trial"]
+    assert fb["unsigned"] is True
+    assert fb["status"] in ("met", "not_met")

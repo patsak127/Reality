@@ -33,16 +33,49 @@ def parse_req_transcript(text: str, *, build_ok: bool = True, build_error: str |
         out["plain"] = "Empty checker transcript; see full log. No favorable result claimed."
         return out
 
-    m = re.search(r'requirement R\d+ recorded.*?\"([^\"]+)\"', text)
+    m = re.search(r'requirement R\w+ recorded.*?\"([^\"]+)\"', text)
     if m:
         out["requirement"] = m.group(1)
     else:
-        m2 = re.search(r'requirement R\d+: \"([^\"]+)\"', text)
+        m2 = re.search(r'requirement R\w+: \"([^\"]+)\"', text)
         if m2:
             out["requirement"] = m2.group(1)
 
     trials = []
-    # Split on TRIAL of <Name>
+    # Composite: TRIAL of Name (composite) on bindings sha256:...
+    for tm in re.finditer(
+        r"TRIAL of (\w+) \(composite\) on bindings sha256:([0-9a-fA-F]+).*?(?=TRIAL of |\nline \d+: G|\nrefused|\Z)",
+        text,
+        re.S,
+    ):
+        name, sha = tm.group(1), tm.group(2)
+        block = tm.group(0)
+        out["data_sha_short"] = sha[:8] + "..."
+        verdict = "unknown"
+        if re.search(rf"{name} DOES NOT HOLD as a composite", block) or re.search(
+            rf"{name} DOES NOT HOLD", block
+        ):
+            verdict = "not_met"
+        elif re.search(rf"{name} HOLDS as a composite", block) or re.search(
+            rf"{name} HOLDS", block
+        ):
+            verdict = "met"
+        elif "NOT CHECKED" in block:
+            verdict = "missing"
+        detail = None
+        dm = re.search(r"(?:does not hold|DOES NOT HOLD)[^\n]*: (.+)", block)
+        if dm:
+            detail = dm.group(1).strip()
+        trials.append({
+            "measure": name,
+            "verdict": verdict,
+            "share": None,
+            "detail": detail,
+            "not_checked_why": None,
+            "data_sha_short": sha[:8] + "...",
+            "composite": True,
+        })
+    # Simple: TRIAL of Name on sha256:...
     for tm in re.finditer(
         r"TRIAL of (\w+) on sha256:([0-9a-fA-F]+).*?(?=TRIAL of |\nline \d+: G|\nrefused|\Z)",
         text,
@@ -77,6 +110,7 @@ def parse_req_transcript(text: str, *, build_ok: bool = True, build_error: str |
             "detail": detail,
             "not_checked_why": nc,
             "data_sha_short": sha[:8] + "...",
+            "composite": False,
         })
     out["trials"] = trials
 
@@ -214,9 +248,9 @@ def structured_feedback(
         "question": question,
         "controls": changed,
         "limits": [
-            "First-slice exploratory draft only.",
-            "Supported measure shape: where + share + atleast / lt / eq.",
+            "Exploratory draft only (playtest, composite Gate, or Wilson stats bar).",
             "UNSIGNED trials do not adopt; owner must sign separately.",
             "Question answers are not claim operands.",
+            "Stats producer params are pinned in the fragment; changing them is a new measure.",
         ],
     }

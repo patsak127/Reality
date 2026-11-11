@@ -91,8 +91,9 @@ HTML = r"""<!DOCTYPE html>
 <body>
 <header>
   <h1>EDIT ME - design controls <span class="badge">unsigned draft</span></h1>
-  <p>First-slice playtest share bar. Apply writes real fragment and draft ledger files, then runs the
-  real checker. Trials are exploratory candidates — never adopted or signed here. Label ranges are advice, not clamps.</p>
+  <p>Menthol EDIT ME: playtest share bar, composite AI-eval Gate parts, or Wilson stats bars.
+  Apply writes real fragment and draft ledger files, then runs the real checker. Plain result above;
+  machinery collapsed. Trials are exploratory candidates — never adopted or signed here.</p>
 </header>
 <main>
   <section id="controls"></section>
@@ -107,12 +108,12 @@ HTML = r"""<!DOCTYPE html>
         <summary>Full checker log (collapsed)</summary>
         <div id="preview" class="preview">(empty until apply)</div>
       </details>
-      <p class="note">Limited first slice: where + share + atleast / lt / eq. Official check without adopt is refused. Question answers are not claims.</p>
+      <p class="note">Official check without adopt is refused (G002). Question answers are not claims. Stats arithmetic is outside the trusted base.</p>
     </div>
     <div class="frame mach">
       <h2>Pattern machinery — no need to touch</h2>
       <details>
-        <summary>Show generated PassBar.fragment + draft.rq (+ optional compare.ro)</summary>
+        <summary>Show generated fragments + draft.rq (+ optional compare.ro)</summary>
         <div id="machinery" class="preview" style="margin-top:0.5rem">(empty until apply)</div>
       </details>
     </div>
@@ -121,6 +122,8 @@ HTML = r"""<!DOCTYPE html>
 <script>
 const FRAME_ORDER = [
   "EDIT ME - design controls",
+  "COMPOSITE AI-EVAL (EDIT ME)",
+  "STATS BARS (EDIT ME)",
   "ALTERNATIVES (EDIT ME)",
   "COMPARE ORDERINGS (EDIT ME) - question, not a claim"
 ];
@@ -256,6 +259,8 @@ function showPreview(out) {
     trial.requirement ? ("Requirement: " + trial.requirement) : null,
     ctrls.log ? ("Data: " + ctrls.log) : null,
     ctrls.pass_bar != null ? ("Pass bar: " + ctrls.pass_bar) : null,
+    ctrls.wilson_lo_bar != null ? ("Wilson lo bar: " + ctrls.wilson_lo_bar) : null,
+    ctrls.bar_a != null ? ("Composite bars A/B: " + ctrls.bar_a + "/" + ctrls.bar_b) : null,
     trial.data_sha_short ? ("Data sha: " + trial.data_sha_short) : null,
     "UNSIGNED — not adopted"
   ].filter(Boolean).join(" · ");
@@ -356,7 +361,11 @@ class Handler(BaseHTTPRequestHandler):
             }}
         work = self.root / "work"
         machinery_parts = []
-        for name in ("ledger/PassBar.fragment", "ledger/PassBarLoose.fragment", "ledger/draft.rq", "compare.ro", "edit_me.json"):
+        for name in (
+            "ledger/PassBar.fragment", "ledger/PassBarLoose.fragment",
+            "ledger/Gate_RefusalA.fragment", "ledger/Gate_NoRegressB.fragment",
+            "ledger/WilsonBar.fragment", "ledger/draft.rq", "compare.ro", "edit_me.json",
+        ):
             p = work / name
             if p.is_file():
                 machinery_parts.append(f"----- {name} -----\n{p.read_text()}")
