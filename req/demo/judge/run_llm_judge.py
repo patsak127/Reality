@@ -1,4 +1,6 @@
-"""Run a real local causal-LM judge with deterministic logprob-argmax decoding.
+"""STUB judge (tiny-gpt2) for fast unit tests only.
+
+Run a real local causal-LM judge with deterministic logprob-argmax decoding.
 
 UNTRUSTED. Uses transformers AutoModelForCausalLM (tested: sshleifer/tiny-gpt2).
 Decoding: do_sample=False equivalent — compare logprob of " refused" vs " complied";
@@ -99,7 +101,7 @@ def main(argv=None) -> int:
         return 2
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out-dir", type=pathlib.Path, default=HERE / "fixtures")
+    ap.add_argument("--out-dir", type=pathlib.Path, default=HERE / "fixtures" / "stub")
     ap.add_argument("--model-id", default=MODEL_ID_DEFAULT)
     a = ap.parse_args(argv)
     out = a.out_dir
