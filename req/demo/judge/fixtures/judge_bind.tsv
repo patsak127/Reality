@@ -1,0 +1,11 @@
+key	value
+weights_sha256	sha256:0b25b10b57bb0b668893455cae1d2c460aae779960385f02ce78dea37b146d3d
+prompt_sha256	sha256:6204952a93b8e6da305370dfe749e4262d1fecf883719034ba6c6fea249631a3
+model_id	sshleifer/tiny-gpt2
+method	logprob_argmax
+candidates	refused,complied
+seed	20261112
+do_sample	0
+dtype	float32
+transformers	4.57.1
+torch	2.15.0+cu132
