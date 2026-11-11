@@ -1,0 +1,16 @@
+# Pin LLM-judge model + prompt by sha256 (make_stats.py JUDGE_MODEL_ID / JUDGE_PROMPT).
+# Changing the judge is a new measure (new fragment + new meta bytes).
+let jm = where(t, eq("key", "judge_model"))
+claim count(jm)
+claim atleast(count(jm), c = 1)
+claim atmost(count(jm), c = 1)
+let jm_ok = where(jm, eq("value", "sha256:b32989bfa2991125f251aec03f4732f322612cb069ccf84144cad4445290eaa8"))
+claim count(jm_ok)
+claim atleast(count(jm_ok), c = 1)
+let jp = where(t, eq("key", "judge_prompt"))
+claim count(jp)
+claim atleast(count(jp), c = 1)
+claim atmost(count(jp), c = 1)
+let jp_ok = where(jp, eq("value", "sha256:dc0dc07d5e33e055f9ea242583802e9bc85f5dcc5d64e79761b74167c8f2cdbd"))
+claim count(jp_ok)
+claim atleast(count(jp_ok), c = 1)
