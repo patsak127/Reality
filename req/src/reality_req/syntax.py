@@ -13,13 +13,15 @@ SHAPES = {
     "person": ("N", {}, ()),
     "tool": ("N", {}, ()),
     "requirement": ("N=S", {"owner": "N", "from": "S"}, ("owner",)),
-    "measure": ("N", {"for": "N", "proposed_by": "N", "says": "S", "outside": "S", "fragment": "SH"},
-                ("for", "proposed_by", "says", "fragment")),
+    # fragment: simple measure. part: composite measure (repeated); see parse().
+    "measure": ("N", {"for": "N", "proposed_by": "N", "says": "S", "outside": "S", "fragment": "SH", "part": "*"},
+                ("for", "proposed_by", "says")),
     "task": ("N=", {"propose": "N", "deliver": "N", "by": "N", "on": "H", "assigned_to": "N"}, ("assigned_to",)),
     "adopt": ("N", {"for": "N", "by": "N", "at": "S", "requirement_text": "H", "measure": "H", "sig": "S"},
               ("for", "by", "at", "requirement_text", "measure")),
-    "check": ("N", {"by": "N", "on": "H"}, ("on",)),
-    "try": ("N", {"on": "H"}, ("on",)),
+    # on: simple hash, or repeated "on <Part> sha256:..." for composite (see parse()).
+    "check": ("N", {"by": "N", "on": "*"}, ("on",)),
+    "try": ("N", {"on": "*"}, ("on",)),
     "status": ("N", {}, ()),
 }
 SHAPES["withdraw"] = SHAPES["adopt"]
@@ -110,18 +112,73 @@ def parse(line, toks):
     while rest:
         key = rest.pop(0)
         if key[0] != "name" or key[1] not in allowed:
-            raise SyntaxRefusal(line, "S003", f"'{key[1]}' is not a part of '{kind}' (parts: {', '.join(allowed) or 'none'})")
+            raise SyntaxRefusal(line, "S003", f"'{key[1]}' is not a part of '{kind}' (parts: {', '.join(k for k in allowed if allowed[k] != '*') or 'none'})")
+        # Composite measure parts: part <Name> fragment "<path>" sha256:<hex>
+        if key[1] == "part" and kind == "measure":
+            if not rest or rest[0][0] != "name":
+                raise SyntaxRefusal(line, "S003", "'part' is written: part <Name> fragment \"<path>\" sha256:<hex>")
+            pname = rest.pop(0)[1]
+            if not rest or rest[0] != ("name", "fragment"):
+                raise SyntaxRefusal(line, "S003", f"'part {pname}' needs 'fragment \"<path>\" sha256:<hex>'")
+            rest.pop(0)
+            if not rest or rest[0][0] != "str":
+                raise SyntaxRefusal(line, "S003", f"'part {pname}' fragment needs a path string")
+            path = rest.pop(0)[1]
+            if not rest or rest[0][0] != "hash":
+                raise SyntaxRefusal(line, "S003", f"'part {pname}' fragment needs sha256:<hex>")
+            fp = rest.pop(0)[1]
+            clauses.setdefault("parts", []).append((pname, path, fp))
+            continue
+        # check/try data binding: on sha256:<hex>  OR  on <Part> sha256:<hex> (repeatable)
+        if key[1] == "on" and kind in ("check", "try"):
+            if not rest:
+                raise SyntaxRefusal(line, "S003", "'on' takes sha256:<hex>, or <Part> sha256:<hex> for a composite measure")
+            if rest[0][0] == "hash":
+                h = rest.pop(0)[1]
+                if "on" in clauses:
+                    raise SyntaxRefusal(
+                        line, "S003",
+                        "a simple 'on sha256:<hex>' cannot mix with part bindings"
+                        if isinstance(clauses["on"], list) else "'on' is given twice",
+                    )
+                clauses["on"] = h
+            elif rest[0][0] == "name":
+                pname = rest.pop(0)[1]
+                if not rest or rest[0][0] != "hash":
+                    raise SyntaxRefusal(line, "S003", f"'on {pname}' needs sha256:<hex>")
+                h = rest.pop(0)[1]
+                if "on" in clauses and not isinstance(clauses["on"], list):
+                    raise SyntaxRefusal(line, "S003", "a simple 'on sha256:<hex>' cannot mix with part bindings")
+                clauses.setdefault("on", [])
+                clauses["on"].append((pname, h))
+            else:
+                raise SyntaxRefusal(line, "S003", "'on' takes sha256:<hex>, or <Part> sha256:<hex> for a composite measure")
+            continue
         if key[1] in clauses:
             raise SyntaxRefusal(line, "S003", f"'{key[1]}' is given twice")
+        shape = allowed[key[1]]
+        if shape == "*":
+            raise SyntaxRefusal(line, "S003", f"'{key[1]}' is not valid here")
         vals = []
-        for want in allowed[key[1]]:
+        for want in shape:
             if not rest or rest[0][0] != {"N": "name", "S": "str", "H": "hash"}[want]:
-                raise SyntaxRefusal(line, "S003", f"'{key[1]}' takes {' and '.join({'N': 'a name', 'S': 'a string', 'H': 'sha256:<hex>'}[w] for w in allowed[key[1]])}")
+                raise SyntaxRefusal(line, "S003", f"'{key[1]}' takes {' and '.join({'N': 'a name', 'S': 'a string', 'H': 'sha256:<hex>'}[w] for w in shape)}")
             vals.append(rest.pop(0)[1])
         clauses[key[1]] = vals[0] if len(vals) == 1 else tuple(vals)
     for k in needed:
         if k not in clauses:
             raise SyntaxRefusal(line, "S003", f"'{kind}' needs '{k}': {usage(kind)}")
+    if kind == "measure":
+        has_frag = "fragment" in clauses
+        has_parts = bool(clauses.get("parts"))
+        if has_frag == has_parts:
+            raise SyntaxRefusal(line, "S003", "a measure names either one 'fragment' or one or more 'part <Name> fragment ...' clauses, not both and not neither")
+        if has_parts:
+            names = [p[0] for p in clauses["parts"]]
+            if len(names) != len(set(names)):
+                raise SyntaxRefusal(line, "S003", "each composite measure part name must be unique")
+            if len(names) < 2:
+                raise SyntaxRefusal(line, "S003", "a composite measure needs at least two parts (or use a single 'fragment')")
     if kind == "task" and ("propose" in clauses) == ("deliver" in clauses):
         raise SyntaxRefusal(line, "S003", "a task is 'propose <R>' or 'deliver <R> by <M> on sha256:<data>'")
     return Statement(line, kind, name, text, clauses)

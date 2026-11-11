@@ -1,0 +1,60 @@
+{
+  "project": "players understand wall-running - draft authoring controls",
+  "note": "Intention-level named handles (Menthol EDIT ME pattern). Ranges in labels are advice, not clamps. Draft workspace is unsigned - never auto-adopts. First-slice: playtest share bar only.",
+  "frames": {
+    "EDIT ME - design controls": {
+      "pass_bar": {
+        "label": "Share who must finish unaided",
+        "hint": "Typical 0.7 to 0.9. Label advice, not a clamp.",
+        "kind": "number",
+        "value": 0.8
+      },
+      "time_budget_s": {
+        "label": "Seconds allowed in the tutorial",
+        "hint": "Higher makes the bar easier to meet.",
+        "kind": "number",
+        "value": 240
+      },
+      "require_no_external_help": {
+        "label": "Count external help as not finishing",
+        "hint": "When on, only unaided finishes count toward the share.",
+        "kind": "toggle",
+        "value": 1
+      },
+      "log": {
+        "label": "Playtest log file",
+        "hint": "playtest_1.tsv or playtest_2.tsv in the project data folder.",
+        "kind": "text",
+        "value": "playtest_1.tsv"
+      }
+    },
+    "ALTERNATIVES (EDIT ME)": {
+      "second_bar_enabled": {
+        "label": "Also try a looser candidate bar",
+        "hint": "Shows two unsigned candidates can disagree. Off by default.",
+        "kind": "toggle",
+        "value": 0
+      },
+      "second_bar": {
+        "label": "Looser share bar",
+        "hint": "Used only when the looser-candidate toggle is on.",
+        "kind": "number",
+        "value": 0.7
+      }
+    },
+    "COMPARE ORDERINGS (EDIT ME) - question, not a claim": {
+      "enabled": {
+        "label": "Compare candidate orderings (question)",
+        "hint": "Forms a weighted pair question on scores.tsv. Answers are not claims.",
+        "kind": "toggle",
+        "value": 0
+      },
+      "weight_mid": {
+        "label": "Middle weight in the family",
+        "hint": "Family is 1/4, this middle, 3/4. Label advice 0 to 1.",
+        "kind": "number",
+        "value": 0.5
+      }
+    }
+  }
+}

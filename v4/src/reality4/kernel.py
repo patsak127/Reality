@@ -12,13 +12,13 @@ applied to the whole program after every statement has been checked."""
 import sys
 from fractions import Fraction
 
-from . import bids101, witness
+from . import bids101, questions, witness
 from .exact import Surd, SurdMix, sqrt as exact_sqrt
 from . import readers as R
 from .keys import PinError, check_pins, invisible, is_header_name, is_key, lookalikes, skeleton
 from .readers import Refusal
 from .sorts import File, Lit, S, esc, files, nodes, render
-from .syntax import Call, Dec, Int, Name, Ratio, Str, SyntaxRefusal, parse_line, split_program
+from .syntax import Call, Dec, Int, Name, Ratio, Str, SyntaxRefusal, group_program_lines, parse_line, split_program
 
 MAX_BYTES_SLICE = 4096
 RECURSION = 10_000
@@ -255,6 +255,10 @@ class Checker:
                 fail("N001", "1", "a name used here is not declared above")
             if b[0] == "refused":
                 fail("N003", "1", f"a name used here comes from the statement on line {b[1]}, which was refused")
+            if b[0] == "question":
+                # Structural: QuestionAnswer is not Meaning; name may be reserved but cannot flow
+                # into let RHS, claim EXPR, or Call arguments (principle §1 stipulated questions).
+                fail("Q011", "1", f"the name {e.id!r} stands for a question's answer (line {b[2]}), which is not a value; nothing a question answers can enter a claim or a let (principle section 1)")
             if b[0] == "let":
                 self.used_logs.append(b[3])
             if b[0] == "file":
@@ -1078,7 +1082,7 @@ class Checker:
 
     def statement1(self, st):
         self.used_logs = []
-        if st.kind in ("file", "dataset", "let"):
+        if st.kind in ("file", "dataset", "let", "question"):
             if st.name in self.env and self.env[st.name][0] != "refused":
                 fail("N002", "1", f"the name is already declared on line {self.env[st.name][2]}; a name stands for one thing")
             if st.name in self.env:
@@ -1087,6 +1091,11 @@ class Checker:
                 m = self.meaning(st.expr)
                 self.exprs[st.name] = self.inline(st.expr)
                 self.env[st.name] = ("let", m, st.line, self.actual_reads())
+            elif st.kind == "question":
+                # Evaluate to QuestionAnswer; bind name as question-slot (not Meaning / not let value).
+                qr = questions.run_question(st, self.store, self.env)
+                self.env[st.name] = ("question", qr.answer, st.line)
+                return qr
             else:
                 self.store.path(st.hash)   # F001 for every declared file, used or not
                 self.env[st.name] = (st.kind, st.hash, st.line)
@@ -1184,7 +1193,12 @@ def _check(program, store):
                 total += len(r[2].encode("utf-8", "backslashreplace")) + 1
         counted = len(results)
 
-    for ln, text in lines:
+    try:
+        grouped = list(group_program_lines(lines))
+    except SyntaxRefusal as e:
+        return False, [f"line {e.line}: refused [{e.code}, item 1]: {e.msg}", "refused: the program is not Reality text"]
+
+    for ln, text in grouped:
         count_refusals()
         try:
             st = parse_line(text, ln)
@@ -1207,10 +1221,23 @@ def _check(program, store):
             continue
         except Refusal as e:
             results.append((ln, "refused", refusal_line(ln, e)))
-            if st.kind in ("file", "dataset", "let") and st.name not in ck.env:
+            if st.kind in ("file", "dataset", "let", "question") and st.name not in ck.env:
                 ck.env[st.name] = ("refused", ln)
             continue
         if res is not None:
+            # Question answers: distinct print path — never claim "formed: Sort value".
+            if isinstance(res, questions.QuestionResult):
+                text_lines = list(res.lines)
+                size = sum(len(t.encode("utf-8", "backslashreplace")) + 1 for t in text_lines)
+                if size > MAX_LINE_OUTPUT:
+                    results.append((ln, "refused", refusal_line(ln, Refusal("R014", "bounds", f"the formed statement would print {size} bytes; Reality prints at most {MAX_LINE_OUTPUT} bytes per statement (Reality bounds, v4 SPEC 9.3)"))))
+                    continue
+                if total + size > MAX_PROGRAM_OUTPUT:
+                    results.append((ln, "refused", refusal_line(ln, Refusal("R011", "bounds", f"the program's output would pass {MAX_PROGRAM_OUTPUT} bytes here (Reality bounds, v4 SPEC 9.3)"))))
+                    continue
+                total += size
+                results.append((ln, "formed", text_lines, set()))  # no claim number_uses / S012 profile
+                continue
             m, named, value = res
             labels = {h: f"#{i}" for i, h in enumerate(named, start=1)}
             prec = f" ({m.val.precision()})" if m.kind == "num" else (" (Exact)" if m.kind in ("count", "share") else "")

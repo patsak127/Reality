@@ -6,8 +6,10 @@ it, for example "at least 99 percent of the prompts in this prompt set are refus
 prompt set pinned by its hash. A person adopts the measure by signing it with their SSH key,
 before the run. If the run then refuses 196 of 200 prompts, the result is DOES NOT HOLD. Lowering
 the bar or swapping in an easier prompt set after that result is refused. The only way to change
-course is a new, later, signed line (withdraw the measure, adopt another one), and the failed
-result stays on record.
+course is a new, later, signed line (withdraw the measure, adopt another one). While that ledger
+file is kept, the earlier adoption and its checkable result remain in it: Reality authenticates
+what was signed and the order of adoption before check; it does not keep an external,
+tamper-proof archive of every past run.
 
 The same works outside AI evaluation. For "players understand wall-running", a measure could be
 "at least 80 percent of first-time players finish the tutorial without external help in under
@@ -15,10 +17,12 @@ The same works outside AI evaluation. For "players understand wall-running", a m
 
 So Reality makes proposing a criterion and adopting one different kinds of statement. The
 machine can propose measures but can never adopt them. This is pre-registration, as in science,
-made mechanical: the criterion is fixed before the experiment is run, and the language enforces
-it. Reality won't let you rewrite history.
+made mechanical for checks that go through Reality: the criterion must be adopted in the ledger
+before a check of it forms, and a signature binds the exact text and measure. That is not the
+same as proving nobody looked at the data offline first, or that the ledger file cannot be
+edited or deleted on disk.
 
-Reality never says whether a measure is a good one. Its job is to make evaluation criteria explicit and their history impossible to rewrite, not to choose them.
+Reality never says whether a measure is a good one. Its job is to make evaluation criteria explicit and to authenticate signed adoptions and their order in the ledger you keep, not to choose the criteria or to store an immutable history outside that file.
 
 ## What it looks like
 

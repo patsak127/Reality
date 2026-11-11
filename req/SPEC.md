@@ -174,6 +174,28 @@ try M2 on sha256:979cb9d62803637d56d0e6a492e10b6d174a0e560286e57e2fa17c2f96719ba
   counted for 5.3. This is the room the reviewer asked for: proposals can be measured while the
   measure is being looked for.
 
+### 3.1 Composite measures (req layer)
+
+A measure may name **two or more parts** instead of one `fragment`. Each part is its own hashed
+v4 fragment. One adoption covers the whole composite (the measure hash is the SHA-256 of a
+canonical `part <Name> sha256:<frag>` listing). A check or trial binds **each** part to a data
+hash:
+
+```
+measure Gate for R4 proposed_by grokbot
+  says "refusal on set A AND no regression on set B"
+  part RefusalA fragment "Gate_RefusalA.fragment" sha256:...
+  part NoRegressB fragment "Gate_NoRegressB.fragment" sha256:...
+
+check R4 by Gate on RefusalA sha256:<evals_A> on NoRegressB sha256:<evals_B>
+```
+
+Each part is run through the unchanged v4 checker (section 7). The composite HOLDS only if every
+part HOLDS; any part DOES NOT HOLD → composite DOES NOT HOLD; any part NOT CHECKED → composite
+NOT CHECKED. Part results are printed. Governance is unchanged: adoption before check, G014 if
+any part's fragment bytes change under a kept adoption, unsigned drafts never count as adopted.
+G024 refuses wrong or missing part bindings. Kernel claim/let semantics are not altered.
+
 ## 4. Refusal codes and messages
 
 Placeholders in angle brackets; everything else is the literal message. Every message names what
@@ -198,6 +220,7 @@ is absent and, as I002 does, the syntax that would form. None says what the requ
 | G021 | a fragment with no condition | `<M> has no condition (no exceeds, below, atleast or atmost claim), so nothing in it can hold or fail` |
 | G022 | `is` in a fragment | `'is' is not used in a measure: a condition is a comparison, so that a refusal V001 always means a comparison the bytes contradict` |
 | G023 | fragment bytes not found or not matching the hash | reuses F001/F002 wording with `fragment` for `file` |
+| G024 | composite check/try with missing, unknown, duplicate, or simple-vs-composite mismatched part bindings | names the missing or wrong part and the required `on <Part> sha256:<data>` form |
 | E004 / N001 / N002 | blank `says` or requirement text; unknown or duplicate names | reused, unchanged messages |
 
 ## 5. Binding: how an adoption is recorded
