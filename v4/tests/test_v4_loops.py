@@ -37,6 +37,12 @@ BOUNDED = {
     ("syntax.py", "measured_size"): (2, PROGRAM, "the program text"),
     ("syntax.py", "split_program"): (1, PROGRAM, "the program bytes"),
     ("syntax.py", "expr"): (1, PROGRAM, "one statement's tokens"),
+    ("syntax.py", "group_program_lines"): (2, PROGRAM, "the program's lines (question continuations; SPEC-ORD)"),
+    ("questions.py", "parse_weighted_pair_body"): (6, PROGRAM, "question clause lines (SPEC-ORD)"),
+    ("questions.py", "_resolve_col"): (3, CALLER, "table header cells the caller already charged"),
+    ("questions.py", "evaluate_weighted_pair"): (6, CALLER, "rows of the bound table; weight family size is program-bounded"),
+    ("questions.py", "format_answer_lines"): (2, PROGRAM, "witness lines for one QuestionAnswer"),
+    ("questions.py", "row_for"): (1, CALLER, "rows of the bound table"),
     ("sorts.py", "esc"): (1, CALLER, "a literal or cell, counted in the sort size (SPEC 9.2)"),
     ("sorts.py", "nodes"): (1, PROGRAM, "a sort, bounded by the node bound R006"),
     ("sorts.py", "files"): (1, PROGRAM, "a sort's nodes"),
@@ -359,7 +365,7 @@ BOUNDED = {
     # passed before only through a set.add (ASSESSMENT O11), reviewed in the fix pass: each is linear in
     # its bound; parse_manifest was not (R6) and now charges its meter
     ("kernel.py", "number_uses"): (3, PROGRAM, "a formed statement's sort, each node once (a widen chain is walked down once, O9); bounded by R006"),
-    ("kernel.py", "_check"): (10, PROGRAM, "the program's statements and the uses their printed sorts hold (R006, R011)"),
+    ("kernel.py", "_check"): (11, PROGRAM, "the program's statements and question forms; uses their printed sorts hold (R006, R011; SPEC-ORD)"),
     ("readers.py", "__init__"): (8, IO, "start-up: the supplied files, and the manifests among them (each at most MAX_TEXT_FILE, parsed under its own meter)"),
     ("witness.py", "check"): (1, PROGRAM, "the inlined statement's names, bounded by R006 (phase 7: no search loop left)"),
     ("witness.py", "subexprs"): (2, PROGRAM, "the inlined statement's nodes, whose size the sort bound R006 caps (let names shared count in full)"),

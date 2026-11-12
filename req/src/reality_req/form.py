@@ -117,11 +117,30 @@ class Ledger:
         for k in ("says", "outside"):
             if k in st.clauses and blank(st.get(k)):
                 raise Refusal("E004", f"'{k}' is a non-empty text")
+        parts_spec = st.clauses.get("parts")
+        if parts_spec:
+            parts = []
+            for pname, path, fp in parts_spec:
+                frag = self.fragment(f"{st.name}.{pname}", path, fp[7:])
+                parts.append(dict(name=pname, path=path, fp=fp[7:], frag=frag))
+            # One adoption hash covers every part: digest of ordered name=fragsha lines.
+            body = "composite-measure-1\n" + "".join(f"part {p['name']} sha256:{p['fp']}\n" for p in parts)
+            mfp = sha(body.encode("utf-8"))
+            ncond = sum(self.count(p["frag"]) for p in parts)
+            self.new(st, "measure")
+            self.measures[st.name] = dict(
+                req=req, by=by, by_kind=self.kinds[by], says=st.get("says"), outside=st.get("outside"),
+                fp=mfp, frag=None, parts=parts, trials=[],
+            )
+            self.reqs[req]["measures"].append(st.name)
+            return say.proposed_composite(
+                st.name, req, by, self.kinds[by], st.get("says"), st.get("outside"), mfp, parts, ncond
+            )
         path, fp = st.get("fragment")
         frag = self.fragment(st.name, path, fp[7:])
         self.new(st, "measure")
         self.measures[st.name] = dict(req=req, by=by, by_kind=self.kinds[by], says=st.get("says"), outside=st.get("outside"),
-                                      fp=fp[7:], frag=frag, trials=[])
+                                      fp=fp[7:], frag=frag, parts=None, trials=[])
         self.reqs[req]["measures"].append(st.name)
         return say.proposed(st.name, req, by, self.kinds[by], st.get("says"), st.get("outside"), fp[7:], self.count(frag))
 
@@ -282,12 +301,56 @@ class Ledger:
 
     def run(self, st, m, req, trial):
         ms, r = self.measures[m], self.reqs[req]
-        head = say.check_head(st.name if not trial else m, req, r["text"], r["owner"], m, ms, r["current"], trial, st.get("on")[7:])
+        on = st.get("on")
+        if ms.get("parts"):
+            return self.run_composite(st, m, req, trial, on)
+        if isinstance(on, list):
+            raise Refusal(
+                "G024",
+                f"{m} is a simple measure (one fragment); write 'check {req} by {m} on sha256:<data>' "
+                f"(or 'try {m} on sha256:<data>'), not part bindings",
+            )
+        head = say.check_head(st.name if not trial else m, req, r["text"], r["owner"], m, ms, r["current"], trial, on[7:])
         if st.line < self.run_from:
             return head + [f"not run here (--run-from {self.run_from}); nothing is said here about {m} or {req}."]
         if self.runner is None:
             return head + ["NOT CHECKED: no checker was given to run the measure. Nothing follows about " + m + " or " + req + "."]
-        return head + say.result(m, req, self.runner(ms["frag"], st.get("on")[7:]), trial, ms["outside"])
+        return head + say.result(m, req, self.runner(ms["frag"], on[7:]), trial, ms["outside"])
+
+    def run_composite(self, st, m, req, trial, on):
+        ms, r = self.measures[m], self.reqs[req]
+        parts = ms["parts"]
+        want = {p["name"] for p in parts}
+        if not isinstance(on, list):
+            raise Refusal(
+                "G024",
+                f"{m} is a composite measure with parts {', '.join(sorted(want))}; "
+                f"bind each part: '{' '.join(f'on {n} sha256:<data>' for n in sorted(want))}'",
+            )
+        got = {}
+        for pname, h in on:
+            if pname not in want:
+                raise Refusal("G024", f"{m} has no part named {pname}; parts: {', '.join(sorted(want))}")
+            if pname in got:
+                raise Refusal("G024", f"part {pname} of {m} is bound twice in this check")
+            got[pname] = h[7:]
+        missing = sorted(want - set(got))
+        if missing:
+            raise Refusal("G024", f"composite check of {m} is missing data for part{'s' if len(missing) != 1 else ''} {', '.join(missing)}")
+        # Head uses a digest of the bound inputs (not a single file).
+        bind_fp = sha(("\n".join(f"{n}={got[n]}" for n in sorted(got)) + "\n").encode())
+        head = say.check_head_composite(
+            st.name if not trial else m, req, r["text"], r["owner"], m, ms, r["current"], trial, bind_fp, parts, got
+        )
+        if st.line < self.run_from:
+            return head + [f"not run here (--run-from {self.run_from}); nothing is said here about {m} or {req}."]
+        if self.runner is None:
+            return head + ["NOT CHECKED: no checker was given to run the measure. Nothing follows about " + m + " or " + req + "."]
+        part_results = []
+        for p in parts:
+            res = self.runner(p["frag"], got[p["name"]])
+            part_results.append((p["name"], res))
+        return head + say.result_composite(m, req, part_results, trial, ms["outside"])
 
     def st_status(self, st):
         if self.kinds.get(st.name) == "refused":

@@ -1,0 +1,6 @@
+# Pinned packages for the local LLM judge (Unit 2 / RL-15).
+# Install: python -m pip install -r req/demo/judge/requirements.txt
+transformers==4.57.1
+# torch pin is environment-specific (CPU/CUDA). Tested with torch 2.15.0+cu132;
+# record the exact torch.__version__ in judge_bind.tsv at generation time.
+torch>=2.1.0

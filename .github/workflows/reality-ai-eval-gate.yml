@@ -1,0 +1,42 @@
+# Sample release gate: adopted composite AI-eval measure must HOLDS.
+# Default block on DOES NOT HOLD / missing adoption / missing data / refusal.
+# Uses made-up demo data only (make_evals.py). No real model or benchmark.
+name: reality-ai-eval-gate
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "req/**"
+      - "v4/src/reality4/**"
+      - ".github/workflows/reality-ai-eval-gate.yml"
+
+jobs:
+  composite-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Pass sample (composite Gate HOLDS)
+        env:
+          PYTHONPATH: req/src:v4/src
+        run: |
+          set -euo pipefail
+          python req/demo/ai_eval_gate.py --work "$RUNNER_TEMP/gate-pass" --mode pass | tee "$RUNNER_TEMP/pass.txt"
+          grep -q 'ci_gate: pass: HOLDS (Gate)' "$RUNNER_TEMP/pass.txt"
+      - name: Fail sample (composite GateFail DOES NOT HOLD → nonzero)
+        env:
+          PYTHONPATH: req/src:v4/src
+        run: |
+          set -euo pipefail
+          # Expect exit 1 from the inner ci_gate; the driver returns 0 when fail-mode exits 1 as expected.
+          python req/demo/ai_eval_gate.py --work "$RUNNER_TEMP/gate-fail" --mode fail | tee "$RUNNER_TEMP/fail.txt"
+          grep -q 'ci_gate: block: DOES NOT HOLD (GateFail)' "$RUNNER_TEMP/fail.txt"
+      - name: Unit tests (composite + ci_gate)
+        env:
+          PYTHONPATH: req/src:v4/src
+        run: |
+          pip install pytest
+          pytest -q req/tests/test_composite_and_ci_gate.py

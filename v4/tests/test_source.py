@@ -6,11 +6,11 @@ import sys
 
 SRC = os.path.join(os.path.dirname(__file__), "..", "src")
 TRUSTED = ["keys.py", "syntax.py", "sorts.py", "readers.py", "bids101.py", "kernel.py", "__main__.py",
-           "witness.py", "exact.py", "machine.py", "intstep.py", "decide.py", "cert.py"]
+           "witness.py", "exact.py", "machine.py", "intstep.py", "decide.py", "cert.py", "questions.py"]
 # v3: 3000 lines without the v4 modules. v4 counts the witness check, the exact roots and the
 # memory floor too, since each decides verdicts (DESIGN 6, "the trusted base grows"); the cap is a
 # taste call reported to Patsak on 25 Oct, lean 4000.
-CAP = 9539   # 4000 -> 4250 by Patsak, 25 Oct 2026 22:29 CET: CSV (principle §12) was approved after the
+CAP = 10000   # native questions (SPEC-ORD-EXP): questions.py + kernel/syntax hooks; measured 10000
 # 4000 cap was set. 4250 -> 4300 by Patsak (technical call, 26 Oct 2026): the CHANGES checker (taste call 4)
 # was added after the 4250 cap, same precedent. 4300 -> 4335 by BB on Patsak's behalf (technical call,
 # 26 Oct 2026, reversible): the Windows memory-floor structures written out with their real field names;

@@ -14,3 +14,4 @@ dist/
 .env.*
 # Third-party fixture, not redistributed here (see README, "Tests")
 v4/tests/data/ds001734-box/
+.deepeval/

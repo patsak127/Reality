@@ -20,10 +20,12 @@ def test_transcript_has_the_story_in_order():
              "G001 refused: task T4", "P1 ADOPTED", "P1 DOES NOT HOLD", "G014 refused: the adoption on line 45",
              "P1 HOLDS", "P1 WITHDRAWN", "measure P1b proposed", "P1b ADOPTED", "P1b HOLDS",
              "G001 refused: task T5", "E1 ADOPTED", "E1 DOES NOT HOLD", "E2 DOES NOT HOLD", "G014 refused: the adoption on line 70",
-             "E1 was NOT CHECKED", "E1 WITHDRAWN", "measure E1b proposed", "E1b ADOPTED", "E1b HOLDS", "E1 (withdrawn; adopted line 70"]
+             "E1 was NOT CHECKED", "E1 WITHDRAWN", "measure E1b proposed", "E1b ADOPTED", "E1b HOLDS", "E1 (withdrawn; adopted line 70",
+             "measure Gate proposed", "Gate ADOPTED", "Gate HOLDS as a composite"]
     pos = [t.find(m) for m in marks]
     assert -1 not in pos and pos == sorted(pos), list(zip(marks, pos))
     assert "TEST key, not Patsak's" in t
+
 
 
 def test_readme_copies_only_public_material():

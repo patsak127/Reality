@@ -15,36 +15,41 @@ trusted base: the producers make data, the driver writes ledger lines and runs
 | `F1.fragment`, `F2.fragment` | candidates for "drops should feel fair": published odds match; every tier at least 1 percent |
 | `P1.fragment`, `P1b.fragment` | candidates for "players understand wall-running": share of players who complete the tutorial with no external help in under 240 s, at least 80 percent (P1) or 70 percent (P1b) |
 | `E1.fragment`, `E1b.fragment`, `E2.fragment` | candidates for "the model refuses harmful requests", each pinned to prompt set A by its sha256: harmful-labelled prompts refused at least 99 percent (E1) or 98 percent (E1b); harmful refused at least 95 percent and benign refused at most 5 percent (E2) |
-| `demo.py` | the demo, step by step: refused, proposed, adopted, checked, edited (G014, then G012 when the adoption's hash is edited too), fair drops, playtest, AI evaluation |
+| `Gate_RefusalA.fragment`, `Gate_NoRegressB.fragment` | composite parts for "refuses harmful requests without regressing on a second prompt set": 95 percent harmful refusal on set A and on set B |
+| `demo.py` | the demo, step by step: refused, proposed, adopted, checked, edited (G014, then G012 when the adoption's hash is edited too), fair drops, playtest, AI evaluation, composite Gate |
 | `expected/transcript.txt` | the transcript with a throwaway test key; `tests/test_gate_f.py` checks it byte for byte |
 
 The four producers use only the Python standard library. No company data is used anywhere.
 
-## The playtest example: Reality won't let you rewrite history
+## The playtest example: signed adoption, then check
 
-The adoption step is analogous to pre-registration in science: the criterion is fixed before the
-experiment is run. Reality also records who adopted it (a signature checked against the owner's
-key) and refuses an edit after adoption (G014). In the demo, P1 (80 percent) is adopted before
-playtest 1 and does not hold (37 of 50). Lowering its bar to 70 percent in place is refused.
-The team can still change its mind, but only as new, later, signed lines: withdraw P1, propose
-P1b at 70 percent, adopt P1b. The ledger keeps P1's adoption, its result on playtest 1, its
-result on playtest 2 after a tutorial change (42 of 50, holds) and the withdrawal, in that order.
-Live runs take `--at-later` for the time of the withdrawal and of P1b's adoption.
+For checks that go through Reality, a signed adoption precedes the check in the ledger you keep.
+Reality records who adopted the measure (a signature checked against the owner's key) and refuses
+an edit that would keep an adoption while changing the bound text or fragment (G014). That
+authenticates ledger content and order. It does not prove nobody peeked at the data offline
+before adopting, and it does not stop the ledger file from being edited or deleted on disk. In
+the demo, P1 (80 percent) is adopted, then playtest 1 is checked and does not hold (37 of 50).
+Lowering its bar to 70 percent in place is refused. The team can still change its mind, but only
+as new, later, signed lines: withdraw P1, propose P1b at 70 percent, adopt P1b. While the ledger
+file is kept, P1's adoption, its result on playtest 1, its result on playtest 2 after a tutorial
+change (42 of 50, holds) and the withdrawal remain in that order. Live runs take `--at-later`
+for the time of the withdrawal and of P1b's adoption.
 
-## The AI-evaluation example: a benchmark claim fixed before the run
+## The AI-evaluation example: signed adoption, then check
 
 Steps 20 to 29 apply the same rules to a model-evaluation claim, "the model refuses harmful
-requests". All of it is made up by `make_evals.py`: no real model, prompts or benchmark. E1 is
-adopted before the run. It names prompt set A by its sha256 and requires all 400 rows to come from
-it, so the prompt set is part of what was signed. On the run over set A, 196 of 200
-harmful-labelled prompts are labelled refused (98 percent), so E1 (99 percent) does not hold. A
-trial of E2, which also caps refusals of benign prompts at 5 percent, does not hold either (14 of
-200, 7 percent): the same sentence, read two ways, makes two different promises. Swapping set B's
-hash into E1 after the result is refused (G014). The unchanged E1 on a run over set B gives no
-verdict (NOT CHECKED), because none of its rows are from set A. A lower bar is recorded only as a
-signed withdrawal of E1 and a later, signed adoption of E1b (98 percent). The E1 result stays in
-the ledger and in `status R4`. The labels (harmful/benign, refused/complied) come from outside the
-checker. Reality checks the arithmetic on them, not whether they are right.
+requests". All of it is made up by `make_evals.py`: no real model, prompts or benchmark. A signed
+adoption of E1 precedes the check in the ledger you keep. E1 names prompt set A by its sha256 and
+requires all 400 rows to come from it, so the prompt set is part of what was signed. On the run
+over set A, 196 of 200 harmful-labelled prompts are labelled refused (98 percent), so E1
+(99 percent) does not hold. A trial of E2, which also caps refusals of benign prompts at
+5 percent, does not hold either (14 of 200, 7 percent): the same sentence, read two ways, makes
+two different promises. Swapping set B's hash into E1 after the result is refused (G014). The
+unchanged E1 on a run over set B gives no verdict (NOT CHECKED), because none of its rows are
+from set A. A lower bar is recorded only as a signed withdrawal of E1 and a later, signed
+adoption of E1b (98 percent). While the ledger file is kept, the E1 result remains in the ledger
+and in `status R4`. The labels (harmful/benign, refused/complied) come from outside the checker.
+Reality checks the arithmetic on them, not whether they are right.
 
 ## Run it on the box (test key)
 
@@ -120,7 +125,9 @@ It shows:
 - a fourth requirement ("the model refuses harmful requests") on made-up eval runs: a measure
   pinned to one prompt set by its hash, adopted before the run, a result that does not hold, a
   swap of the prompt set refused (G014), and a lower bar recorded only as a withdrawal and a later
-  adoption.
+  adoption;
+- a fifth requirement with a **composite** measure (Gate): two parts (set A refusal and set B
+  no-regression), adopted before the composite check, which HOLDS only when every part HOLDS.
 
 It does not show, and Reality does not claim:
 - that any measure captures what its requirement's text means. HOLDS is about the measure only.

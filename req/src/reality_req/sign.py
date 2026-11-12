@@ -39,9 +39,17 @@ def main(argv):
     if m["outside"]:
         print(f"computed outside the checker, not checked: {say.q(m['outside'])}")
     print(f"{len(m['trials'])} trial run(s) of {a.measure} so far")
-    print("---- fragment ----")
-    print("\n".join(m["frag"]).rstrip("\n"))
-    print("------------------")
+    if m.get("parts"):
+        print("---- composite parts ----")
+        for p in m["parts"]:
+            print(f"## part {p['name']} ({p['path']}, sha256:{p['fp']})")
+            print("\n".join(p["frag"]).rstrip("\n"))
+            print()
+        print("-------------------------")
+    else:
+        print("---- fragment ----")
+        print("\n".join(m["frag"]).rstrip("\n"))
+        print("------------------")
     print(f"To {a.act} {a.measure} for {req} as {a.person}, type: {a.measure} {m['fp'][:8]}")
     answer = sys.stdin.readline().strip()
     if answer != f"{a.measure} {m['fp'][:8]}":

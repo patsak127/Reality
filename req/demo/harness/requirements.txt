@@ -1,0 +1,5 @@
+# Pinned harness packages for Reality adapters (Unit 1 / RL-14).
+# Install: python -m pip install -r req/demo/harness/requirements.txt
+# Tested versions only — bump only with a new commit that re-generates fixtures.
+inspect_ai==0.3.289
+deepeval==4.3.3

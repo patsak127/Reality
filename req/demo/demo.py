@@ -19,6 +19,7 @@ TEXT1 = "the upscaler must preserve artistic intent"
 TEXT2 = "drops should feel fair"
 TEXT3 = "players understand wall-running"
 TEXT4 = "the model refuses harmful requests"
+TEXT5 = "the model refuses harmful requests without regressing on a second prompt set"
 
 
 def sha(p):
@@ -42,7 +43,8 @@ class Demo:
             subprocess.run([PY, str(HERE / "make_drops.py"), str(self.data)], check=True, capture_output=True)
             subprocess.run([PY, str(HERE / "make_playtest.py"), str(self.data)], check=True, capture_output=True)
             subprocess.run([PY, str(HERE / "make_evals.py"), str(self.data)], check=True, capture_output=True)
-        for f in ("M1", "M2", "F1", "F2", "P1", "P1b", "E1", "E1b", "E2"):
+        for f in ("M1", "M2", "F1", "F2", "P1", "P1b", "E1", "E1b", "E2",
+                  "Gate_RefusalA", "Gate_NoRegressB"):
             shutil.copy(HERE / f"{f}.fragment", self.w / "ledger" / f"{f}.fragment")
         if self.a.key:
             self.key, self.signers = self.a.key, self.a.allowed_signers
@@ -85,13 +87,24 @@ class Demo:
         print()
         print("\n".join(out))
 
+    def _measure_fp8(self, m):
+        frag = HERE / f"{m}.fragment"
+        if frag.is_file():
+            return sha(frag)[:8]
+        # Composite (and any multi-part) fingerprint is the measure digest, not one fragment file.
+        sys.path.insert(0, SRC)
+        from reality_req.form import Ledger
+        ledg = Ledger(self.led.parent)
+        ledg.check(self.led.read_bytes())
+        return ledg.measures[m]["fp"][:8]
+
     def sign(self, act, m, sig, at=None):
         out = self.w / "statement.txt"
         cmd = [PY, "-m", "reality_req.sign", act, str(self.led), m, "patsak", "--key", self.key, "--at", at or self.a.at, "--sig", sig, "--out", str(out)]
         if self.a.live:      # Patsak reads the measure and types the confirmation himself
             r = subprocess.run(cmd, env=ENV)
         else:
-            r = subprocess.run(cmd, env=ENV, input=f"{m} {sha(HERE / f'{m}.fragment')[:8]}\n".encode(), capture_output=True)
+            r = subprocess.run(cmd, env=ENV, input=f"{m} {self._measure_fp8(m)}\n".encode(), capture_output=True)
         if r.returncode:
             sys.exit(f"signing stopped; nothing was added to the ledger")
         return out.read_text()
@@ -233,6 +246,20 @@ try E2 on {d.on('evals_A.tsv')}
     d.step(f"28. Patsak adopts E1b, signed ({d.keylabel})", d.sign("adopt", "E1b", "adopt-E1b.sig", a.at_later))
     d.step("29. The same run by E1b; the E1 result on line 72 still stands, labelled with E1", f'''check R4 by E1b on {d.on('evals_A.tsv')}
 status R4
+''')
+    d.step("30. Fifth requirement: composite AI-eval gate (refusal on set A AND no regression on set B)", f'''requirement R5 = "{TEXT5}"
+  owner patsak
+  from "made-up AI-eval composite gate; no real model or benchmark"
+''')
+    d.step("31. A composite measure is proposed: two parts, each a fragment pinned by hash", f'''measure Gate for R5 proposed_by grokbot
+  says "harmful refusal rate at least 95 percent on prompt set A AND at least 95 percent on prompt set B (no regression)"
+  outside "prompt_set, prompt_label and output_label are written by demo/make_evals.py, outside the checker"
+  part RefusalA fragment "Gate_RefusalA.fragment" sha256:{sha(HERE / "Gate_RefusalA.fragment")}
+  part NoRegressB fragment "Gate_NoRegressB.fragment" sha256:{sha(HERE / "Gate_NoRegressB.fragment")}
+''')
+    d.step(f"32. Patsak adopts Gate before the composite check, signed ({d.keylabel})", d.sign("adopt", "Gate", "adopt-Gate.sig", a.at_later))
+    d.step("33. Composite check: Gate on evals_A (part RefusalA) and evals_B (part NoRegressB)", f'''check R5 by Gate on RefusalA {d.on('evals_A.tsv')} on NoRegressB {d.on('evals_B.tsv')}
+status R5
 ''')
 
 

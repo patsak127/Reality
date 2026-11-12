@@ -1,10 +1,12 @@
-"""Reality v4 syntax: one statement per line, ASCII only.
+"""Reality v4 syntax: statements are one line, except `question` which takes indented clauses.
 
     file NAME = sha256:HEX64
     dataset NAME = sha256:HEX64        (the hash of a Reality manifest, see readers.py)
     let NAME = EXPR
     claim EXPR
     claim EXPR is LITERAL
+    question FORM NAME                 (stipulated-model question; indented clauses follow)
+      ...clauses...                    (see SPEC-ORD / questions.py; not an expression)
 
     EXPR    ::= NAME | INT | DECIMAL | STRING | CALL
     CALL    ::= IDENT "(" [ARG {"," ARG}] ")"
@@ -12,6 +14,9 @@
     PVALUE  ::= ["-"] DECIMAL [UNIT] | INT "/" INT | IDENT  (a number, a ratio, a closed-list member)
     LITERAL ::= ["-"] DECIMAL [UNIT] | INT "/" INT | STRING
     STRING  ::= '"' {printable ASCII except '"' and '\\' | '\\"' | '\\\\' | '\\x' HEX HEX} '"'
+
+A question is a *statement*, never an expression: it cannot appear in `let`, `claim`, or a Call
+argument. Its answer is not a Meaning (questions.QuestionAnswer).
 
 Comments run from '#' to the end of the line. Names carry no meaning (principle section 1,
 Names): they are resolved to what they stand for before anything is printed.
@@ -21,7 +26,6 @@ size is measured with every name counted as one byte (MAX_PROGRAM_SIZE). A progr
 64 x MAX_PROGRAM_SIZE bytes has a measured size above the bound, so it is refused before it is
 read further. Every number written has at most MAX_DIGITS digits; a ratio is a whole number at
 least 0 over a whole number at least 1."""
-
 import re
 from dataclasses import dataclass
 from fractions import Fraction
@@ -33,7 +37,7 @@ MAX_DEPTH = 64
 MAX_DIGITS = 1000
 MAX_STRING = 4096
 
-KEYWORDS = frozenset({"file", "dataset", "let", "claim", "is"})
+KEYWORDS = frozenset({"file", "dataset", "let", "claim", "is", "question"})
 
 
 class SyntaxRefusal(Exception):
@@ -85,12 +89,14 @@ class Call:
 
 @dataclass(frozen=True)
 class Stmt:
-    kind: str  # file | dataset | let | claim
+    kind: str  # file | dataset | let | claim | question
     line: int
     name: str | None = None
     hash: str | None = None
     expr: object = None
     lit: object = None  # for 'claim ... is LIT': ('num', Fraction, unit|None) | ('ratio', n, d) | ('str', s)
+    qform: str | None = None  # question form ident (e.g. weighted_pair_orderings)
+    qbody: tuple = ()  # indented clause lines (raw text), question only
 
 
 _HEX = frozenset("0123456789abcdef")
@@ -286,18 +292,27 @@ class _P:
             raise SyntaxRefusal("P001", self.ln, f"unexpected {self.t[self.i][1]!r} after the end of the statement")
 
 
+_STMTS = ("file", "dataset", "let", "claim", "question")
+
+
 def parse_line(text: str, ln: int):
-    head = text.lstrip(" \t")
+    # Multi-line question blocks arrive as "header\\n  clause\\n..."
+    head_line, _, body_rest = text.partition("\n")
+    head = head_line.lstrip(" \t")
     j = 0
     while j < len(head) and head[j] in _IDCHAR:
         j += 1
-    if j and head[:j] not in ("file", "dataset", "let", "claim"):
-        raise SyntaxRefusal("P008", ln, f"{head[:j]!r} is not a statement of Reality v4 (statements: file, dataset, let, claim)")
-    toks = _tokens(text, ln)
+    if j and head[:j] not in _STMTS:
+        raise SyntaxRefusal(
+            "P008",
+            ln,
+            f"{head[:j]!r} is not a statement of Reality v4 (statements: file, dataset, let, claim, question)",
+        )
+    toks = _tokens(head_line, ln)
     if not toks:
         return None
     p = _P(toks, ln)
-    _, kw = p.take("w", what="a statement keyword (file, dataset, let, claim)")
+    _, kw = p.take("w", what="a statement keyword (file, dataset, let, claim, question)")
     if kw in ("file", "dataset"):
         nm = p.name()
         p.take("p", "=", what="'='")
@@ -318,7 +333,59 @@ def parse_line(text: str, ln: int):
             lit = p.literal()
         p.end()
         return Stmt("claim", ln, expr=e, lit=lit)
-    raise SyntaxRefusal("P008", ln, f"{kw!r} is not a statement of Reality v4 (statements: file, dataset, let, claim)")
+    if kw == "question":
+        form = p.take("w", what="a question form name")[1]
+        nm = p.name()
+        p.end()
+        body = tuple(body_rest.split("\n")) if body_rest else ()
+        return Stmt("question", ln, name=nm, qform=form, qbody=body)
+    raise SyntaxRefusal(
+        "P008",
+        ln,
+        f"{kw!r} is not a statement of Reality v4 (statements: file, dataset, let, claim, question)",
+    )
+
+
+def group_program_lines(lines):
+    """Yield (line_number, text) with `question` headers joined to their indented clauses.
+
+    Intentional grammar change (SPEC-ORD / v4 delta): only `question` statements take
+    continuations. Blank and comment lines inside a question body are skipped; an unindented
+    non-empty line ends the question."""
+    i, n = 0, len(lines)
+    while i < n:
+        ln, text = lines[i]
+        stripped = text.lstrip(" \t")
+        if not stripped or stripped.startswith("#"):
+            yield ln, text
+            i += 1
+            continue
+        if text[:1] not in " \t" and stripped.startswith("question "):
+            parts = [text]
+            start = ln
+            i += 1
+            while i < n:
+                ln2, t2 = lines[i]
+                s2 = t2.lstrip(" \t")
+                if not s2 or s2.startswith("#"):
+                    i += 1
+                    continue
+                if t2[:1] in " \t":
+                    parts.append(t2)
+                    i += 1
+                    continue
+                break
+            yield start, "\n".join(parts)
+            continue
+        if text[:1] in " \t" and stripped and not stripped.startswith("#"):
+            raise SyntaxRefusal(
+                "P008",
+                ln,
+                "indented text is only a continuation of a question statement; "
+                "file, dataset, let and claim are one line each",
+            )
+        yield ln, text
+        i += 1
 
 
 _SIZE_TOKEN = re.compile(r'(#.*|"(?:\\.|[^"\\])*"?|sha256(?=:))|[A-Za-z_][A-Za-z0-9_]*|.')

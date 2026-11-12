@@ -14,7 +14,7 @@ treat every statement below as the author's own check, not an independent one.
 
 ## Trusted base
 
-The checker is these files (`wc -l`, 9539 lines). v3's README counted 2,684 lines in 7 files;
+The checker is these files (`wc -l`, 10000 lines, including native questions). v3's README counted 2,684 lines in 7 files;
 v4 also counts the witness check (`witness.py`), the exact square roots (`exact.py`) and the
 memory floor (`machine.py`), because each of them decides verdicts. `tests/test_source.py` fails
 above the cap and checks that the total below is the current one.
@@ -58,19 +58,20 @@ measured amount. The exact path then needs fix pass R3 (W2 for a file slot) deci
 | file | lines |
 |---|---|
 | `decide.py` | 4548 |
-| `kernel.py` | 1249 |
+| `kernel.py` | 1276 |
 | `bids101.py` | 789 |
 | `readers.py` | 787 |
+| `cert.py` | 642 |
 | `witness.py` | 443 |
-| `syntax.py` | 346 |
+| `syntax.py` | 413 |
+| `questions.py` | 367 |
 | `intstep.py` | 209 |
 | `machine.py` | 111 |
 | `sorts.py` | 111 |
 | `__main__.py` | 107 |
 | `keys.py` | 99 |
 | `exact.py` | 98 |
-| `cert.py` | 642 |
-| **total** | **9539** |
+| **total** | **10000** |
 
 Outside the base: `search.py` (1192 lines) and `build.py` (649 lines) are untrusted (tests/test_source.py checks both counts; unit G10); their loops are still charged or named (tests/test_v4_loops.py). (B07, Argon review 2 07) They run in the checker's process: the guarantee is for code that computes and returns, not a sandbox against code that rewrites the checker's own state (SPEC-EXACT 6.1); Model.find and cert.mcall keep the model's state from the search, and tests/test_source.py checks what they write. (C01, review 3 01) cert.py reads every value they hand it as one copy of exact types it makes itself (cert.exact): a subclass whose own methods could show two values is X001. (D01, review 4 01) Nothing the search derived is read from those copies: a range is read from the atoms' forms (decide.frange_in, cert. (D02, review 4 02) A certificate's re-run of earlier statements uses the program's value of a let on other files, as the kernel does, so its rows are held once.prange_split).
 Nothing else is imported except the Python standard library and the pinned UTS #39 data file.

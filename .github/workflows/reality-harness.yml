@@ -1,0 +1,29 @@
+# Optional CI: real Inspect AI + DeepEval adapters (pinned versions).
+# Runs only the harness-real suite after installing requirements.txt pins.
+name: reality-harness
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "req/demo/harness/**"
+      - "req/tests/test_harness*.py"
+      - ".github/workflows/reality-harness.yml"
+jobs:
+  harness-real:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install Reality + pinned harness packages
+        run: |
+          python -m pip install -U pip
+          python -m pip install pytest
+          python -m pip install -r req/demo/harness/requirements.txt
+      - name: Harness real + adapter tests
+        env:
+          PYTHONPATH: req/src:v4/src
+        run: |
+          python -c "import inspect_ai, deepeval; assert inspect_ai.__version__=='0.3.289'; assert deepeval.__version__=='4.3.3'"
+          python -m pytest req/tests/test_harness.py req/tests/test_harness_real.py -q --tb=short
