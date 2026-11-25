@@ -1,0 +1,330 @@
+== Reality: the Ptolemy demo.
+   Tables: the position of Mars on each day from 2024-Jan-01 to 2025-Dec-30 (730 days),
+   from NASA/JPL Horizons, asked twice: once with the observer at Earth, once at the Sun.
+   earth = mars-seen-from-earth.tsv  (sha256 ca65570db219...)
+   sun   = mars-seen-from-sun.tsv  (sha256 ac15aaffcb4b...)
+   The 'motion' column says whether Mars's ecliptic longitude went up (prograde) or down
+   (retrograde, 'backward' against the stars) by the next day. convert.py derives it; see SOURCES.md.
+   Lines starting with $ are commands; outcome= lines are the program's whole output.
+   '(exit N)', 'reads as:' and 'means:' lines are printed by this demo script, not by the program.
+   A 'means:' line prints only if the program's line is exactly the one expected.
+
+$ head -3 mars-seen-from-earth.tsv
+date	seen_from	ecliptic_longitude_deg	motion
+2024-Jan-01	Earth	267.3083422	prograde
+2024-Jan-02	Earth	268.0501386	prograde
+$ head -3 mars-seen-from-sun.tsv
+date	seen_from	ecliptic_longitude_deg	motion
+2024-Jan-01	Sun	258.5668659	prograde
+2024-Jan-02	Sun	259.1197004	prograde
+
+== 1. Ptolemy's question, in English.
+$ cat center.txt
+Is the Earth at the center?
+$ python3 reality.py propose ledger center.txt mars-seen-from-earth.tsv
+outcome=REFUSED rule=F1 condition=not-reality-1 line=1
+  (exit 3)
+  means: refused: the sentence names no bytes and no measure. Center of what, seen from where, measured how is left unsaid, so it is not a question here
+
+== 2. Today's version of the same move, in English.
+$ cat consciousness.txt
+Is consciousness special?
+$ python3 reality.py propose ledger consciousness.txt mars-seen-from-earth.tsv
+outcome=REFUSED rule=F1 condition=not-reality-1 line=1
+  (exit 3)
+  means: refused for the same reason: it names no bytes and no measure. Reality does not answer it; it says what an answer would have to name
+
+== 3. Putting it in the right shape is not enough: the bytes must have what the question names.
+$ cat q-center.txt
+reality 1
+question share-at-least
+table sha256 ca65570db21954b7c3c002c0d43c3ee7cef22aa929fce7965bd35252107b5283
+predicate column-equals center Earth
+at-least 1 of 1
+  reads as: the share of rows with center = Earth in the Earth-observer table (ca65570db219...) is at least 1 of 1
+$ python3 reality.py propose ledger q-center.txt mars-seen-from-earth.tsv
+outcome=REFUSED rule=F8 file-1=no-such-column measure=5e1ac7e3917ccff53975a72458e6f0f29b89ef545b9279de42b2fb6ce5645c08
+  (exit 3)
+  means: refused: these bytes have no column 'center'. What they have is seen_from: the observer is a column in the data, set when the data was asked for
+
+== 4. What Ptolemy actually saw, pinned down: propose, adopt, check.
+$ cat q-earth.txt
+reality 1
+question share-at-least
+table sha256 ca65570db21954b7c3c002c0d43c3ee7cef22aa929fce7965bd35252107b5283
+predicate column-equals motion retrograde
+at-least 1 of 10
+  reads as: in the table seen from Earth (ca65570db219...), Mars moves backward on at least 1 day in 10
+$ python3 reality.py propose ledger q-earth.txt mars-seen-from-earth.tsv
+outcome=PROPOSED measure=bff4cd191305b7325a87b34964d8cd04b094867f10f7ccdc03d62473da479dcb
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+
+$ cat q-sun.txt
+reality 1
+question share-at-least
+table sha256 ac15aaffcb4bb153c69bf2a261904d5b8a75a8d1a1f62015ebb16786f2e9fff7
+predicate column-equals motion retrograde
+at-least 1 of 10
+  reads as: in the table seen from the Sun (ac15aaffcb4b...), Mars moves backward on at least 1 day in 10
+$ python3 reality.py propose ledger q-sun.txt mars-seen-from-sun.tsv
+outcome=PROPOSED measure=0243c845915c8a9039fba85b202b997c4e17200fbe8a9eb43ce51d779731e79f
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+
+$ cat q-agree.txt
+reality 1
+question share-agrees
+table sha256 ca65570db21954b7c3c002c0d43c3ee7cef22aa929fce7965bd35252107b5283
+table sha256 ac15aaffcb4bb153c69bf2a261904d5b8a75a8d1a1f62015ebb16786f2e9fff7
+predicate column-equals motion retrograde
+  reads as: the share of backward days is the same seen from Earth (ca65570db219...) and seen from the Sun (ac15aaffcb4b...)
+$ python3 reality.py propose ledger q-agree.txt mars-seen-from-earth.tsv mars-seen-from-sun.tsv
+outcome=PROPOSED measure=e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+
+-- Adopting. THIS IS A THROWAWAY TEST KEY made just now, labelled REALITY-TEST-KEY-NOT-PATSAK.
+   It is nobody's key. The program only sees that a listed key signed; it cannot tell who holds it.
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-earth.txt
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-sun.txt
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-agree.txt
+$ python3 reality.py adopt ledger q-earth.txt q-earth.txt.sig REALITY-TEST-KEY-NOT-PATSAK mars-seen-from-earth.tsv
+outcome=ADOPTED measure=bff4cd191305b7325a87b34964d8cd04b094867f10f7ccdc03d62473da479dcb adoption-line=4
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+$ python3 reality.py adopt ledger q-sun.txt q-sun.txt.sig REALITY-TEST-KEY-NOT-PATSAK mars-seen-from-sun.tsv
+outcome=ADOPTED measure=0243c845915c8a9039fba85b202b997c4e17200fbe8a9eb43ce51d779731e79f adoption-line=5
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+$ python3 reality.py adopt ledger q-agree.txt q-agree.txt.sig REALITY-TEST-KEY-NOT-PATSAK mars-seen-from-earth.tsv mars-seen-from-sun.tsv
+outcome=ADOPTED measure=e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53 adoption-line=6
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+
+-- Checking. Same planet, same days, same predicate; only the named table differs.
+$ python3 reality.py check ledger q-earth.txt mars-seen-from-earth.tsv
+outcome=HOLDS measure=bff4cd191305b7325a87b34964d8cd04b094867f10f7ccdc03d62473da479dcb adoption-line=4 matching-1=79 rows-1=730
+  (exit 0)
+  means: holds: seen from Earth, Mars moved backward on 79 of 730 days (2024-Dec-07 to 2025-Feb-23), and 79/730 >= 1/10. Ptolemy was not imagining it
+$ python3 reality.py check ledger q-sun.txt mars-seen-from-sun.tsv
+outcome=DOES-NOT-HOLD measure=0243c845915c8a9039fba85b202b997c4e17200fbe8a9eb43ce51d779731e79f adoption-line=5 matching-1=0 rows-1=730
+  (exit 1)
+  means: does not hold: seen from the Sun, Mars moved backward on 0 of 730 days
+$ python3 reality.py check ledger q-agree.txt mars-seen-from-earth.tsv mars-seen-from-sun.tsv
+outcome=DOES-NOT-HOLD measure=e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53 adoption-line=6 matching-1=79 rows-1=730 matching-2=0 rows-2=730
+  (exit 1)
+  means: do not agree: 79/730 vs 0/730. The backward motion belongs to where the observer stands, and the question had to name that
+
+== 5. Change one byte of the Earth table, check again.
+   tampered.tsv = mars-seen-from-earth.tsv with one byte changed: the first 'retrograde' now reads 'petrograde'
+$ python3 reality.py check ledger q-earth.txt tampered.tsv
+outcome=NOT-CHECKED file-1=other-bytes measure=bff4cd191305b7325a87b34964d8cd04b094867f10f7ccdc03d62473da479dcb adoption-line=4
+  (exit 2)
+  means: not checked: these are not the bytes the question names, so no verdict
+
+== 6. Foundations: what each table is said to rest on. Each is signed (namespace reality-foundation-1).
+   A foundation is a signed name, plus the foundations it rests on. A tag is a signed claim that a table
+   rests on a foundation. Both are commitments by a holder of a listed key: the program cannot tell who
+   holds the key, and it cannot tell whether a tag is true of the table.
+   The Jupiter table (same source, same days, observer at Earth) is tagged with 'epicycles', which rests on
+   'earth-frame'. The demo author chose these names and links.
+$ cat f-epicycles.txt
+reality 1
+foundation epicycles
+rests-on sha256 fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 f-earth.txt
+$ python3 reality.py adopt-foundation ledger f-earth.txt f-earth.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60 adoption-line=10
+  (exit 9)
+  means: adopted: the test key signed this foundation; any foundation it rests on was adopted first
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 f-sun.txt
+$ python3 reality.py adopt-foundation ledger f-sun.txt f-sun.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=fbe24136d8283934155543303f56b74920523d17c6804d406c726957b7493f83 adoption-line=11
+  (exit 9)
+  means: adopted: the test key signed this foundation; any foundation it rests on was adopted first
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 f-epicycles.txt
+$ python3 reality.py adopt-foundation ledger f-epicycles.txt f-epicycles.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=eb637e6363fe334c7e2f55abb7cd8624c947829815d126f512f66296a4c23e31 adoption-line=12
+  (exit 9)
+  means: adopted: the test key signed this foundation; any foundation it rests on was adopted first
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 t-earth.txt
+$ python3 reality.py tag ledger t-earth.txt t-earth.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60 tag=3cb8fb0e9b9a60a363ed2324ae479fdfb3b213df492ac04a4b065469d842eac5 adoption-line=13
+  (exit 9)
+  means: tagged: the test key signed that mars-seen-from-earth.tsv rests on this foundation (a claim, not checked)
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 t-sun.txt
+$ python3 reality.py tag ledger t-sun.txt t-sun.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=fbe24136d8283934155543303f56b74920523d17c6804d406c726957b7493f83 tag=c4705e20a728c21fccd82b28a780d433628dac3895dd6f2c807f6944eabe260d adoption-line=14
+  (exit 9)
+  means: tagged: the test key signed that mars-seen-from-sun.tsv rests on this foundation (a claim, not checked)
+$ cat t-jupiter.txt
+reality 1
+tag
+table sha256 a0ddb7efb264a82a1e16253b35cb4dc6b82c37f4dbe18a54552bf5b4d94ba0ed
+rests-on sha256 eb637e6363fe334c7e2f55abb7cd8624c947829815d126f512f66296a4c23e31
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 t-jupiter.txt
+$ python3 reality.py tag ledger t-jupiter.txt t-jupiter.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=eb637e6363fe334c7e2f55abb7cd8624c947829815d126f512f66296a4c23e31 tag=1bc2fe538ee19c1db41111b369a08f88668d1a0321502e0bf578f84c6002a22f adoption-line=15
+  (exit 9)
+  means: tagged: the test key signed that jupiter-seen-from-earth.tsv rests on this foundation (a claim, not checked)
+
+-- Jupiter, seen from Earth. The bar (1 day in 5) was set by the demo author after looking at the data,
+   like the 1 in 10 above. reality.py cannot adopt a measure before its data exists (it needs the bytes),
+   so this is explicit and signed, not pre-registration.
+$ cat q-jupiter.txt
+reality 1
+question share-at-least
+table sha256 a0ddb7efb264a82a1e16253b35cb4dc6b82c37f4dbe18a54552bf5b4d94ba0ed
+predicate column-equals motion retrograde
+at-least 1 of 5
+$ python3 reality.py propose ledger q-jupiter.txt jupiter-seen-from-earth.tsv
+outcome=PROPOSED measure=5f599557753af1345d5d677786be50f9d8b7e7dfd0567891af439dae147a942d
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-jupiter.txt
+$ python3 reality.py adopt ledger q-jupiter.txt q-jupiter.txt.sig REALITY-TEST-KEY-NOT-PATSAK jupiter-seen-from-earth.tsv
+outcome=ADOPTED measure=5f599557753af1345d5d677786be50f9d8b7e7dfd0567891af439dae147a942d adoption-line=17
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+$ python3 reality.py check ledger q-jupiter.txt jupiter-seen-from-earth.tsv
+outcome=HOLDS measure=5f599557753af1345d5d677786be50f9d8b7e7dfd0567891af439dae147a942d adoption-line=17 matching-1=167 rows-1=730
+  (exit 0)
+  means: holds: seen from Earth, Jupiter moved backward on 167 of 730 days (two spells), and 167/730 >= 1/5
+
+== 7. Knock down the Earth frame, with the Earth-vs-Sun comparison as live witness.
+   undermine takes the comparison and both tables, checks they are the named bytes and the comparison is
+   adopted, counts again on the spot, and goes ahead only if the result is DOES-NOT-HOLD. The signer
+   must name which side falls. The program does not decide that: the same witness would let a key
+   holder name the Sun side instead. It records which side the signer named.
+$ cat u-earth.txt
+reality 1
+undermine
+foundation sha256 fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60
+witness sha256 e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53
+$ ssh-keygen -Y sign -f testkey -n reality-undermine-1 u-earth.txt
+$ python3 reality.py undermine ledger u-earth.txt u-earth.txt.sig REALITY-TEST-KEY-NOT-PATSAK q-agree.txt mars-seen-from-earth.tsv mars-seen-from-sun.tsv
+outcome=UNDERMINED foundation=fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60 side=1 measure=e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53 matching-1=79 rows-1=730 matching-2=0 rows-2=730 undermine-line=19
+  (exit 11)
+  means: undermined: recounted now, 79/730 vs 0/730; the signer knocked down side 1, the Earth frame
+$ python3 reality.py impact ledger fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60
+outcome=IMPACT foundation=fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60 undermined=yes foundations=1 measures=3
+outcome=DEPENDS foundation=eb637e6363fe334c7e2f55abb7cd8624c947829815d126f512f66296a4c23e31
+outcome=DEPENDS measure=bff4cd191305b7325a87b34964d8cd04b094867f10f7ccdc03d62473da479dcb
+outcome=DEPENDS measure=e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53
+outcome=DEPENDS measure=5f599557753af1345d5d677786be50f9d8b7e7dfd0567891af439dae147a942d
+  (exit 13)
+  means: impact: epicycles rests on the Earth frame; three adopted measures name a table tagged on one of them
+$ python3 reality.py check ledger q-jupiter.txt jupiter-seen-from-earth.tsv
+outcome=HOLDS-UNDERMINED measure=5f599557753af1345d5d677786be50f9d8b7e7dfd0567891af439dae147a942d adoption-line=17 matching-1=167 rows-1=730 undermined-foundation=fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60 undermines=1
+  (exit 12)
+  means: the count is kept (167/730, still >= 1/5), but a foundation under it was knocked down, so the exit is 12, not 0
+$ python3 reality.py check ledger q-agree.txt mars-seen-from-earth.tsv mars-seen-from-sun.tsv
+outcome=DOES-NOT-HOLD measure=e5f85caacf988c9cf813eabccb1ecb524800a103ddde7ab78790b71e5f44bc53 adoption-line=6 matching-1=79 rows-1=730 matching-2=0 rows-2=730 undermined-foundation=fba9911a2e3158af2bc62c5328648fb9f41d59b26234768409cbb7213a6a6f60 undermines=1
+  (exit 1)
+  means: two-table comparisons are flagged too: the witness itself names a table on the fallen side
+$ python3 reality.py check ledger q-sun.txt mars-seen-from-sun.tsv
+outcome=DOES-NOT-HOLD measure=0243c845915c8a9039fba85b202b997c4e17200fbe8a9eb43ce51d779731e79f adoption-line=5 matching-1=0 rows-1=730
+  (exit 1)
+  means: the Sun side was not named, so nothing on it is flagged
+
+== 8. The same spiral staircase today: 25 evaluated language models (2B to o1-preview).
+   Source: Mirzadeh et al. (Apple, ICLR 2025, arXiv:2410.05229v1 Table 1). Two different evaluation
+   frames: GSM8K (100) is 100 static test questions; GSM-Symbolic-NoOp averages 50 symbolic
+   instantiations per template with one mathematically irrelevant sentence added. The 80% cutoff,
+   bars (2/5 and 1/3), foundation names and tags were picked after seeing Table 1 (explicit and
+   signed, not pre-registration).
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 f-gsm8k.txt
+$ python3 reality.py adopt-foundation ledger f-gsm8k.txt f-gsm8k.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=2980bee32565498d491ff28d15ee4c337d32b976a2322b4e0aa5fa860f646d70 adoption-line=23
+  (exit 9)
+  means: adopted foundation (f-gsm8k.txt)
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 f-noop.txt
+$ python3 reality.py adopt-foundation ledger f-noop.txt f-noop.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=f57cf0abc91a5584cb18d03d04544f5f87e203ef2b011264da0bdef9abb3f8b3 adoption-line=24
+  (exit 9)
+  means: adopted foundation (f-noop.txt)
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 f-open.txt
+$ python3 reality.py adopt-foundation ledger f-open.txt f-open.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=f696d8a20d28d94e80e5f487e0a8ca5e458a49096bdbfd5676479938bac913c7 adoption-line=25
+  (exit 9)
+  means: adopted foundation (f-open.txt)
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 t-gsm8k.txt
+$ python3 reality.py tag ledger t-gsm8k.txt t-gsm8k.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=2980bee32565498d491ff28d15ee4c337d32b976a2322b4e0aa5fa860f646d70 tag=127ddaf6d2e26562f892e3634bf9804ce1f035bb5a24582bc2ef5ce399a7121c adoption-line=26
+  (exit 9)
+  means: tagged llm-gsm8k-100.tsv on this foundation (a signed claim, not checked)
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 t-noop.txt
+$ python3 reality.py tag ledger t-noop.txt t-noop.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=f57cf0abc91a5584cb18d03d04544f5f87e203ef2b011264da0bdef9abb3f8b3 tag=9bdd36aca0e311dbf014667be16fea1d96c15c9cc94f55eb200b6f57419fc0ca adoption-line=27
+  (exit 9)
+  means: tagged llm-gsm-noop.tsv on this foundation (a signed claim, not checked)
+$ ssh-keygen -Y sign -f testkey -n reality-foundation-1 t-open.txt
+$ python3 reality.py tag ledger t-open.txt t-open.txt.sig REALITY-TEST-KEY-NOT-PATSAK
+outcome=ADOPTED foundation=f696d8a20d28d94e80e5f487e0a8ca5e458a49096bdbfd5676479938bac913c7 tag=6d402d2c015d980af933d3e9ba3a90f3bae475998e876a4587a7e61b7ac689a5 adoption-line=28
+  (exit 9)
+  means: tagged llm-gsm8k-100-open.tsv on this foundation (a signed claim, not checked)
+$ python3 reality.py propose ledger q-llm-all.txt llm-gsm8k-100.tsv
+outcome=PROPOSED measure=16129e05868d0c814f59c2735f077d25ca0401d668a9be92a7da4275968b1fe0
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-llm-all.txt
+$ python3 reality.py adopt ledger q-llm-all.txt q-llm-all.txt.sig REALITY-TEST-KEY-NOT-PATSAK llm-gsm8k-100.tsv
+outcome=ADOPTED measure=16129e05868d0c814f59c2735f077d25ca0401d668a9be92a7da4275968b1fe0 adoption-line=30
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+$ python3 reality.py propose ledger q-llm-open.txt llm-gsm8k-100-open.tsv
+outcome=PROPOSED measure=3a6a647699e976c26109d6118d3de8c97d5177a898e8fd5ac67edaebd02701bc
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-llm-open.txt
+$ python3 reality.py adopt ledger q-llm-open.txt q-llm-open.txt.sig REALITY-TEST-KEY-NOT-PATSAK llm-gsm8k-100-open.tsv
+outcome=ADOPTED measure=3a6a647699e976c26109d6118d3de8c97d5177a898e8fd5ac67edaebd02701bc adoption-line=32
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+$ python3 reality.py propose ledger q-llm-agree.txt llm-gsm8k-100.tsv llm-gsm-noop.tsv
+outcome=PROPOSED measure=49daface0e92e6f9c27fd97705d35e0f95493be5e2045f6f645d77eb96550d2e
+  (exit 8)
+  means: proposed: recorded as a proposal; nothing is adopted yet
+$ ssh-keygen -Y sign -f testkey -n reality-adopt-1 q-llm-agree.txt
+$ python3 reality.py adopt ledger q-llm-agree.txt q-llm-agree.txt.sig REALITY-TEST-KEY-NOT-PATSAK llm-gsm8k-100.tsv llm-gsm-noop.tsv
+outcome=ADOPTED measure=49daface0e92e6f9c27fd97705d35e0f95493be5e2045f6f645d77eb96550d2e adoption-line=34
+  (exit 9)
+  means: adopted: ssh-keygen verified the test key's signature over these exact measure bytes
+$ python3 reality.py check ledger q-llm-all.txt llm-gsm8k-100.tsv
+outcome=HOLDS measure=16129e05868d0c814f59c2735f077d25ca0401d668a9be92a7da4275968b1fe0 adoption-line=30 matching-1=12 rows-1=25
+  (exit 0)
+  means: holds: on static GSM8K-100, 12 of 25 evaluated models clear 80% (12/25 >= 2/5)
+$ python3 reality.py check ledger q-llm-open.txt llm-gsm8k-100-open.tsv
+outcome=HOLDS measure=3a6a647699e976c26109d6118d3de8c97d5177a898e8fd5ac67edaebd02701bc adoption-line=32 matching-1=8 rows-1=21
+  (exit 0)
+  means: holds: 8 of 21 open-weights models clear 80% on GSM8K-100 (8/21 >= 1/3), resting on open-weights-math-readiness
+$ python3 reality.py check ledger q-llm-agree.txt llm-gsm8k-100.tsv llm-gsm-noop.tsv
+outcome=DOES-NOT-HOLD measure=49daface0e92e6f9c27fd97705d35e0f95493be5e2045f6f645d77eb96550d2e adoption-line=34 matching-1=12 rows-1=25 matching-2=0 rows-2=25
+  (exit 1)
+  means: do not agree: 12/25 on static GSM8K-100 vs 0/25 on GSM-Symbolic-NoOp (adding one irrelevant sentence)
+$ ssh-keygen -Y sign -f testkey -n reality-undermine-1 u-gsm8k.txt
+$ python3 reality.py undermine ledger u-gsm8k.txt u-gsm8k.txt.sig REALITY-TEST-KEY-NOT-PATSAK q-llm-agree.txt llm-gsm8k-100.tsv llm-gsm-noop.tsv
+outcome=UNDERMINED foundation=2980bee32565498d491ff28d15ee4c337d32b976a2322b4e0aa5fa860f646d70 side=1 measure=49daface0e92e6f9c27fd97705d35e0f95493be5e2045f6f645d77eb96550d2e matching-1=12 rows-1=25 matching-2=0 rows-2=25 undermine-line=38
+  (exit 11)
+  means: undermined: recounted live (12/25 vs 0/25); signer knocked down side 1, static-gsm8k-frame
+$ python3 reality.py impact ledger 2980bee32565498d491ff28d15ee4c337d32b976a2322b4e0aa5fa860f646d70
+outcome=IMPACT foundation=2980bee32565498d491ff28d15ee4c337d32b976a2322b4e0aa5fa860f646d70 undermined=yes foundations=1 measures=3
+outcome=DEPENDS foundation=f696d8a20d28d94e80e5f487e0a8ca5e458a49096bdbfd5676479938bac913c7
+outcome=DEPENDS measure=16129e05868d0c814f59c2735f077d25ca0401d668a9be92a7da4275968b1fe0
+outcome=DEPENDS measure=3a6a647699e976c26109d6118d3de8c97d5177a898e8fd5ac67edaebd02701bc
+outcome=DEPENDS measure=49daface0e92e6f9c27fd97705d35e0f95493be5e2045f6f645d77eb96550d2e
+  (exit 13)
+  means: impact: open-weights-math-readiness and all three measures resting on static-gsm8k-frame are caught
+$ python3 reality.py check ledger q-llm-open.txt llm-gsm8k-100-open.tsv
+outcome=HOLDS-UNDERMINED measure=3a6a647699e976c26109d6118d3de8c97d5177a898e8fd5ac67edaebd02701bc adoption-line=32 matching-1=8 rows-1=21 undermined-foundation=2980bee32565498d491ff28d15ee4c337d32b976a2322b4e0aa5fa860f646d70 undermines=1
+  (exit 12)
+  means: the 8/21 count is preserved, not erased, but exit 12 flags that its foundation fell
+
+== The ledger (one JSON line per proposal, adoption, tag, undermine and check):
+$ wc -l ledger/log
+39
+   The log is a plain file and is not protected. Anyone who can write it can delete or reorder lines
+   (an undermine included) and nothing notices. Signed lines are re-verified on every read; unsigned
+   lines (proposals, check results) are records only, not evidence.
+Done. Working folder: /tmp/reality-ptolemy.XXXXXX
